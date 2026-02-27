@@ -67,10 +67,19 @@
     for (var k = 0; k < langOptions.length; k++) {
       var opt = langOptions[k];
       if (opt.getAttribute("data-lang") === lang) {
-        opt.classList.add("active");
+        opt.style.fontWeight = "bold";
+        opt.style.color = "var(--global-theme-color)";
       } else {
-        opt.classList.remove("active");
+        opt.style.fontWeight = "normal";
+        opt.style.color = "var(--global-text-color)";
       }
+    }
+
+    // Update the toggle button label
+    var langLabel = { en: "EN", zh: "中", fr: "FR" };
+    var currentLabel = document.getElementById("lang-current");
+    if (currentLabel) {
+      currentLabel.textContent = langLabel[lang] || "EN";
     }
   }
 
@@ -222,7 +231,7 @@
 
     // Close the language menu
     var menu = document.getElementById("lang-menu");
-    if (menu) menu.classList.remove("show");
+    if (menu) menu.style.display = "none";
   }
 
   /**
@@ -238,12 +247,13 @@
     if (toggleBtn && menu) {
       toggleBtn.addEventListener("click", function (e) {
         e.stopPropagation();
-        menu.classList.toggle("show");
+        menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+        menu.style.flexDirection = "column";
       });
 
       // Close menu when clicking outside
       document.addEventListener("click", function () {
-        menu.classList.remove("show");
+        menu.style.display = "none";
       });
 
       menu.addEventListener("click", function (e) {

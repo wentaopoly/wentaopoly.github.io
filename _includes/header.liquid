@@ -126,14 +126,14 @@
             </li>
           {% endif %}
           <!-- Language Switcher -->
-          <li class="toggle-container">
+          <li class="toggle-container" style="position:relative;">
             <button id="lang-toggle" title="Switch language" aria-label="Switch language">
-              <i class="fa-solid fa-globe"></i>
+              <span id="lang-current" style="font-size:0.8rem;font-weight:600;">EN</span>
             </button>
-            <div id="lang-menu" class="lang-menu">
-              <button class="lang-option" data-lang="en">EN</button>
-              <button class="lang-option" data-lang="zh">中文</button>
-              <button class="lang-option" data-lang="fr">FR</button>
+            <div id="lang-menu" style="display:none;position:absolute;top:100%;right:0;background:var(--global-bg-color);border:1px solid var(--global-divider-color);border-radius:0.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);z-index:1000;min-width:60px;padding:0.25rem 0;">
+              <button class="lang-option" data-lang="en" style="display:block;width:100%;padding:0.35rem 0.75rem;border:0;background:none;color:var(--global-text-color);font-size:0.85rem;text-align:center;cursor:pointer;">EN</button>
+              <button class="lang-option" data-lang="zh" style="display:block;width:100%;padding:0.35rem 0.75rem;border:0;background:none;color:var(--global-text-color);font-size:0.85rem;text-align:center;cursor:pointer;">中文</button>
+              <button class="lang-option" data-lang="fr" style="display:block;width:100%;padding:0.35rem 0.75rem;border:0;background:none;color:var(--global-text-color);font-size:0.85rem;text-align:center;cursor:pointer;">FR</button>
             </div>
           </li>
           {% if site.enable_darkmode %}
