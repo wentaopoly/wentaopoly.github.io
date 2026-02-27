@@ -52,5 +52,15 @@
 
     <!-- JavaScripts -->
     {% include scripts.liquid %}
+
+    <!-- i18n translations -->
+    <script>
+      window.I18N = {
+        en: {{ site.data.locale.en | jsonify }},
+        zh: {{ site.data.locale.zh | jsonify }},
+        fr: {{ site.data.locale.fr | jsonify }}
+      };
+    </script>
+    <script src="{{ '/assets/js/i18n.js' | relative_url }}"></script>
   </body>
 </html>

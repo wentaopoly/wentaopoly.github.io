@@ -1,0 +1,136 @@
+# Chinese locale (简体中文)
+nav:
+  about: 关于
+  publications: 论文发表
+  projects: 项目经历
+  cv: 简历
+
+sections:
+  contact: 联系方式
+  summary: 个人简介
+  experience: 工作经历
+  education: 教育背景
+  skills: 专业技能
+  languages: 语言能力
+  projects: 项目经历
+  publications: 论文发表
+  news: 动态
+  selected_publications: 代表性论文
+
+labels:
+  name: 姓名
+  title: 职称
+  email: 邮箱
+  phone: 电话
+  location: 所在地
+  website: 个人网站
+  present: 至今
+
+about:
+  subtitle: >
+    博士研究生 @
+    <a href='https://www.insa-rennes.fr/'>INSA</a> &
+    <a href='https://www.bell-labs.com/'>诺基亚贝尔实验室</a> |
+    硕士 @ <a href='https://www.polytechnique.edu/'>巴黎综合理工学院</a>
+  bio: >
+    <p>我是 <a href="https://www.insa-rennes.fr/">INSA</a> 与
+    <a href="https://www.bell-labs.com/">诺基亚贝尔实验室</a> 联合培养的 CIFRE 博士研究生，
+    研究方向为面向电信网络管理的语言与推理模型。硕士毕业于
+    <a href="https://www.polytechnique.edu/">巴黎综合理工学院</a>（巴黎理工学院联盟），
+    专业排名第一；本科毕业于
+    <a href="https://www.scut.edu.cn/">华南理工大学</a>，
+    通过华工-X 3+2 联合培养项目赴法深造。</p>
+    <p>我的研究兴趣包括 <strong>LLM 智能体</strong>、<strong>图增强检索生成（Graph RAG）</strong>、
+    <strong>结构化推理</strong>及其在真实系统中的应用。
+    在诺基亚贝尔实验室实习期间，我开发了一套 Graph RAG 系统，
+    在 Corr2Cause 基准上实现了 47.5% 的 F1 提升。
+    我还拥有机器人学（中科院自动化所感知导航系统）和量化 AI 系统（实时金融新闻分析）的经验。</p>
+    <p>我热衷于构建连接大语言模型与领域专业知识的智能系统。</p>
+  profile_info: >
+    <p>诺基亚贝尔实验室</p>
+    <p>法国巴黎</p>
+
+cv:
+  name: 孙文涛 (Wentao Sun)
+  label: AI 智能体算法工程师
+  summary: >
+    INSA 与诺基亚贝尔实验室联合培养 CIFRE 博士研究生，研究方向为面向电信网络管理的语言与推理模型。
+    硕士毕业于巴黎综合理工学院（IPP），专业排名第一。
+    擅长 LLM 智能体、Graph RAG、机器人学和量化 AI 系统。
+  education:
+    - institution: INSA & 诺基亚贝尔实验室
+      location: 法国
+      area: 面向电信网络管理的语言与推理模型
+      studyType: 联合培养博士 (CIFRE)
+      highlights:
+        - "诺基亚导师：D. Verchere"
+        - "INSA 导师：M. Acher"
+    - institution: 巴黎理工学院联盟 (IPP) | 巴黎综合理工学院
+      location: 法国帕莱索
+      area: 计算机科学与工程
+      studyType: 硕士
+      highlights:
+        - "专业排名 1/14，法国政府奖学金获得者"
+    - institution: 华南理工大学
+      location: 中国广州
+      area: 信息工程
+      studyType: 工学学士
+      highlights:
+        - "华工-巴黎综合理工 3+2 联合培养项目"
+        - "大学奖学金获得者"
+  experience:
+    - company: 非凸科技（正瀛资产）
+      position: 量化 AI 智能体实习生
+      location: 远程
+      summary: 独立设计了面向全球市场的实时金融新闻智能分析系统（DataDig）。
+      highlights:
+        - "构建全异步流水线：Kafka 消费 → LLM 多维特征提取 → 三层增量聚类 → 事件融合，由 Dagster 编排，8 路并行片段提取，每 5 分钟增量更新（Python 15,000+ 行）"
+        - "设计三层实时聚类：第一层 HAC（余弦 ≥ 0.8）去重；第二层（≥ 0.6）语义聚类并生成摘要；第三层 LLM 结构化输出（Pydantic Schema）执行合并/新建/忽略决策"
+        - "设计跨周期 Cluster ID 稳定算法：Jaccard 相似度 UUID 映射 + 两阶段后修复（防分裂/防合并），保证增量 HAC 下聚类边界稳定"
+    - company: 诺基亚贝尔实验室
+      position: AI 研究实习生
+      location: 法国巴黎
+      summary: 开发了通过结构化文本生成增强 LLM 推理能力的 Graph RAG 系统。
+      highlights:
+        - "在 Corr2Cause 基准上实现 F1 提升 47.5%（32.71 → 48.26）"
+        - "实现三阶段架构：正则约束 JSON 工具调用（100% 模式合规）；知识图谱构建（95% 实体精度、92% 消歧准确率）；自然语言转 Cypher 查询（100% 语法有效性）"
+        - "核心创新：混合 BM25-向量检索实现实体消歧、语义感知文档分块、基于 Qwen3-32B 的工具调用与结构化输出"
+    - company: 中国科学院自动化研究所
+      position: 机器人实习工程师（乔红教授团队）
+      location: 中国北京
+      summary: 设计了轮式人形机器人的复杂感知-导航系统。
+      highlights:
+        - "实现全身路径规划和厘米级重定位精度"
+        - "融合固态激光雷达（fastlio2 + octomap）与深度相机（Intel D435i），使用 EKF 融合多源位姿数据，重定位时间减少 80%"
+        - "开发基于 SLAM 的 RRT* 路径规划插件，重构 mini planner 替代 Nav2，计算量减少 30%"
+  projects:
+    - name: 基于 ASR 的语音识别系统
+      summary: "优秀毕业设计——基于 Whisper/FunASR 构建语音识别 Web 应用，集成智谱 AI 进行文本纠错与翻译，少数民族语言识别率达 95%。"
+  skills:
+    - name: 编程语言
+      keywords: "Python（精通）, C++"
+    - name: 框架与工具
+      keywords: "PyTorch, Transformer, LangChain, ROS2 Humble, Docker"
+    - name: 大语言模型
+      keywords: "Llama, Qwen, DeepSeek, RAG, Agent, Tool Calling, Structured Output"
+  languages:
+    - name: 中文（普通话）
+      summary: "母语（一级乙等）"
+    - name: 英语
+      summary: "雅思 6.5"
+    - name: 法语
+      summary: "A2"
+
+news:
+  - date: "2026年2月"
+    content: "开始在 INSA 与诺基亚贝尔实验室攻读 CIFRE 博士，研究面向电信网络管理的语言与推理模型。"
+  - date: "2025年10月"
+    content: "加入非凸科技担任量化 AI 智能体实习生，独立设计面向全球市场的实时金融新闻智能分析系统（DataDig）。"
+  - date: "2025年3月"
+    content: "在诺基亚贝尔实验室（巴黎）开始 AI 研究实习，开发的 Graph RAG 系统在 Corr2Cause 基准上实现 47.5% 的 F1 提升。"
+
+footer:
+  powered_by: >
+    基于 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 与
+    <a href="https://github.com/alshedivat/al-folio">al-folio</a> 主题构建，
+    托管于 <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>。

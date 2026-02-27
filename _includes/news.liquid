@@ -7,7 +7,7 @@
         style="max-height: 60vw"
       {% endif %}
     >
-      <table class="table table-sm table-borderless">
+      <table class="table table-sm table-borderless"><tbody data-i18n-news>
         {% assign news = site.news | reverse %}
         {% if include.limit and page.announcements.limit %}
           {% assign news_limit = page.announcements.limit %}
@@ -26,7 +26,7 @@
             </td>
           </tr>
         {% endfor %}
-      </table>
+      </tbody></table>
     </div>
   {% else %}
     <p>No news so far...</p>

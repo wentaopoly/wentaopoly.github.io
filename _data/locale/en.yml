@@ -1,0 +1,138 @@
+# English locale
+nav:
+  about: about
+  publications: publications
+  projects: projects
+  cv: CV
+
+sections:
+  contact: Contact Information
+  summary: Professional Summary
+  experience: Experience
+  education: Education
+  skills: Skills
+  languages: Languages
+  projects: Projects
+  publications: Publications
+  news: news
+  selected_publications: selected publications
+
+labels:
+  name: Name
+  title: Professional Title
+  email: Email
+  phone: Phone
+  location: Location
+  website: Website
+  present: present
+
+about:
+  subtitle: >
+    PhD Candidate @
+    <a href='https://www.insa-rennes.fr/'>INSA</a> &
+    <a href='https://www.bell-labs.com/'>Nokia Bell Labs</a> |
+    MSc @ <a href='https://www.polytechnique.edu/'>École Polytechnique</a>
+  bio: >
+    <p>I am a PhD candidate (CIFRE) at <a href="https://www.insa-rennes.fr/">INSA</a> and
+    <a href="https://www.bell-labs.com/">Nokia Bell Labs</a>, focusing on language and reasoning
+    models for telecom network management. I obtained my MSc from
+    <a href="https://www.polytechnique.edu/">École Polytechnique</a> (Institut Polytechnique de Paris),
+    where I ranked 1st in my cohort, and my BEng from
+    <a href="https://www.scut.edu.cn/">South China University of Technology</a>
+    through the SCUT-X 3+2 joint program.</p>
+    <p>My research interests lie in <strong>LLM agents</strong>, <strong>Graph RAG</strong>,
+    <strong>structured reasoning</strong>, and their applications in real-world systems.
+    During my internship at Nokia Bell Labs, I developed a Graph RAG system that achieved
+    a 47.5% F1 improvement on the Corr2Cause benchmark. I also have experience in robotics
+    (perception-navigation at the Chinese Academy of Sciences) and quantitative AI systems
+    (real-time financial news analysis).</p>
+    <p>I am passionate about building intelligent systems that bridge the gap between large
+    language models and domain-specific knowledge.</p>
+  profile_info: >
+    <p>Nokia Bell Labs</p>
+    <p>Paris, France</p>
+
+cv:
+  name: Wentao Sun (孙文涛)
+  label: AI Agent Algorithm Engineer
+  summary: >
+    PhD candidate (CIFRE) at INSA & Nokia Bell Labs, focusing on language and reasoning
+    models for telecom network management. MSc from École Polytechnique (IPP), ranked 1st.
+    Experienced in LLM agents, Graph RAG, robotics, and quantitative AI systems.
+  education:
+    - institution: INSA & Nokia Bell Labs
+      location: France
+      area: Language & Reasoning Models for Telecom Network Management
+      studyType: Joint PhD (CIFRE)
+      highlights:
+        - "Nokia Supervisor: D. Verchere"
+        - "INSA Supervisor: M. Acher"
+    - institution: Institut Polytechnique de Paris (IPP) | École Polytechnique
+      location: Palaiseau, France
+      area: Computer Science & Engineering
+      studyType: MSc
+      highlights:
+        - "Ranked 1/14, French scholarship recipient"
+    - institution: South China University of Technology (华南理工大学)
+      location: Guangzhou, China
+      area: Information Engineering
+      studyType: BEng
+      highlights:
+        - "SCUT–École Polytechnique '3+2' joint BSc-MSc program"
+        - "University scholarship recipient"
+  experience:
+    - company: Feiou Technology (正瀛资产)
+      position: Quant AI Agent Intern
+      location: Remote
+      summary: Independently designed a real-time financial news intelligent analysis system (DataDig) for the global market.
+      highlights:
+        - "Built full async pipeline: Kafka consumer → LLM multi-dimensional feature extraction → 3-layer incremental clustering → event fusion, orchestrated by Dagster with 8-way parallel snippet extraction, incremental updates every 5 min (Python 15,000+ lines)"
+        - "Designed 3-layer real-time clustering: Layer 1 HAC (cosine ≥ 0.8) deduplication; Layer 2 (≥ 0.6) semantic clustering with summary generation; Layer 3 LLM structured output (Pydantic Schema) for merge/new/ignore decisions"
+        - "Designed cross-cycle Cluster ID stability algorithm: Jaccard similarity UUID mapping + two-phase post-repair (anti-split/anti-merge) for stable cluster boundaries under incremental HAC"
+    - company: Nokia Bell Labs
+      position: AI Research Intern
+      location: Paris, France
+      summary: Developed a Graph RAG system enhancing LLM reasoning through structured text generation.
+      highlights:
+        - "Achieved F1 improvement of 47.5% (32.71 → 48.26) on the Corr2Cause benchmark"
+        - "Implemented 3-stage architecture: regex-constrained JSON tool calling with 100% schema compliance; knowledge graph construction with 95% entity precision and 92% disambiguation accuracy; NL-to-Cypher query with 100% syntax validity"
+        - "Core innovation: hybrid BM25-vector retrieval for entity disambiguation, semantic-aware document chunking, Qwen3-32B-based tool calling and structured output"
+    - company: Institute of Automation, Chinese Academy of Sciences (中科院自动化所)
+      position: Robotics Intern Engineer (Prof. Qiao Hong's Team)
+      location: Beijing, China
+      summary: Designed complex perception-navigation system for wheeled humanoid robots.
+      highlights:
+        - "Achieved whole-body path planning and centimeter-level relocalization accuracy"
+        - "Fused solid-state LiDAR (fastlio2 + octomap) with depth camera (Intel D435i), used EKF to fuse multi-source pose data, reducing relocalization time by 80%"
+        - "Developed SLAM-based RRT* path planning plugin, then refactored mini planner to replace Nav2, reducing computation by 30%"
+  projects:
+    - name: ASR-based Speech Recognition System
+      summary: "Outstanding Graduation Project — Built a speech recognition web app based on Whisper/FunASR, integrated Zhipu AI for text correction and translation, achieving 95% recognition rate for minority languages."
+  skills:
+    - name: Programming Languages
+      keywords: "Python (proficient), C++"
+    - name: Frameworks & Tools
+      keywords: "PyTorch, Transformer, LangChain, ROS2 Humble, Docker"
+    - name: Large Language Models
+      keywords: "Llama, Qwen, DeepSeek, RAG, Agent, Tool Calling, Structured Output"
+  languages:
+    - name: Chinese (Mandarin)
+      summary: "Native speaker (一级乙等)"
+    - name: English
+      summary: "IELTS 6.5"
+    - name: French
+      summary: "A2"
+
+news:
+  - date: "Feb 2026"
+    content: "Started my PhD (CIFRE) at INSA & Nokia Bell Labs, working on language and reasoning models for telecom network management."
+  - date: "Oct 2025"
+    content: "Joined Feiou Technology as a Quant AI Agent Intern, independently designing a real-time financial news analysis system (DataDig) for the global market."
+  - date: "Mar 2025"
+    content: "Started AI research internship at Nokia Bell Labs, Paris. Developed a Graph RAG system achieving 47.5% F1 improvement on the Corr2Cause benchmark."
+
+footer:
+  powered_by: >
+    Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with
+    <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+    Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
