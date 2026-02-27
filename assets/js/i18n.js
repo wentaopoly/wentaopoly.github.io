@@ -10,8 +10,15 @@
   var STORAGE_KEY = "site-lang";
   var translations = window.I18N || {};
 
+  function detectBrowserLang() {
+    var browserLang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+    if (browserLang.indexOf("zh") === 0) return "zh";
+    if (browserLang.indexOf("fr") === 0) return "fr";
+    return DEFAULT_LANG;
+  }
+
   function getCurrentLang() {
-    return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
+    return localStorage.getItem(STORAGE_KEY) || detectBrowserLang();
   }
 
   function setCurrentLang(lang) {
