@@ -3,7 +3,7 @@ layout: default
 ---
 <div class="post about-page">
   <header class="post-header about-hero">
-    <div class="about-hero-copy">
+    <div class="about-intro">
       <h1 class="post-title">
         {% if site.title == 'blank' %}
           <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
@@ -13,17 +13,17 @@ layout: default
         {% endif %}
       </h1>
       <p class="desc" data-i18n-html="about.subtitle">{{ page.subtitle }}</p>
+      <div class="about-bio clearfix" data-i18n-html="about.bio">{{ content }}</div>
     </div>
 
     {% if page.profile %}
-      <div class="profile profile-panel float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
+      <div class="about-photo">
         {% if page.profile.image %}
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
           {% if page.profile.image_circular %}
             {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
           {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+            {% assign profile_image_class = 'img-fluid z-depth-1' %}
           {% endif %}
           {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
@@ -33,15 +33,13 @@ layout: default
           %}
         {% endif %}
         {% if page.profile.more_info %}
-          <div class="more-info" data-i18n-html="about.profile_info">{{ page.profile.more_info }}</div>
+          <div class="about-photo-caption" data-i18n-html="about.profile_info">{{ page.profile.more_info }}</div>
         {% endif %}
       </div>
     {% endif %}
   </header>
 
   <article class="about-article">
-    <div class="about-story clearfix" data-i18n-html="about.bio">{{ content }}</div>
-
     {% if page.announcements and page.announcements.enabled %}
       <h2 class="section-heading">
         <a class="section-link" href="{{ '/news/' | relative_url }}" data-i18n="sections.news">news</a>
@@ -67,11 +65,9 @@ layout: default
       {% include visitor_map.liquid title=page.visitor_map.title description=page.visitor_map.description %}
     {% endif %}
 
-    <!-- Social -->
     {% if page.social %}
       <div class="social">
         <div class="contact-icons">{% social_links %}</div>
-
         <div class="contact-note">{{ site.contact_note }}</div>
       </div>
     {% endif %}

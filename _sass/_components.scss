@@ -78,33 +78,39 @@ ul.task-list input[type="checkbox"] {
 
 .about-hero {
   display: grid;
-  gap: 1.75rem;
+  gap: 2.5rem;
   align-items: start;
-  padding: 1.5rem;
-  border: 1px solid var(--global-divider-color);
-  border-radius: 1.5rem;
-  background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 45%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 250, 0.98));
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--global-divider-color);
+  margin-bottom: 2rem;
 }
 
-
-.about-story {
+.about-bio {
+  margin-top: 1.5rem;
   font-size: 1.04rem;
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
-.profile-panel {
-  padding: 1rem;
-  border-radius: 1.25rem;
-  border: 1px solid var(--global-divider-color);
-  background: rgba(255, 255, 255, 0.82);
+.about-photo {
+  figure {
+    margin: 0;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 0.75rem;
+  }
 }
 
-.about-hero .profile-panel {
-  width: auto;
-  margin: 0;
-  float: none !important;
+.about-photo-caption {
+  margin-top: 0.75rem;
+  font-family: monospace;
+  font-size: 0.88rem;
+  color: var(--global-text-color-light);
+
+  p {
+    margin: 0;
+  }
 }
 
 .section-heading {
@@ -141,7 +147,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .about-hero {
-    grid-template-columns: minmax(0, 1.6fr) minmax(240px, 0.75fr);
+    grid-template-columns: 1fr 260px;
   }
 }
 
@@ -326,13 +332,6 @@ ul.task-list input[type="checkbox"] {
 }
 
 html[data-theme="dark"] {
-  .about-hero {
-    background:
-      radial-gradient(circle at top left, rgba(125, 211, 252, 0.12), transparent 45%),
-      linear-gradient(135deg, rgba(20, 24, 31, 0.96), rgba(13, 17, 23, 0.98));
-  }
-
-  .profile-panel,
   .projects .card {
     background: rgba(18, 24, 33, 0.92);
   }
