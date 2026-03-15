@@ -1,8 +1,4 @@
-// get the ninja-keys element
-const ninja = document.querySelector('ninja-keys');
-
-// add the home and posts menu items
-ninja.data = [{
+window.__siteSearchData = [{
     id: "nav-about",
     title: "about",
     section: "Navigation",
