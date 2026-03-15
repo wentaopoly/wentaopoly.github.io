@@ -249,9 +249,31 @@ ul.task-list input[type="checkbox"] {
 
 .cv-pdf-links {
   a {
-    margin-left: 0.75rem;
-    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 400;
     white-space: nowrap;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 0.4rem;
+    color: var(--global-text-color);
+    text-decoration: none;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: var(--global-theme-color);
+      color: #fff;
+      border-color: var(--global-theme-color);
+    }
+
+    i {
+      margin-right: 0.2rem;
+      color: var(--global-theme-color);
+    }
+
+    &:hover i {
+      color: #fff;
+    }
   }
 }
 
