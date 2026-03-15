@@ -39,3 +39,5 @@ I am a PhD candidate (CIFRE) at [INSA](https://www.insa-rennes.fr/) and [Nokia B
 My research interests lie in **LLM agents**, **Graph RAG**, **structured reasoning**, and their applications in real-world systems. During my internship at Nokia Bell Labs, I developed a Graph RAG system that achieved a 47.5% F1 improvement on the Corr2Cause benchmark. I also have experience in robotics (perception-navigation at the Chinese Academy of Sciences) and quantitative AI systems (real-time financial news analysis).
 
 I am passionate about building intelligent systems that bridge the gap between large language models and domain-specific knowledge.
+
+> *"You're waiting for a train. A train that will take you far away. You know where you hope this train will take you, but you don't know for sure. Yet it doesn't matter."* – Mal, *Inception*
