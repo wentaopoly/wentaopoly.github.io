@@ -245,6 +245,16 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// CV PDF links
+
+.cv-pdf-links {
+  a {
+    margin-left: 0.75rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+}
+
 // Visitor map
 
 .visitor-map-section {
