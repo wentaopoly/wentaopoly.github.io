@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "visitor-map-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-03-15",
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "ALLOWED_ORIGIN": "https://wentaopoly.github.io"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "visitor-map",
+      "database_id": "53db3be0-fb30-41cf-967b-20ed1c4f6509"
+    }
+  ]
+}

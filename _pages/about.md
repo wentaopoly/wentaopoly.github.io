@@ -14,6 +14,13 @@ profile:
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
+chart:
+  plotly: true
+
+visitor_map:
+  enabled: true
+  title: Visitor Map
+  description: Where people have visited this site from over time.
 
 announcements:
   enabled: true # includes a list of news items

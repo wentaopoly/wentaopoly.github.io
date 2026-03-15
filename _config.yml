@@ -87,6 +87,17 @@ openpanel_analytics: # your Openpanel analytics client ID (format: XXXXXXXX-XXXX
 google_site_verification: # your google-site-verification ID (Google Search Console)
 bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 
+# Visitor map
+# This site is statically hosted, so storing visitor IP-derived geolocation requires
+# a separate API endpoint. The included `visitor-map-worker/` example uses
+# Cloudflare Workers + D1 and only stores a salted hash of the IP, not the raw IP.
+visitor_map:
+  enabled: true
+  api_url: https://visitor-map-api.wentaosun549.workers.dev
+  track_interval_hours: 6
+  window_days: 3650
+  max_locations: 150
+
 # -----------------------------------------------------------------------------
 # Blog
 # -----------------------------------------------------------------------------
@@ -203,6 +214,7 @@ exclude:
   - purgecss.config.js
   - README.md
   - readme_preview/
+  - visitor-map-worker/
   - vendor
 keep_files:
   - CNAME

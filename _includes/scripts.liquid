@@ -253,6 +253,24 @@
   <script async defer src="https://openpanel.dev/op1.js"></script>
 {% endif %}
 
+{% if site.visitor_map or page.visitor_map %}
+  <script>
+    window.visitorMapConfig = {
+      enabled: {{ site.visitor_map.enabled | default: false | jsonify }},
+      apiUrl: {{ site.visitor_map.api_url | default: '' | jsonify }},
+      trackIntervalHours: {{ site.visitor_map.track_interval_hours | default: 6 | jsonify }},
+      windowDays: {{ site.visitor_map.window_days | default: 3650 | jsonify }},
+      maxLocations: {{ site.visitor_map.max_locations | default: 150 | jsonify }}
+    };
+  </script>
+{% endif %}
+{% if site.visitor_map and site.visitor_map.enabled and site.visitor_map.api_url != blank %}
+  <script defer src="{{ '/assets/js/visitor-tracker.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}
+{% if page.visitor_map and page.visitor_map.enabled %}
+  <script defer src="{{ '/assets/js/visitor-map.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}
+
 {% if site.enable_progressbar %}
   <!-- Scrolling Progress Bar -->
   <script defer src="{{ '/assets/js/progress-bar.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>

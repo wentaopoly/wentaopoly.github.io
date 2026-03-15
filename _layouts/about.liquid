@@ -64,6 +64,10 @@ layout: default
       {% include selected_papers.liquid %}
     {% endif %}
 
+    {% if page.visitor_map and page.visitor_map.enabled %}
+      {% include visitor_map.liquid title=page.visitor_map.title description=page.visitor_map.description %}
+    {% endif %}
+
     <!-- Social -->
     {% if page.social %}
       <div class="social">

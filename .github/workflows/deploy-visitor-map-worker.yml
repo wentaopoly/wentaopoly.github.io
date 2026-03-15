@@ -1,0 +1,39 @@
+name: Deploy visitor map worker
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - "visitor-map-worker/**"
+      - ".github/workflows/deploy-visitor-map-worker.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: "visitor-map-worker"
+          packageManager: "npm"
+          secrets: |
+            VISITOR_SALT
+          preCommands: |
+            wrangler d1 execute visitor-map --remote --file schema.sql
+          command: deploy
+        env:
+          VISITOR_SALT: ${{ secrets.VISITOR_SALT }}
+
+      - name: Print deployment URL
+        run: echo "${{ steps.deploy.outputs.deployment-url }}"

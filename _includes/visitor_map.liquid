@@ -1,0 +1,61 @@
+<section
+  class="visitor-map-section"
+  data-visitor-map
+  data-api-url="{{ site.visitor_map.api_url | default: '' | escape }}"
+  data-limit="{{ site.visitor_map.max_locations | default: 150 }}"
+  data-days="{{ site.visitor_map.window_days | default: 3650 }}"
+>
+  <div class="visitor-map-heading">
+    <div>
+      <h2>{{ include.title | default: "Visitor Map" }}</h2>
+      <p class="visitor-map-description">
+        {{ include.description | default: "A live view of where your visitors are coming from." }}
+      </p>
+    </div>
+    <p class="visitor-map-privacy">
+      Approximate geolocation only. Raw IP addresses are not stored.
+    </p>
+  </div>
+
+  <div class="visitor-map-grid">
+    <div class="visitor-map-panel visitor-map-summary">
+      <div class="visitor-map-stat">
+        <span class="visitor-map-stat-label">Total visits</span>
+        <strong data-visitor-total-visits>0</strong>
+      </div>
+      <div class="visitor-map-stat">
+        <span class="visitor-map-stat-label">Unique visitors</span>
+        <strong data-visitor-unique-visitors>0</strong>
+      </div>
+      <div class="visitor-map-stat">
+        <span class="visitor-map-stat-label">Mapped locations</span>
+        <strong data-visitor-unique-locations>0</strong>
+      </div>
+      <div class="visitor-map-stat">
+        <span class="visitor-map-stat-label">Countries</span>
+        <strong data-visitor-countries>0</strong>
+      </div>
+      <div class="visitor-map-last-seen" data-visitor-last-seen>
+        Loading visitor activity...
+      </div>
+    </div>
+
+    <div class="visitor-map-panel">
+      <div class="visitor-map-canvas" data-visitor-map-canvas></div>
+      <div class="visitor-map-status" data-visitor-map-status>
+        Loading visitor map...
+      </div>
+    </div>
+
+    <div class="visitor-map-panel visitor-map-list-panel">
+      <div>
+        <h3>Top countries</h3>
+        <ul class="visitor-map-list" data-visitor-country-list></ul>
+      </div>
+      <div>
+        <h3>Latest activity</h3>
+        <ul class="visitor-map-list" data-visitor-recent-list></ul>
+      </div>
+    </div>
+  </div>
+</section>
