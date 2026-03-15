@@ -1,79 +1,150 @@
 ---
 layout: default
 ---
+{% capture author_name %}{{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}{% endcapture %}
+{% assign social_data = site.data.socials %}
+
 <div class="post about-page">
-  <header class="post-header about-hero">
-    <div class="about-intro">
-      <h1 class="post-title">
-        {% if site.title == 'blank' %}
-          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-          {{ site.last_name }} [孙文涛]
-        {% else %}
-          {{ site.title }}
-        {% endif %}
-      </h1>
-      <p class="desc" data-i18n-html="about.subtitle">{{ page.subtitle }}</p>
-      <div class="about-bio clearfix" data-i18n-html="about.bio">{{ content }}</div>
-    </div>
-
+  <div class="about-shell">
     {% if page.profile %}
-      <div class="about-photo">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1' %}
+      <aside class="about-sidebar">
+        <div class="about-sidebar-card">
+          {% if page.profile.image %}
+            <div class="about-sidebar-media">
+              {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+              {% if page.profile.image_circular %}
+                {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle about-avatar' %}
+              {% else %}
+                {% assign profile_image_class = 'img-fluid z-depth-1 about-avatar' %}
+              {% endif %}
+              {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.28 }}px, (min-width: 576px) 38vw, 72vw{% endcapture %}
+              {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=author_name cache_bust=true %}
+            </div>
           {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="about-photo-caption" data-i18n-html="about.profile_info">{{ page.profile.more_info }}</div>
-        {% endif %}
-      </div>
-    {% endif %}
-  </header>
 
-  <article class="about-article">
-    {% if page.announcements and page.announcements.enabled %}
-      <h2 class="section-heading">
-        <a class="section-link" href="{{ '/news/' | relative_url }}" data-i18n="sections.news">news</a>
-      </h2>
-      {% include news.liquid limit=true %}
+          <div class="about-sidebar-body">
+            <h1 class="post-title about-name">{{ author_name }}</h1>
+
+            {% if page.profile.role %}
+              <p class="about-role">{{ page.profile.role }}</p>
+            {% endif %}
+
+            {% if page.profile.affiliation %}
+              <p class="about-affiliation">{{ page.profile.affiliation }}</p>
+            {% endif %}
+
+            {% if page.profile.focus %}
+              <p class="about-focus" data-i18n="about.focus">{{ page.profile.focus }}</p>
+            {% endif %}
+
+            <ul class="about-contact-list">
+              {% if page.profile.location %}
+                <li>
+                  <span class="about-contact-icon"><i class="fa-solid fa-location-dot"></i></span>
+                  <span>{{ page.profile.location }}</span>
+                </li>
+              {% endif %}
+
+              {% if social_data.email %}
+                <li>
+                  <span class="about-contact-icon"><i class="fa-solid fa-envelope"></i></span>
+                  <a href="mailto:{{ social_data.email | encode_email }}">Email</a>
+                </li>
+              {% endif %}
+
+              {% if social_data.github_username %}
+                <li>
+                  <span class="about-contact-icon"><i class="fa-brands fa-github"></i></span>
+                  <a href="https://github.com/{{ social_data.github_username }}" rel="noopener noreferrer">GitHub</a>
+                </li>
+              {% endif %}
+
+              {% if social_data.linkedin_username %}
+                <li>
+                  <span class="about-contact-icon"><i class="fa-brands fa-linkedin"></i></span>
+                  <a href="https://www.linkedin.com/in/{{ social_data.linkedin_username }}" rel="noopener noreferrer">LinkedIn</a>
+                </li>
+              {% endif %}
+
+              {% if social_data.scholar_userid %}
+                <li>
+                  <span class="about-contact-icon"><i class="ai ai-google-scholar"></i></span>
+                  <a href="https://scholar.google.com/citations?user={{ social_data.scholar_userid }}" rel="noopener noreferrer">Google Scholar</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </aside>
     {% endif %}
 
-    {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2 class="section-heading">
-        <a class="section-link" href="{{ '/blog/' | relative_url }}">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
+    <article class="about-main">
+      <section class="about-intro">
+        <p class="about-kicker" data-i18n="about.kicker">Research, engineering, and applied AI systems</p>
+        <p class="desc about-subtitle" data-i18n-html="about.subtitle">{{ page.subtitle }}</p>
+        <div class="about-actions">
+          <a class="about-action about-action-primary" href="{{ '/publications/' | relative_url }}" data-i18n="sections.selected_publications">
+            selected publications
+          </a>
+          <a class="about-action" href="{{ '/cv/' | relative_url }}" data-i18n="nav.cv">CV</a>
+        </div>
+      </section>
 
-    {% if page.selected_papers %}
-      <h2 class="section-heading">
-        <a class="section-link" href="{{ '/publications/' | relative_url }}" data-i18n="sections.selected_publications">selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
+      <div class="about-story clearfix" data-i18n-html="about.bio">{{ content }}</div>
 
-    {% if page.visitor_map and page.visitor_map.enabled %}
-      {% include visitor_map.liquid title=page.visitor_map.title description=page.visitor_map.description %}
-    {% endif %}
+      {% if page.featured_quote and page.featured_quote.text %}
+        <blockquote class="about-quote">
+          <p>{{ page.featured_quote.text }}</p>
+          {% if page.featured_quote.attribution %}
+            <footer>{{ page.featured_quote.attribution }}</footer>
+          {% endif %}
+        </blockquote>
+      {% endif %}
 
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% social_links %}</div>
-        <div class="contact-note">{{ site.contact_note }}</div>
-      </div>
-    {% endif %}
+      {% if page.announcements and page.announcements.enabled %}
+        <section class="about-content-section" id="latest-updates">
+          <h2 class="section-heading">
+            <a class="section-link" href="{{ '/news/' | relative_url }}" data-i18n="sections.news">news</a>
+          </h2>
+          <div class="about-section-card">
+            {% include news.liquid limit=true %}
+          </div>
+        </section>
+      {% endif %}
 
-    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
-      {% include newsletter.liquid center=true %}
-    {% endif %}
-  </article>
+      {% if page.latest_posts and page.latest_posts.enabled %}
+        <section class="about-content-section">
+          <h2 class="section-heading">
+            <a class="section-link" href="{{ '/blog/' | relative_url }}">latest posts</a>
+          </h2>
+          <div class="about-section-card">
+            {% include latest_posts.liquid %}
+          </div>
+        </section>
+      {% endif %}
+
+      {% if page.selected_papers %}
+        <section class="about-content-section">
+          <h2 class="section-heading">
+            <a class="section-link" href="{{ '/publications/' | relative_url }}" data-i18n="sections.selected_publications">
+              selected publications
+            </a>
+          </h2>
+          <div class="about-section-card about-publications-card">
+            {% include selected_papers.liquid %}
+          </div>
+        </section>
+      {% endif %}
+
+      {% if page.visitor_map and page.visitor_map.enabled %}
+        <section class="about-content-section">
+          {% include visitor_map.liquid title=page.visitor_map.title description=page.visitor_map.description %}
+        </section>
+      {% endif %}
+
+      {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+        {% include newsletter.liquid center=true %}
+      {% endif %}
+    </article>
+  </div>
 </div>

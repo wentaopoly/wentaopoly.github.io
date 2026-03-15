@@ -27,11 +27,13 @@ labels:
   present: present
 
 about:
+  kicker: Research, engineering, and applied AI systems
   subtitle: >
     PhD Candidate @
     <a href='https://www.insa-rennes.fr/'>INSA</a> &
     <a href='https://www.bell-labs.com/'>Nokia Bell Labs</a> |
     MSc @ <a href='https://www.polytechnique.edu/'>École Polytechnique</a>
+  focus: Working on LLM agents, Graph RAG, and structured reasoning for telecom systems.
   bio: >
     <p>I am a PhD candidate (CIFRE) at <a href="https://www.insa-rennes.fr/">INSA</a> and
     <a href="https://www.bell-labs.com/">Nokia Bell Labs</a>, focusing on language and reasoning

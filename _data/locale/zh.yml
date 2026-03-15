@@ -27,11 +27,13 @@ labels:
   present: 至今
 
 about:
+  kicker: 研究、工程与真实场景 AI 系统
   subtitle: >
     博士研究生 @
     <a href='https://www.insa-rennes.fr/'>INSA</a> &
     <a href='https://www.bell-labs.com/'>诺基亚贝尔实验室</a> |
     硕士 @ <a href='https://www.polytechnique.edu/'>巴黎综合理工学院</a>
+  focus: 目前专注于 LLM 智能体、Graph RAG 与面向电信系统的结构化推理。
   bio: >
     <p>我是 <a href="https://www.insa-rennes.fr/">INSA</a> 与
     <a href="https://www.bell-labs.com/">诺基亚贝尔实验室</a> 联合培养的 CIFRE 博士研究生，

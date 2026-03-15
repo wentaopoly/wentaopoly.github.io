@@ -27,11 +27,13 @@ labels:
   present: en cours
 
 about:
+  kicker: Recherche, ingénierie et systèmes d'IA appliqués
   subtitle: >
     Doctorant @
     <a href='https://www.insa-rennes.fr/'>INSA</a> &
     <a href='https://www.bell-labs.com/'>Nokia Bell Labs</a> |
     MSc @ <a href='https://www.polytechnique.edu/'>École Polytechnique</a>
+  focus: Je travaille sur les agents LLM, le Graph RAG et le raisonnement structuré pour les systèmes télécoms.
   bio: >
     <p>Je suis doctorant CIFRE à l'<a href="https://www.insa-rennes.fr/">INSA</a> et chez
     <a href="https://www.bell-labs.com/">Nokia Bell Labs</a>, spécialisé dans les modèles de
