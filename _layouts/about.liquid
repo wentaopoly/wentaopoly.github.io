@@ -4,7 +4,6 @@ layout: default
 <div class="post about-page">
   <header class="post-header about-hero">
     <div class="about-hero-copy">
-      <p class="about-kicker">Researcher / Builder / Engineer</p>
       <h1 class="post-title">
         {% if site.title == 'blank' %}
           <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
@@ -14,31 +13,6 @@ layout: default
         {% endif %}
       </h1>
       <p class="desc" data-i18n-html="about.subtitle">{{ page.subtitle }}</p>
-
-      <div class="about-actions" aria-label="Primary links">
-        <a class="about-action about-action-primary" href="{{ '/cv/' | relative_url }}">View CV</a>
-        <a class="about-action" href="{{ '/projects/' | relative_url }}">Selected Work</a>
-        <a class="about-action" href="{{ '/publications/' | relative_url }}">Publications</a>
-      </div>
-
-      {% if page.focus_tags %}
-        <div class="about-focus-tags">
-          {% for tag in page.focus_tags %}
-            <span class="about-focus-tag">{{ tag }}</span>
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      {% if page.quick_stats %}
-        <div class="about-quick-stats">
-          {% for stat in page.quick_stats %}
-            <div class="about-stat-card">
-              <div class="about-stat-value">{{ stat.value }}</div>
-              <div class="about-stat-label">{{ stat.label }}</div>
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
     </div>
 
     {% if page.profile %}

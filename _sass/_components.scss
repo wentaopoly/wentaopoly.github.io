@@ -88,89 +88,6 @@ ul.task-list input[type="checkbox"] {
     linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 250, 0.98));
 }
 
-.about-kicker {
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.72rem;
-  color: var(--global-text-color-light);
-}
-
-.about-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1.25rem 0;
-}
-
-.about-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.72rem 1rem;
-  border-radius: 999px;
-  border: 1px solid var(--global-divider-color);
-  color: var(--global-text-color);
-  background: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
-  font-weight: 600;
-
-  &:hover {
-    color: var(--global-hover-text-color);
-    background: var(--global-theme-color);
-    border-color: var(--global-theme-color);
-    text-decoration: none;
-  }
-}
-
-.about-action-primary {
-  color: var(--global-hover-text-color);
-  background: var(--global-theme-color);
-  border-color: var(--global-theme-color);
-}
-
-.about-focus-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-}
-
-.about-focus-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--global-theme-color);
-  background: rgba(15, 118, 110, 0.1);
-}
-
-.about-quick-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.9rem;
-  margin-top: 1.5rem;
-}
-
-.about-stat-card {
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(15, 118, 110, 0.14);
-  background: rgba(255, 255, 255, 0.78);
-}
-
-.about-stat-value {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--global-theme-color);
-}
-
-.about-stat-label {
-  margin-top: 0.35rem;
-  font-size: 0.82rem;
-  color: var(--global-text-color-light);
-}
 
 .about-story {
   font-size: 1.04rem;
@@ -415,13 +332,11 @@ html[data-theme="dark"] {
       linear-gradient(135deg, rgba(20, 24, 31, 0.96), rgba(13, 17, 23, 0.98));
   }
 
-  .about-stat-card,
   .profile-panel,
   .projects .card {
     background: rgba(18, 24, 33, 0.92);
   }
 
-  .about-focus-tag,
   .project-category {
     background: rgba(125, 211, 252, 0.12);
   }
