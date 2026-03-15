@@ -37,6 +37,15 @@ function cleanText(value, maxLength = 160) {
   return String(value).trim().slice(0, maxLength) || null;
 }
 
+function getConfiguredOrigin(env) {
+  return cleanText(env.ALLOWED_ORIGIN, 200);
+}
+
+function getVisitorSalt(env) {
+  const salt = env.VISITOR_SALT;
+  return typeof salt === "string" && salt.trim() ? salt.trim() : null;
+}
+
 function parseCoordinate(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
@@ -48,10 +57,10 @@ async function sha256Hex(value) {
 }
 
 function getAllowedOrigin(request, env) {
-  const configured = cleanText(env.ALLOWED_ORIGIN, 200);
+  const configured = getConfiguredOrigin(env);
   const requestOrigin = request.headers.get("Origin");
 
-  if (!configured) return "*";
+  if (!configured) return "";
   if (!requestOrigin) return configured;
   return requestOrigin === configured ? configured : "";
 }
@@ -75,7 +84,12 @@ async function handleVisit(request, env, allowedOrigin) {
 
   const ipAddress = request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "";
   const userAgent = request.headers.get("User-Agent") || "";
-  const salt = env.VISITOR_SALT || "replace-me";
+  const salt = getVisitorSalt(env);
+
+  if (!salt) {
+    return json({ error: "VISITOR_SALT is not configured." }, allowedOrigin, 500);
+  }
+
   const visitorHash = await sha256Hex([ipAddress, userAgent, salt].join("|"));
   const countryCode = cleanText(cf.country, 8) || "";
   const region = cleanText(cf.region || cf.regionCode, 120) || "";
@@ -237,6 +251,10 @@ async function handleVisitors(request, env, allowedOrigin) {
 
 export default {
   async fetch(request, env) {
+    if (!getConfiguredOrigin(env)) {
+      return json({ error: "ALLOWED_ORIGIN is not configured." }, "", 500);
+    }
+
     const allowedOrigin = getAllowedOrigin(request, env);
     const url = new URL(request.url);
 

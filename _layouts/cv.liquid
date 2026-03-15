@@ -404,3 +404,12 @@ layout: default
     </div>
   </article>
 </div>
+{% if render_rendercv and site.data.cv and site.data.cv.cv %}
+  <script>
+    window.CVRenderData = {{ site.data.cv.cv | jsonify }};
+  </script>
+{% elsif render_jsonresume and site.data.resume %}
+  <script>
+    window.CVRenderData = {{ site.data.resume | jsonify }};
+  </script>
+{% endif %}

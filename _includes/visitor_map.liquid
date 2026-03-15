@@ -5,6 +5,16 @@
   data-limit="{{ site.visitor_map.max_locations | default: 150 }}"
   data-days="{{ site.visitor_map.window_days | default: 3650 }}"
 >
+  {% if include.title or include.description %}
+    <div class="visitor-map-copy">
+      {% if include.title %}
+        <h2 class="section-heading">{{ include.title }}</h2>
+      {% endif %}
+      {% if include.description %}
+        <p class="visitor-map-description">{{ include.description }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="visitor-map-panel">
     <div class="visitor-map-canvas" data-visitor-map-canvas></div>
     <div class="visitor-map-status" data-visitor-map-status>

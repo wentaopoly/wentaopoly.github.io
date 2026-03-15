@@ -120,20 +120,20 @@
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
-              <button id="search-toggle" title="Search" onclick="openSearchModal()">
-                <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span>
+              <button id="search-toggle" type="button" title="Search" aria-label="Open search">
+                <span class="nav-link" data-search-shortcut>Ctrl K <i class="fa-solid fa-magnifying-glass"></i></span>
               </button>
             </li>
           {% endif %}
           <!-- Language Switcher -->
-          <li class="toggle-container" style="position:relative;">
-            <button id="lang-toggle" title="Switch language" aria-label="Switch language">
-              <span id="lang-current" style="font-size:0.8rem;font-weight:600;">EN</span>
+          <li class="toggle-container">
+            <button id="lang-toggle" type="button" title="Switch language" aria-label="Switch language" aria-haspopup="menu" aria-expanded="false">
+              <span id="lang-current" class="lang-current">EN</span>
             </button>
-            <div id="lang-menu" style="display:none;position:absolute;top:100%;right:0;background:var(--global-bg-color);border:1px solid var(--global-divider-color);border-radius:0.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);z-index:1000;min-width:60px;padding:0.25rem 0;">
-              <button class="lang-option" data-lang="en" style="display:block;width:100%;padding:0.35rem 0.75rem;border:0;background:none;color:var(--global-text-color);font-size:0.85rem;text-align:center;cursor:pointer;">EN</button>
-              <button class="lang-option" data-lang="zh" style="display:block;width:100%;padding:0.35rem 0.75rem;border:0;background:none;color:var(--global-text-color);font-size:0.85rem;text-align:center;cursor:pointer;">中文</button>
-              <button class="lang-option" data-lang="fr" style="display:block;width:100%;padding:0.35rem 0.75rem;border:0;background:none;color:var(--global-text-color);font-size:0.85rem;text-align:center;cursor:pointer;">FR</button>
+            <div id="lang-menu" class="lang-menu" role="menu">
+              <button class="lang-option" data-lang="en" type="button" role="menuitem">EN</button>
+              <button class="lang-option" data-lang="zh" type="button" role="menuitem">中文</button>
+              <button class="lang-option" data-lang="fr" type="button" role="menuitem">FR</button>
             </div>
           </li>
           {% if site.enable_darkmode %}

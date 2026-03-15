@@ -198,6 +198,11 @@
   }
 }
 
+.lang-current {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 @media (min-width: 576px) {
   #lang-toggle {
     transform: translateY(4px);
@@ -255,6 +260,8 @@
   border: 0;
   background-color: inherit;
   color: var(--global-text-color);
+  display: inline-flex;
+  align-items: center;
 
   &:hover {
     color: var(--global-hover-color);

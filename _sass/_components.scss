@@ -70,6 +70,140 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+.about-page {
+  .post-header {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.about-hero {
+  display: grid;
+  gap: 1.75rem;
+  align-items: start;
+  padding: 1.5rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 45%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 250, 0.98));
+}
+
+.about-kicker {
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--global-text-color-light);
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.about-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--global-divider-color);
+  color: var(--global-text-color);
+  background: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    color: var(--global-hover-text-color);
+    background: var(--global-theme-color);
+    border-color: var(--global-theme-color);
+    text-decoration: none;
+  }
+}
+
+.about-action-primary {
+  color: var(--global-hover-text-color);
+  background: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+}
+
+.about-focus-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.about-focus-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--global-theme-color);
+  background: rgba(15, 118, 110, 0.1);
+}
+
+.about-quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.about-stat-card {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 118, 110, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.about-stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--global-theme-color);
+}
+
+.about-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--global-text-color-light);
+}
+
+.about-story {
+  font-size: 1.04rem;
+  line-height: 1.8;
+}
+
+.profile-panel {
+  padding: 1rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--global-divider-color);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.about-hero .profile-panel {
+  width: auto;
+  margin: 0;
+  float: none !important;
+}
+
+.section-heading {
+  margin-top: 2.5rem;
+}
+
+.section-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--global-theme-color);
+    text-decoration: none;
+  }
+}
+
 .profile.float-right {
   margin-left: 1rem;
 }
@@ -87,6 +221,10 @@ ul.task-list input[type="checkbox"] {
         display: block;
       }
     }
+  }
+
+  .about-hero {
+    grid-template-columns: minmax(0, 1.6fr) minmax(240px, 0.75fr);
   }
 }
 
@@ -122,6 +260,20 @@ ul.task-list input[type="checkbox"] {
   transform: translateX(-15px) translateY(-5px);
 }
 
+.meta-line {
+  font-size: 0.95rem;
+}
+
+.meta-line-italic {
+  font-style: italic;
+}
+
+.skill-item,
+.language-item,
+.interest-item {
+  padding: 0.5rem 0;
+}
+
 // Projects
 
 .projects {
@@ -136,6 +288,12 @@ ul.task-list input[type="checkbox"] {
   }
 
   .card {
+    border: 1px solid var(--global-divider-color);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 248, 250, 0.98));
+
     img {
       width: 100%;
     }
@@ -152,12 +310,120 @@ ul.task-list input[type="checkbox"] {
   }
 
   h2.category {
-    color: var(--global-divider-color);
+    color: var(--global-text-color);
     border-bottom: 1px solid var(--global-divider-color);
     padding-top: 0.5rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    text-align: right;
+    text-align: left;
+  }
+}
+
+.project-card {
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .card-title {
+    margin-bottom: 0;
+  }
+}
+
+.project-card-meta,
+.project-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.project-category {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.1);
+  color: var(--global-theme-color);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.project-rank {
+  color: var(--global-text-color-light);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.project-card-link {
+  color: var(--global-text-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--global-theme-color);
+    text-decoration: none;
+  }
+}
+
+.project-open-link {
+  font-weight: 600;
+  color: var(--global-theme-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.project-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  color: var(--global-text-color);
+  border: 1px solid var(--global-divider-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--global-hover-text-color);
+    background: var(--global-theme-color);
+    border-color: var(--global-theme-color);
+    text-decoration: none;
+  }
+}
+
+.visitor-map-copy {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.visitor-map-description {
+  margin-bottom: 1rem;
+  color: var(--global-text-color-light);
+}
+
+html[data-theme="dark"] {
+  .about-hero {
+    background:
+      radial-gradient(circle at top left, rgba(125, 211, 252, 0.12), transparent 45%),
+      linear-gradient(135deg, rgba(20, 24, 31, 0.96), rgba(13, 17, 23, 0.98));
+  }
+
+  .about-stat-card,
+  .profile-panel,
+  .projects .card {
+    background: rgba(18, 24, 33, 0.92);
+  }
+
+  .about-focus-tag,
+  .project-category {
+    background: rgba(125, 211, 252, 0.12);
   }
 }
 

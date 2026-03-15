@@ -1,4 +1,36 @@
 $(document).ready(function () {
+  function createJupyterCssLink() {
+    const cssLink = document.createElement("link");
+    cssLink.href = "/assets/css/jupyter.css";
+    cssLink.rel = "stylesheet";
+    cssLink.type = "text/css";
+    cssLink.dataset.jupyterStyles = "true";
+    return cssLink;
+  }
+
+  function applyJupyterStyling(iframe, theme) {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      if (!doc || !doc.head) return;
+
+      if (!doc.head.querySelector('link[data-jupyter-styles="true"]')) {
+        doc.head.append(createJupyterCssLink());
+      }
+
+      if (doc.body) {
+        if (theme == "dark") {
+          doc.body.setAttribute("data-jp-theme-light", "false");
+          doc.body.setAttribute("data-jp-theme-name", "JupyterLab Dark");
+        } else {
+          doc.body.setAttribute("data-jp-theme-light", "true");
+          doc.body.setAttribute("data-jp-theme-name", "JupyterLab Light");
+        }
+      }
+    } catch (_error) {
+      // Cross-origin notebook iframes should not break page behavior.
+    }
+  }
+
   // add toggle functionality to abstract, award and bibtex buttons
   $("a.abstract").click(function () {
     $(this).parent().parent().find(".abstract.hidden").toggleClass("open");
@@ -33,24 +65,16 @@ $(document).ready(function () {
   }
 
   // add css to jupyter notebooks
-  const cssLink = document.createElement("link");
-  cssLink.href = "../css/jupyter.css";
-  cssLink.rel = "stylesheet";
-  cssLink.type = "text/css";
-
   let jupyterTheme = determineComputedTheme();
 
   $(".jupyter-notebook-iframe-container iframe").each(function () {
-    $(this).contents().find("head").append(cssLink);
+    const iframe = this;
 
-    if (jupyterTheme == "dark") {
-      $(this).bind("load", function () {
-        $(this).contents().find("body").attr({
-          "data-jp-theme-light": "false",
-          "data-jp-theme-name": "JupyterLab Dark",
-        });
-      });
-    }
+    $(iframe).on("load", function () {
+      applyJupyterStyling(iframe, jupyterTheme);
+    });
+
+    applyJupyterStyling(iframe, jupyterTheme);
   });
 
   // trigger popovers

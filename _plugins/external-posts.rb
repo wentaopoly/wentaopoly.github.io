@@ -6,6 +6,13 @@ require 'time'
 
 module ExternalPosts
   class ExternalPostsGenerator < Jekyll::Generator
+    REQUEST_OPTIONS = {
+      timeout: 5,
+      headers: {
+        "User-Agent" => "wentaopoly.github.io build"
+      }
+    }.freeze
+
     safe true
     priority :high
 
@@ -23,7 +30,9 @@ module ExternalPosts
     end
 
     def fetch_from_rss(site, src)
-      xml = HTTParty.get(src['rss_url']).body
+      response = HTTParty.get(src['rss_url'], REQUEST_OPTIONS)
+      return unless response.success?
+      xml = response.body
       return if xml.nil?
       begin
         feed = Feedjira.parse(xml)
@@ -101,7 +110,10 @@ module ExternalPosts
     end
 
     def fetch_content_from_url(url)
-      html = HTTParty.get(url).body
+      response = HTTParty.get(url, REQUEST_OPTIONS)
+      return { title: "", content: "", summary: nil } unless response.success?
+
+      html = response.body
       parsed_html = Nokogiri::HTML(html)
 
       title = parsed_html.at('head title')&.text.strip || ''
@@ -109,8 +121,8 @@ module ExternalPosts
       description ||= parsed_html.at('head meta[name="og:description"]')&.attr('content')
       description ||= parsed_html.at('head meta[property="og:description"]')&.attr('content')
 
-      body_content = parsed_html.search('p').map { |e| e.text }
-      body_content = body_content.join() || ''
+      body_content = parsed_html.search('p').map { |e| e.text.strip }.reject(&:empty?)
+      body_content = body_content.join(" ") || ''
 
       {
         title: title,
