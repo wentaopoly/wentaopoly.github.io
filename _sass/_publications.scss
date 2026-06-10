@@ -53,7 +53,7 @@
           color: var(--global-card-bg-color) !important;
 
           a {
-            color: white;
+            color: var(--global-card-bg-color);
 
             &:hover {
               text-decoration: none;

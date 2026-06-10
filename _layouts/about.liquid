@@ -13,9 +13,9 @@ layout: default
             <div class="about-sidebar-media">
               {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
               {% if page.profile.image_circular %}
-                {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle about-avatar' %}
+                {% assign profile_image_class = 'img-fluid rounded-circle about-avatar' %}
               {% else %}
-                {% assign profile_image_class = 'img-fluid z-depth-1 about-avatar' %}
+                {% assign profile_image_class = 'img-fluid about-avatar' %}
               {% endif %}
               {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.28 }}px, (min-width: 576px) 38vw, 72vw{% endcapture %}
               {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=author_name cache_bust=true %}
@@ -80,7 +80,6 @@ layout: default
 
     <article class="about-main">
       <section class="about-intro">
-        <p class="about-kicker" data-i18n="about.kicker">Research, engineering, and applied AI systems</p>
         <p class="desc about-subtitle" data-i18n-html="about.subtitle">{{ page.subtitle }}</p>
       </section>
 
