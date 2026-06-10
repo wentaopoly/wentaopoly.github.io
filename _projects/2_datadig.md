@@ -8,7 +8,7 @@ category: engineering
 
 ## Overview
 
-Independently designed at **Feiou Technology** (Oct 2025 -- present), DataDig is a real-time financial news intelligent analysis system for the global market. The entire system comprises **15,000+ lines of Python**.
+Global financial news arrives faster than any analyst can read, and near-duplicate stories drown out genuinely new events. DataDig, which I designed and built independently at **Feiou Technology** (Oct 2025 -- present), ingests the live news stream, extracts structured features with LLMs, and incrementally clusters stories into a stable, deduplicated event timeline — refreshed every 5 minutes and fused into a 365-day long-term event table.
 
 ## System Architecture
 

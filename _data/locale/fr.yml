@@ -5,6 +5,24 @@ nav:
   projects: projets
   cv: CV
 
+pages:
+  publications:
+    title: publications
+    description: Mes publications et préprints par ordre antichronologique.
+    scholar_note: Liste complète sur <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>.
+  projects:
+    title: projets
+    description: Une sélection de mes projets de recherche et d'ingénierie.
+    categories:
+      research: recherche
+      engineering: ingénierie
+  cv:
+    description: CV de Wentao Sun — Ingénieur en algorithmes d'agents IA, doctorant à l'INSA et Nokia Bell Labs.
+
+visitor_map:
+  title: Carte des visiteurs
+  description: D'où viennent les visiteurs de ce site au fil du temps.
+
 sections:
   contact: Coordonnées
   summary: Résumé professionnel
@@ -27,7 +45,6 @@ labels:
   present: en cours
 
 about:
-  kicker: Recherche, ingénierie et systèmes d'IA appliqués
   subtitle: >
     Doctorant @
     <a href='https://www.insa-rennes.fr/'>INSA</a> &
@@ -44,12 +61,15 @@ about:
     via le programme conjoint SCUT-X 3+2.</p>
     <p>Mes intérêts de recherche portent sur les <strong>agents LLM</strong>, le <strong>Graph RAG</strong>,
     le <strong>raisonnement structuré</strong> et leurs applications dans les systèmes réels.
-    Lors de mon stage chez Nokia Bell Labs, j'ai développé un système Graph RAG ayant obtenu
-    une amélioration de 47,5 % du F1 sur le benchmark Corr2Cause. J'ai également de l'expérience
-    en robotique (système de perception-navigation à l'Académie des Sciences de Chine) et en
-    systèmes d'IA quantitative (analyse d'actualités financières en temps réel).</p>
-    <p>Je suis passionné par la construction de systèmes intelligents reliant les grands modèles
-    de langage aux connaissances spécifiques à un domaine.</p>
+    Lors de mon stage chez Nokia Bell Labs, j'ai développé un système Graph RAG qui fait passer
+    le F1 de 32,7 à 48,3 (+15,6 points, soit un gain relatif de 47,5 %) sur le benchmark
+    Corr2Cause — travail publié en <a href="https://arxiv.org/abs/2505.18034">préprint arXiv</a>.
+    J'ai également de l'expérience en robotique (système de perception-navigation à l'Académie
+    des Sciences de Chine) et en systèmes d'IA quantitative (analyse d'actualités financières
+    en temps réel).</p>
+    <p>Dans le cadre de ma thèse, je travaille à ancrer les modèles de langage dans des
+    connaissances structurées du domaine, afin que leur raisonnement reste fiable dans les
+    réseaux télécoms réels.</p>
   profile_info: >
     <p>Nokia Bell Labs</p>
     <p>Paris, France</p>
@@ -96,7 +116,7 @@ cv:
       location: Paris, France
       summary: Développement d'un système Graph RAG améliorant le raisonnement des LLM par la génération de texte structuré.
       highlights:
-        - "Amélioration du F1 de 47,5 % (32,71 → 48,26) sur le benchmark Corr2Cause"
+        - "F1 amélioré de 32,71 à 48,26 (+15,6 points, soit +47,5 % en relatif) sur le benchmark Corr2Cause"
         - "Architecture en 3 étapes : appel d'outils JSON contraint par regex (100 % de conformité au schéma) ; construction de graphe de connaissances (95 % de précision des entités) ; requête NL-to-Cypher (100 % de validité syntaxique)"
         - "Innovation clé : récupération hybride BM25-vecteur pour la désambiguïsation des entités, découpage sémantique des documents, appel d'outils basé sur Qwen3-32B"
     - company: Institut d'automatique, Académie des Sciences de Chine (中科院自动化所)
@@ -131,7 +151,7 @@ news:
   - date: "Oct 2025"
     content: "Intégration de Feiou Technology en tant que stagiaire en agents IA quantitatifs, conception d'un système d'analyse d'actualités financières en temps réel (DataDig) pour le marché mondial."
   - date: "Mars 2025"
-    content: "Début du stage de recherche IA chez Nokia Bell Labs, Paris. Développement d'un système Graph RAG avec une amélioration de 47,5 % du F1 sur le benchmark Corr2Cause."
+    content: "Début du stage de recherche IA chez Nokia Bell Labs, Paris. Développement d'un système Graph RAG faisant passer le F1 de 32,7 à 48,3 (+47,5 % en relatif) sur le benchmark Corr2Cause."
 
 footer:
   powered_by: >

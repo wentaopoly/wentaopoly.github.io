@@ -5,6 +5,24 @@ nav:
   projects: projects
   cv: CV
 
+pages:
+  publications:
+    title: publications
+    description: My publications and preprints in reversed chronological order.
+    scholar_note: Full list on <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>.
+  projects:
+    title: projects
+    description: A collection of my research and engineering projects.
+    categories:
+      research: research
+      engineering: engineering
+  cv:
+    description: Wentao Sun's CV — AI Agent Algorithm Engineer, PhD candidate at INSA & Nokia Bell Labs.
+
+visitor_map:
+  title: Visitor Map
+  description: Where people have visited this site from over time.
+
 sections:
   contact: Contact Information
   summary: Professional Summary
@@ -27,7 +45,6 @@ labels:
   present: present
 
 about:
-  kicker: Research, engineering, and applied AI systems
   subtitle: >
     PhD Candidate @
     <a href='https://www.insa-rennes.fr/'>INSA</a> &
@@ -44,12 +61,13 @@ about:
     through the SCUT-X 3+2 joint program.</p>
     <p>My research interests lie in <strong>LLM agents</strong>, <strong>Graph RAG</strong>,
     <strong>structured reasoning</strong>, and their applications in real-world systems.
-    During my internship at Nokia Bell Labs, I developed a Graph RAG system that achieved
-    a 47.5% F1 improvement on the Corr2Cause benchmark. I also have experience in robotics
-    (perception-navigation at the Chinese Academy of Sciences) and quantitative AI systems
-    (real-time financial news analysis).</p>
-    <p>I am passionate about building intelligent systems that bridge the gap between large
-    language models and domain-specific knowledge.</p>
+    During my internship at Nokia Bell Labs, I developed a Graph RAG system that raises F1
+    on the Corr2Cause benchmark from 32.7 to 48.3 (+15.6 points, a 47.5% relative gain) —
+    work published as <a href="https://arxiv.org/abs/2505.18034">an arXiv preprint</a>.
+    I also have experience in robotics (perception-navigation at the Chinese Academy of
+    Sciences) and quantitative AI systems (real-time financial news analysis).</p>
+    <p>In my PhD, I work on grounding language models in structured domain knowledge,
+    so that their reasoning holds up in real telecom networks.</p>
   profile_info: >
     <p>Nokia Bell Labs</p>
     <p>Paris, France</p>
@@ -96,7 +114,7 @@ cv:
       location: Paris, France
       summary: Developed a Graph RAG system enhancing LLM reasoning through structured text generation.
       highlights:
-        - "Achieved F1 improvement of 47.5% (32.71 → 48.26) on the Corr2Cause benchmark"
+        - "Raised F1 from 32.71 to 48.26 (+15.6 pts, a 47.5% relative gain) on the Corr2Cause benchmark"
         - "Implemented 3-stage architecture: regex-constrained JSON tool calling with 100% schema compliance; knowledge graph construction with 95% entity precision and 92% disambiguation accuracy; NL-to-Cypher query with 100% syntax validity"
         - "Core innovation: hybrid BM25-vector retrieval for entity disambiguation, semantic-aware document chunking, Qwen3-32B-based tool calling and structured output"
     - company: Institute of Automation, Chinese Academy of Sciences (中科院自动化所)
@@ -131,7 +149,7 @@ news:
   - date: "Oct 2025"
     content: "Joined Feiou Technology as a Quant AI Agent Intern, independently designing a real-time financial news analysis system (DataDig) for the global market."
   - date: "Mar 2025"
-    content: "Started AI research internship at Nokia Bell Labs, Paris. Developed a Graph RAG system achieving 47.5% F1 improvement on the Corr2Cause benchmark."
+    content: "Started AI research internship at Nokia Bell Labs, Paris. Developed a Graph RAG system that raises F1 from 32.7 to 48.3 (+47.5% relative) on the Corr2Cause benchmark."
 
 footer:
   powered_by: >

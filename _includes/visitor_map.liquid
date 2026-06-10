@@ -8,10 +8,10 @@
   {% if include.title or include.description %}
     <div class="visitor-map-copy">
       {% if include.title %}
-        <h2 class="section-heading">{{ include.title }}</h2>
+        <h2 class="section-heading" data-i18n="visitor_map.title">{{ include.title }}</h2>
       {% endif %}
       {% if include.description %}
-        <p class="visitor-map-description">{{ include.description }}</p>
+        <p class="visitor-map-description" data-i18n="visitor_map.description">{{ include.description }}</p>
       {% endif %}
     </div>
   {% endif %}

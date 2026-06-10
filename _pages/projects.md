@@ -3,6 +3,7 @@ layout: page
 title: projects
 permalink: /projects/
 description: A collection of my research and engineering projects.
+i18n_key: projects
 nav: true
 nav_order: 3
 display_categories: [research, engineering]
@@ -15,7 +16,7 @@ horizontal: false
   <!-- Display categorized projects -->
   {% for category in page.display_categories %}
   <a id="{{ category }}" href=".#{{ category }}">
-    <h2 class="category">{{ category }}</h2>
+    <h2 class="category" data-i18n="pages.projects.categories.{{ category }}">{{ category }}</h2>
   </a>
   {% assign categorized_projects = site.projects | where: "category", category %}
   {% assign sorted_projects = categorized_projects | sort: "importance" %}

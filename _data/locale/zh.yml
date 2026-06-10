@@ -5,6 +5,24 @@ nav:
   projects: 项目经历
   cv: 简历
 
+pages:
+  publications:
+    title: 论文发表
+    description: 我的论文与预印本，按时间倒序排列。
+    scholar_note: 完整列表见 <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>。
+  projects:
+    title: 项目经历
+    description: 我的研究与工程项目合集。
+    categories:
+      research: 研究
+      engineering: 工程
+  cv:
+    description: 孙文涛的简历 — AI 智能体算法工程师，INSA 与诺基亚贝尔实验室联合培养博士生。
+
+visitor_map:
+  title: 访客地图
+  description: 历史访客的来源分布。
+
 sections:
   contact: 联系方式
   summary: 个人简介
@@ -27,7 +45,6 @@ labels:
   present: 至今
 
 about:
-  kicker: 研究、工程与真实场景 AI 系统
   subtitle: >
     博士研究生 @
     <a href='https://www.insa-rennes.fr/'>INSA</a> &
@@ -45,9 +62,10 @@ about:
     <p>我的研究兴趣包括 <strong>LLM 智能体</strong>、<strong>图增强检索生成（Graph RAG）</strong>、
     <strong>结构化推理</strong>及其在真实系统中的应用。
     在诺基亚贝尔实验室实习期间，我开发了一套 Graph RAG 系统，
-    在 Corr2Cause 基准上实现了 47.5% 的 F1 提升。
+    将 Corr2Cause 基准上的 F1 从 32.7 提升至 48.3（+15.6 个百分点，相对提升 47.5%），
+    相关工作已发表为 <a href="https://arxiv.org/abs/2505.18034">arXiv 预印本</a>。
     我还拥有机器人学（中科院自动化所感知导航系统）和量化 AI 系统（实时金融新闻分析）的经验。</p>
-    <p>我热衷于构建连接大语言模型与领域专业知识的智能系统。</p>
+    <p>博士期间，我致力于让语言模型扎根于结构化领域知识，使其推理能力在真实电信网络中可靠可用。</p>
   profile_info: >
     <p>诺基亚贝尔实验室</p>
     <p>法国巴黎</p>
@@ -94,7 +112,7 @@ cv:
       location: 法国巴黎
       summary: 开发了通过结构化文本生成增强 LLM 推理能力的 Graph RAG 系统。
       highlights:
-        - "在 Corr2Cause 基准上实现 F1 提升 47.5%（32.71 → 48.26）"
+        - "在 Corr2Cause 基准上将 F1 从 32.71 提升至 48.26（+15.6 个百分点，相对提升 47.5%）"
         - "实现三阶段架构：正则约束 JSON 工具调用（100% 模式合规）；知识图谱构建（95% 实体精度、92% 消歧准确率）；自然语言转 Cypher 查询（100% 语法有效性）"
         - "核心创新：混合 BM25-向量检索实现实体消歧、语义感知文档分块、基于 Qwen3-32B 的工具调用与结构化输出"
     - company: 中国科学院自动化研究所
@@ -129,7 +147,7 @@ news:
   - date: "2025年10月"
     content: "加入非凸科技担任量化 AI 智能体实习生，独立设计面向全球市场的实时金融新闻智能分析系统（DataDig）。"
   - date: "2025年3月"
-    content: "在诺基亚贝尔实验室（巴黎）开始 AI 研究实习，开发的 Graph RAG 系统在 Corr2Cause 基准上实现 47.5% 的 F1 提升。"
+    content: "在诺基亚贝尔实验室（巴黎）开始 AI 研究实习，开发的 Graph RAG 系统将 Corr2Cause 基准上的 F1 从 32.7 提升至 48.3（相对提升 47.5%）。"
 
 footer:
   powered_by: >

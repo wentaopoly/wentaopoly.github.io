@@ -8,7 +8,7 @@ category: research
 
 ## Overview
 
-Designed at the **Institute of Automation, Chinese Academy of Sciences** (Mar 2024 -- Sep 2024) under Prof. Qiao Hong's team. The project focused on building a complex perception-navigation system for wheeled humanoid robots.
+Wheeled humanoid robots need to know precisely where they are before they can act — and recovering that pose after being moved or restarted is slow with standard stacks. At the **Institute of Automation, Chinese Academy of Sciences** (Mar 2024 -- Sep 2024, Prof. Qiao Hong's team), I built the perception-navigation system that fuses LiDAR and depth-camera data to deliver centimeter-level relocalization and whole-body path planning, cutting relocalization time by 80%.
 
 ## Technical Contributions
 

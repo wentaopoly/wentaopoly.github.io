@@ -7,7 +7,7 @@ subtitle: PhD Candidate @ <a href='https://www.insa-rennes.fr/'>INSA</a> & <a hr
 profile:
   align: left
   image: prof_pic.jpg
-  image_circular: true
+  image_circular: false
   role: PhD Candidate (CIFRE)
   affiliation: Nokia Bell Labs x INSA Rennes
   location: Paris, France
@@ -41,6 +41,6 @@ latest_posts:
 
 I am a PhD candidate (CIFRE) at [INSA](https://www.insa-rennes.fr/) and [Nokia Bell Labs](https://www.bell-labs.com/), focusing on language and reasoning models for telecom network management. I obtained my MSc from [École Polytechnique](https://www.polytechnique.edu/) (Institut Polytechnique de Paris), where I ranked 1st in my cohort, and my BEng from [South China University of Technology](https://www.scut.edu.cn/) through the SCUT-X 3+2 joint program.
 
-My research interests lie in **LLM agents**, **Graph RAG**, **structured reasoning**, and their applications in real-world systems. During my internship at Nokia Bell Labs, I developed a Graph RAG system that achieved a 47.5% F1 improvement on the Corr2Cause benchmark. I also have experience in robotics (perception-navigation at the Chinese Academy of Sciences) and quantitative AI systems (real-time financial news analysis).
+My research interests lie in **LLM agents**, **Graph RAG**, **structured reasoning**, and their applications in real-world systems. During my internship at Nokia Bell Labs, I developed a Graph RAG system that raises F1 on the Corr2Cause benchmark from 32.7 to 48.3 (+15.6 points, a 47.5% relative gain) — work published as [an arXiv preprint](https://arxiv.org/abs/2505.18034). I also have experience in robotics (perception-navigation at the Chinese Academy of Sciences) and quantitative AI systems (real-time financial news analysis).
 
-I am passionate about building intelligent systems that bridge the gap between large language models and domain-specific knowledge.
+In my PhD, I work on grounding language models in structured domain knowledge, so that their reasoning holds up in real telecom networks.
