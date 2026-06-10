@@ -230,7 +230,10 @@
     var listItem = createNode("li", "list-group-item");
     var row = createNode("div", "row");
     var contentColumn = createNode("div", "col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0");
-    var title = resolveValue(translatedEntry.position, resolveValue(translatedEntry.studyType, resolveValue(baseEntry.position, resolveValue(baseEntry.studyType, baseEntry.degree))));
+    var title = resolveValue(
+      translatedEntry.position,
+      resolveValue(translatedEntry.studyType, resolveValue(baseEntry.position, resolveValue(baseEntry.studyType, baseEntry.degree)))
+    );
     var entity =
       resolveValue(translatedEntry.company, translatedEntry.institution) ||
       resolveValue(baseEntry.company, resolveValue(baseEntry.name, resolveValue(baseEntry.organization, baseEntry.institution)));

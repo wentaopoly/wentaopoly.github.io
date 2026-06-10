@@ -13,11 +13,13 @@ Wheeled humanoid robots need to know precisely where they are before they can ac
 ## Technical Contributions
 
 ### Sensor Fusion
+
 - Fused **solid-state LiDAR** (fastlio2 + octomap) with **depth camera** (Intel D435i)
 - Used **EKF** to fuse multi-source pose data
 - Reduced relocalization time by **80%**
 
 ### Path Planning
+
 - Developed **SLAM-based RRT\*** path planning plugin
 - Refactored mini planner to replace Nav2
 - Reduced computation by **30%**

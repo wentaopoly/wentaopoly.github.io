@@ -29,9 +29,9 @@ The system implements a **3-stage architecture**:
 
 ## Results
 
-| Metric | Baseline | Graph RAG | Improvement |
-|--------|----------|-----------|-------------|
-| F1 Score | 32.71 | 48.26 | +15.6 pts (+47.5% relative) |
-| Schema Compliance | - | 100% | - |
-| Entity Precision | - | 95% | - |
-| Syntax Validity | - | 100% | - |
+| Metric            | Baseline | Graph RAG | Improvement                 |
+| ----------------- | -------- | --------- | --------------------------- |
+| F1 Score          | 32.71    | 48.26     | +15.6 pts (+47.5% relative) |
+| Schema Compliance | -        | 100%      | -                           |
+| Entity Precision  | -        | 95%       | -                           |
+| Syntax Validity   | -        | 100%      | -                           |

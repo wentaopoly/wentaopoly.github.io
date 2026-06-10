@@ -72,10 +72,7 @@
       "studyType": "Joint PhD (CIFRE)",
       "startDate": "2026-02-01",
       "endDate": "2029-02-01",
-      "highlights": [
-        "Nokia Supervisor: D. Verchere",
-        "INSA Supervisor: M. Acher"
-      ]
+      "highlights": ["Nokia Supervisor: D. Verchere", "INSA Supervisor: M. Acher"]
     },
     {
       "institution": "Institut Polytechnique de Paris (IPP) | École Polytechnique",
@@ -84,9 +81,7 @@
       "studyType": "MSc",
       "startDate": "2023-09-01",
       "endDate": "2025-10-01",
-      "highlights": [
-        "Ranked 1/14, French scholarship recipient"
-      ]
+      "highlights": ["Ranked 1/14, French scholarship recipient"]
     },
     {
       "institution": "South China University of Technology (华南理工大学)",
@@ -95,10 +90,7 @@
       "studyType": "BEng",
       "startDate": "2020-09-01",
       "endDate": "2024-06-01",
-      "highlights": [
-        "SCUT–École Polytechnique '3+2' joint BSc-MSc program",
-        "University scholarship recipient"
-      ]
+      "highlights": ["SCUT–École Polytechnique '3+2' joint BSc-MSc program", "University scholarship recipient"]
     }
   ],
   "projects": [

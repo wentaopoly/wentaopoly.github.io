@@ -10,8 +10,22 @@ layout: default
 
 <div class="post">
   <header class="post-header">
-    <h1 class="post-title" {% if page.i18n_key %}data-i18n="pages.{{ page.i18n_key }}.title"{% endif %}>{{ page.title }}</h1>
-    <p class="post-description" {% if page.i18n_key %}data-i18n="pages.{{ page.i18n_key }}.description"{% endif %}>{{ page.description }}</p>
+    <h1
+      class="post-title"
+      {% if page.i18n_key %}
+        data-i18n="pages.{{ page.i18n_key }}.title"
+      {% endif %}
+    >
+      {{ page.title }}
+    </h1>
+    <p
+      class="post-description"
+      {% if page.i18n_key %}
+        data-i18n="pages.{{ page.i18n_key }}.description"
+      {% endif %}
+    >
+      {{ page.description }}
+    </p>
   </header>
 
   <article>

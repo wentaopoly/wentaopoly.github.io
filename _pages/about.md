@@ -36,7 +36,6 @@ latest_posts:
   enabled: false
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
-
 ---
 
 I am a PhD candidate (CIFRE) at [INSA](https://www.insa-rennes.fr/) and [Nokia Bell Labs](https://www.bell-labs.com/), focusing on language and reasoning models for telecom network management. I obtained my MSc from [École Polytechnique](https://www.polytechnique.edu/) (Institut Polytechnique de Paris), where I ranked 1st in my cohort, and my BEng from [South China University of Technology](https://www.scut.edu.cn/) through the SCUT-X 3+2 joint program.
