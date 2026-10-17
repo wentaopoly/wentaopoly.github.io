@@ -1,0 +1,6 @@
+{%- assign limit = include.limit | default: 99 -%}
+<ul class="dated">
+  {%- for n in site.data.news limit: limit %}
+  <li>{% include month.html d=n.date %}<span>{{ n[page.lang] }}</span></li>
+  {%- endfor %}
+</ul>

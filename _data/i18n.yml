@@ -1,0 +1,109 @@
+# UI strings. Page content lives in the pages themselves; this file only holds
+# the labels that layouts and includes print.
+en:
+  name: Wentao Sun
+  description: Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.
+  lang_label: English
+  nav:
+    publications: Publications
+    projects: Projects
+    cv: CV
+  news: News
+  research: Research
+  publications: Publications
+  projects: Projects
+  ongoing: Ongoing
+  all_publications: All publications
+  all_projects: All projects
+  links:
+    page: project page
+    paper: paper
+    arxiv: arXiv
+    openreview: OpenReview
+    video: video
+    code: code
+    bibtex: BibTeX
+    slides: slides
+  copy: Copy
+  copied: Copied
+  updated: Last updated
+  visits: "{visits} visits from {places} places since March 2026."
+  map_label: Where visitors to this site come from
+  back_projects: All projects
+  scholar_note: Citations and the full list are on <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>.
+  cv_pdf: PDF version
+  date_format: "{m} {y}"
+  months: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+  present: present
+
+zh:
+  name: 孙文涛
+  description: 孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。
+  lang_label: 中文
+  nav:
+    publications: 论文
+    projects: 项目
+    cv: 简历
+  news: 动态
+  research: 研究
+  publications: 论文
+  projects: 项目
+  ongoing: 在做的事
+  all_publications: 全部论文
+  all_projects: 全部项目
+  links:
+    page: 项目主页
+    paper: 论文
+    arxiv: arXiv
+    openreview: OpenReview
+    video: 视频
+    code: 代码
+    bibtex: BibTeX
+    slides: 幻灯片
+  copy: 复制
+  copied: 已复制
+  updated: 最后更新
+  visits: "自 2026 年 3 月以来，共 {visits} 次访问，来自 {places} 个地点。"
+  map_label: 本站访客的地理分布
+  back_projects: 全部项目
+  scholar_note: 引用数据和完整列表见 <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>。
+  cv_pdf: PDF 版本
+  date_format: "{y} 年 {m}"
+  months: [1 月, 2 月, 3 月, 4 月, 5 月, 6 月, 7 月, 8 月, 9 月, 10 月, 11 月, 12 月]
+  present: 至今
+
+fr:
+  name: Wentao Sun
+  description: Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.
+  lang_label: Français
+  nav:
+    publications: Publications
+    projects: Projets
+    cv: CV
+  news: Actualités
+  research: Recherche
+  publications: Publications
+  projects: Projets
+  ongoing: En cours
+  all_publications: Toutes les publications
+  all_projects: Tous les projets
+  links:
+    page: page du projet
+    paper: article
+    arxiv: arXiv
+    openreview: OpenReview
+    video: vidéo
+    code: code
+    bibtex: BibTeX
+    slides: diapositives
+  copy: Copier
+  copied: Copié
+  updated: Dernière mise à jour
+  visits: "{visits} visites, venues de {places} lieux, depuis mars 2026."
+  map_label: D’où viennent les visiteurs de ce site
+  back_projects: Tous les projets
+  scholar_note: Citations et liste complète sur <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>.
+  cv_pdf: Version PDF
+  date_format: "{m} {y}"
+  months: [janv., févr., mars, avr., mai, juin, juil., août, sept., oct., nov., déc.]
+  present: aujourd’hui

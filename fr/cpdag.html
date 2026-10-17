@@ -1,0 +1,63 @@
+---
+layout: default
+ref: cpdag
+title: Externalized CPDAG Summaries Improve LLM Causal Deduction
+description: Article publié à NeurIPS 2026 par Wentao Sun, João Paulo Nogueira, Dominique Verchere, Mathieu Acher et Alonso Silva, avec une vidéo explicative.
+image: /assets/img/cpdag/poster.jpg
+---
+{%- assign s = site.data.cpdag[page.lang] -%}
+{%- assign pub = site.data.publications | first -%}
+<article class="paper">
+  {% include cpdag/head.html %}
+
+  <section class="sec">
+    <h2>Vidéo</h2>
+    <div class="sec-body">{% include cpdag/video.html %}</div>
+  </section>
+
+  <section class="sec">
+    <h2>En bref</h2>
+    <div class="sec-body prose">
+      <p>Corr2Cause fournit à un modèle de langage les corrélations et les indépendances conditionnelles entre quelques variables, puis lui demande si une affirmation causale s’en déduit. L’affirmation n’est considérée comme vraie que si elle tient dans <em>tous</em> les graphes causaux compatibles avec les observations. C’est ce « tous » qui est difficile, et le chain-of-thought libre a tendance à le négliger. Le modèle trouve un scénario qui convient et en tire sa réponse.</p>
+      <p>Nous faisons faire ce travail au modèle de façon explicite. Dans un premier tour, il écrit le CPDAG, la structure qui résume tous les graphes compatibles avec les observations, sous la forme d’un objet typé contraint par un schéma JSON. Dans un second tour, il répond en s’appuyant sur cet objet. Il n’y a ni fine-tuning ni solveur symbolique.</p>
+      {% include cpdag/toy.html %}
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Méthode</h2>
+    <div class="sec-body">{% include cpdag/flow.html %}</div>
+  </section>
+
+  <section class="sec">
+    <h2>Résultats</h2>
+    <div class="sec-body prose">
+      <p>Avec Qwen3.5-27B, le F1 sur la classe « Oui » passe de 73,0 à 86,4. Les deux types d’erreur diminuent : les « Oui » manqués passent de 61 à 28 et les fausses alertes de 27 à 20. Une variante de contrôle en deux tours, qui écrit du texte libre au lieu d’un graphe typé, obtient 67,6, en dessous de la référence. Ce n’est donc pas le second tour en lui-même qui aide.</p>
+      {% include cpdag/results.html %}
+      <p>Les modèles plus forts gagnent moins. GPT-5.4-mini et Gemma-4-31B partent d’environ 85 et progressent de 3,2 et 2,0 points, chacun sur une seule exécution. La méthode consomme aussi environ deux fois plus de tokens que la référence en un tour.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Le modèle se sert-il du graphe ?</h2>
+    <div class="sec-body prose">
+      <p>Un modèle peut produire un graphe propre puis l’ignorer. Nous avons donc volontairement abîmé le graphe. Brouiller tout le CPDAG entre les deux tours fait perdre 12,0 points de F1. Brouiller seulement le squelette, seulement les collisionneurs ou seulement les arêtes orientées fait perdre environ 6 points dans chaque cas, alors que retirer la prémisse du second tour en coûte 3,8.</p>
+      <p>Les graphes sont d’ailleurs le plus souvent corrects. Par rapport au CPDAG de référence, les squelettes produits atteignent un F1 de 0,960 et 75,9 % des graphes sont exactement identiques. Quand le graphe est exact, la réponse finale est correcte dans 97,2 % des cas.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Limites</h2>
+    <div class="sec-body prose">
+      <p>Tous ces résultats portent sur Corr2Cause, où les indépendances sont données sous forme d’énoncés exacts au lieu d’être estimées à partir de données. Le graphe produit est conforme au schéma, mais il n’est pas certifié ; 18 à 21 % des sorties contiennent au moins une incohérence interne. À part la comparaison principale, que nous avons répétée avec trois graines (+8,1 ± 5,3 en moyenne), les lignes ci-dessus correspondent à une seule exécution.</p>
+      <p>Une première version de ces travaux est parue en mai 2025 sous le titre <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="bibtex">
+    <h2>Citer</h2>
+    <div class="sec-body">
+      <div class="codeblock"><pre><code>{{ pub.bibtex | strip | escape }}</code></pre><button class="copy" type="button" data-copy data-copied="{{ site.data.i18n[page.lang].copied }}">{{ site.data.i18n[page.lang].copy }}</button></div>
+    </div>
+  </section>
+</article>

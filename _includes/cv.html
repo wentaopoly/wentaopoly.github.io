@@ -1,0 +1,72 @@
+{%- assign cv = site.data.cv -%}
+{%- assign L = cv.labels[page.lang] -%}
+{%- assign lang = page.lang -%}
+{%- if lang == "zh" -%}{%- assign sep = "，" -%}{%- else -%}{%- assign sep = ", " -%}{%- endif -%}
+{%- assign prefix = "" -%}
+{%- if lang != "en" -%}{%- assign prefix = "/" | append: lang -%}{%- endif -%}
+{%- case lang -%}{%- when "zh" -%}{%- assign pdf = "/assets/pdf/cv.pdf" -%}{%- else -%}{%- assign pdf = "/assets/pdf/cv-" | append: lang | append: ".pdf" -%}{%- endcase -%}
+<header class="page-head cv-head">
+  <h1>{{ site.data.i18n[lang].name }}{% if lang != "zh" %}<span class="cjk" lang="zh-Hans">孙文涛</span>{% else %}<span class="cjk">Wentao Sun</span>{% endif %}</h1>
+  <p class="lede">{{ cv.headline[lang] }}</p>
+  <p class="cv-contact">
+    <a href="mailto:wentao.sun@nokia.com">wentao.sun@nokia.com</a>
+    <a href="https://wentaopoly.github.io{{ prefix }}/">wentaopoly.github.io</a>
+    <a href="https://github.com/wentaopoly">github.com/wentaopoly</a>
+    <a class="no-print" href="{{ pdf }}">{{ L.pdf }}</a>
+  </p>
+</header>
+
+{%- assign groups = "education,experience" | split: "," %}
+{%- for g in groups %}
+<section class="sec cv-sec">
+  <h2>{{ L[g] }}</h2>
+  <div class="sec-body">
+    {%- for e in cv[g] %}
+    <div class="cv-item">
+      <div class="cv-line"><span class="cv-what"><strong>{{ e.what[lang] }}</strong>{{ sep }}{{ e.where[lang] }}</span><span class="cv-when">{{ e.when[lang] }}</span></div>
+      <ul>{% for n in e.notes[lang] %}<li>{{ n }}</li>{% endfor %}</ul>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+{%- if g == "education" %}
+<section class="sec cv-sec">
+  <h2>{{ L.publications }}</h2>
+  <div class="sec-body cv-pubs">
+    {%- for p in site.data.publications %}
+    <div class="cv-item">
+      <div class="cv-line"><span class="cv-what"><strong>{{ p.title }}</strong></span><span class="cv-when">{{ p.year }}</span></div>
+      <p>{% for a in p.authors %}{% if a == "Wentao Sun" %}<u>{{ a }}</u>{% else %}{{ a }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}. <em>{{ p.venue }}</em>{% if p.note %}{% if lang == "zh" %}（{{ p.note[lang] }}）{% else %} ({{ p.note[lang] }}){% endif %}{% endif %}.</p>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
+{%- endfor %}
+
+<section class="sec cv-sec">
+  <h2>{{ L.projects }}</h2>
+  <div class="sec-body">
+    {%- for p in site.data.projects %}
+    <div class="cv-item">
+      <div class="cv-line"><span class="cv-what"><a href="{{ prefix }}/projects/{{ p.slug }}/"><strong>{{ p.title[lang] }}</strong></a></span><span class="cv-when">{{ p.period }}</span></div>
+      <p>{{ p.summary[lang] }}</p>
+    </div>
+    {%- endfor %}
+    {%- assign asr = site.data.earlier | last %}
+    <div class="cv-item">
+      <div class="cv-line"><span class="cv-what"><strong>{{ asr.title[lang] }}</strong>{{ sep }}{{ asr.where[lang] }}</span><span class="cv-when">{{ asr.period }}</span></div>
+      <p>{{ asr.summary[lang] }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv-sec">
+  <h2>{{ L.skills }}</h2>
+  <div class="sec-body">
+    <dl class="cv-skills">
+      {%- for s in cv.skills %}<div><dt>{{ s.label[lang] }}</dt><dd>{{ s.value[lang] }}</dd></div>{% endfor %}
+      <div><dt>{{ L.languages }}</dt><dd>{{ cv.languages[lang] }}</dd></div>
+    </dl>
+  </div>
+</section>

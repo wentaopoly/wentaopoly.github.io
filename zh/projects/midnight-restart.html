@@ -1,0 +1,58 @@
+---
+layout: project
+ref: p-midnight
+title: 每到午夜就停摆的进程
+lede: 一个浏览器自动化进程连续几周采集文章，每晚到了定时重启的时候就卡住，看上去却完全正常。原因是两层叠在一起的死锁。
+meta:
+  时间: 2026 年 1 月至 8 月
+  角色: 设计与实现
+  代码: 未公开
+---
+<section class="sec">
+  <h2>背景</h2>
+  <div class="sec-body prose">
+    <p>一个 Python 进程通过 <a href="https://github.com/browser-use/browser-use">browser-use</a> 驱动一个已登录的 Chrome，按栏目读取文章，逐篇发到 Kafka。只有 broker 确认收到之后，文章才标记为完成；每个栏目的进度都原子写入，所以任何时刻崩溃都不会丢文章。每天午夜，进程关闭浏览器，再用 <code>os.execv</code> 把自己替换成一个新的副本。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>症状</h2>
+  <div class="sec-body prose">
+    <p>到了午夜重启，进程就不动了。进程还在，所有按 PID 做的存活检查都通过，但再也没有文章进来。唯一能看到的线索在进程列表里：正常时这个 profile 下有 9 个 Chrome 进程，卡住时只剩 1 个。这不是偶发的：我们查看的两个晚上，它都卡在同一个位置。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>第一层</h2>
+  <div class="sec-body prose">
+    <p>这个库的 <code>stop()</code> 先拆掉 Chrome，再去等事件总线上的完成信号。这个信号永远不会来：发出它的 handler 需要 DevTools 连接，而这个连接刚刚被 <code>stop()</code> 关掉了。事件总线在清理时还会吞掉 <code>CancelledError</code>。</p>
+    <p>于是最直观的超时写法并不会超时。<code>asyncio.wait_for</code> 到时间后会取消任务，然后等取消完成，而这里取消永远完成不了。</p>
+<pre><code><span class="c"># 会卡死：wait_for 需要任务配合取消</span>
+await asyncio.wait_for(browser.stop(), timeout=12)
+
+<span class="c"># 12 秒后一定返回，不管任务在做什么</span>
+task = asyncio.ensure_future(browser.stop())
+await asyncio.wait({task}, timeout=12)
+<span class="c"># 然后放弃这个任务，按 profile 路径清理 Chrome</span></code></pre>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>第二层</h2>
+  <div class="sec-body prose">
+    <p>只修第一层，卡住的地方只是挪了个位置。<code>asyncio.run</code> 退出时会取消所有挂起的任务，并逐个等它们结束，其中就有那个被放弃、永远不会结束的 <code>stop()</code>。进程始终走不到 <code>os.execv</code>。</p>
+    <p>修法是用 <code>loop.run_until_complete</code> 来跑主协程，它不会去碰挂起的任务。<code>os.execv</code> 替换进程映像时，卡住的任务也就随之消失了。</p>
+    <p>两层各有一条回归测试，用一个真正会吞掉取消的 <code>stop()</code> 来驱动。只要任何一处修复被改回去，测试就会卡住，而不是悄悄通过。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>几点体会</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>对一个工作进程来说，“还活着”不是有用的健康信号。真正要报警的是“broker 已经 60 分钟没有确认任何一篇文章”，而且报警状态存在磁盘上，重启不会重复报警。</li>
+      <li>这个看门狗在退出流程里最后一个被取消。如果它先停，退出流程卡住时就连一点声音都没有了。</li>
+      <li>每天同一时间必然发生的死锁其实是好事，比一个月才出现一次的好抓得多。</li>
+    </ul>
+  </div>
+</section>

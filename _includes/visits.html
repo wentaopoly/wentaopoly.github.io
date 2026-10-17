@@ -1,0 +1,5 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+<figure class="visits" data-visits aria-label="{{ t.map_label }}">
+  <div class="visits-map">{% include world-dots.svg %}</div>
+  <figcaption data-template="{{ t.visits }}"></figcaption>
+</figure>

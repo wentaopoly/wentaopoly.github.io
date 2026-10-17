@@ -1,0 +1,31 @@
+{%- comment -%} One publication entry. include.p is an item of site.data.publications. {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign p = include.p -%}
+{%- assign prefix = "" -%}
+{%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
+{%- if p.page -%}{%- assign main_href = prefix | append: p.page -%}{%- else -%}{%- assign main_href = p.links.paper -%}{%- endif -%}
+<div class="pub{% unless p.thumb %} no-thumb{% endunless %}">
+  {%- if p.thumb %}
+  <a class="pub-thumb" href="{{ main_href }}" tabindex="-1" aria-hidden="true"><img src="{{ p.thumb }}" alt="" loading="lazy" width="368" height="230"></a>
+  {%- endif %}
+  <div>
+    <h3 class="pub-title"><a href="{{ main_href }}">{{ p.title }}</a></h3>
+    <div class="pub-authors">
+      {%- for a in p.authors -%}
+      {%- if a == "Wentao Sun" -%}<span class="me">{{ a }}</span>{%- else -%}{{ a }}{%- endif -%}
+      {%- unless forloop.last %}, {% endunless -%}
+      {%- endfor -%}
+    </div>
+    <div class="pub-venue"><strong>{{ p.venue }}</strong>{% if p.note %} · <span class="note">{{ p.note[page.lang] }}</span>{% endif %}</div>
+    <div class="pub-links">
+      {%- if p.page %}<a href="{{ prefix }}{{ p.page }}">{{ t.links.page }}</a>{% endif %}
+      {%- for l in p.links %}{% assign key = l[0] %}{% assign href = l[1] %}{% if href contains "://" %}{% else %}{% assign href = prefix | append: href %}{% endif %}<a href="{{ href }}">{{ t.links[key] }}</a>{% endfor %}
+      {%- if p.bibtex %}
+      <details class="bib">
+        <summary>{{ t.links.bibtex }}</summary>
+        <div class="codeblock"><pre><code>{{ p.bibtex | strip | escape }}</code></pre><button class="copy" type="button" data-copy data-copied="{{ t.copied }}">{{ t.copy }}</button></div>
+      </details>
+      {%- endif %}
+    </div>
+  </div>
+</div>

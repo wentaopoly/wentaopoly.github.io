@@ -1,0 +1,17 @@
+{%- assign s = site.data.cpdag[page.lang].flow -%}
+<figure class="flow">
+  <ol class="flow-steps">
+    <li>{{ s.input }}</li>
+    <li class="flow-model">{{ s.turn1 }}</li>
+    <li class="flow-object">CausalAnalysis</li>
+    <li class="flow-model">{{ s.turn2 }}</li>
+    <li>{{ s.answer }}</li>
+  </ol>
+  <pre class="flow-json"><code><span class="k">variables</span>     [A, B, C, D, E]
+<span class="k">skeleton</span>      [A–C, B–C, C–D, A–E]
+<span class="k">non_adjacent</span>  [A–B | ∅, A–D | C, B–D | C, B–E | ∅, C–E | A, D–E | A]
+<span class="k">v_structures</span>  [A → C ← B]
+<span class="k">directed</span>      [A → C, B → C, C → D]
+<span class="k">undirected</span>    [A – E]</code></pre>
+  <figcaption>{{ s.caption }}</figcaption>
+</figure>

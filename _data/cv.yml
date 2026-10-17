@@ -1,110 +1,70 @@
-cv:
-  name: Wentao Sun (孙文涛)
-  label: AI Agent Algorithm Engineer
-  email: wentao.sun@nokia.com
-  location: Paris, France
-  image: ""
-  summary: PhD candidate (CIFRE) at INSA & Nokia Bell Labs, focusing on language and reasoning models for telecom network management. MSc from École Polytechnique (IPP), ranked 1st. Experienced in LLM agents, Graph RAG, robotics, and quantitative AI systems.
+# CV content, rendered by _includes/cv.html on cv.html, zh/cv.html and fr/cv.html.
+# The PDFs in assets/pdf/ are printed from those pages (see README.md).
+labels:
+  en: { education: Education, publications: Publications, experience: Experience, projects: Projects, skills: Skills, languages: Languages, advisors: Advisors, pdf: PDF }
+  zh: { education: 教育背景, publications: 论文, experience: 工作经历, projects: 项目, skills: 技能, languages: 语言, advisors: 导师, pdf: PDF }
+  fr: { education: Formation, publications: Publications, experience: Expérience, projects: Projets, skills: Compétences, languages: Langues, advisors: Encadrement, pdf: PDF }
 
-  social_networks:
-    - network: GitHub
-      username: wentaopoly
-    - network: LinkedIn
-      username: wentao-sun
+headline:
+  en: PhD student in computer science · INSA Rennes / IRISA and Nokia Bell Labs
+  zh: 计算机科学博士生 · INSA Rennes / IRISA 与诺基亚贝尔实验室
+  fr: Doctorant en informatique · INSA Rennes / IRISA et Nokia Bell Labs
 
-  sections:
-    Education:
-      - institution: INSA & Nokia Bell Labs
-        location: France
-        area: Language & Reasoning Models for Telecom Network Management
-        studyType: Joint PhD (CIFRE)
-        start_date: 2026-02
-        end_date: 2029-02
-        highlights:
-          - "Nokia Supervisor: D. Verchere"
-          - "INSA Supervisor: M. Acher"
+education:
+  - when: { en: "Feb 2026 – Feb 2029 (expected)", zh: "2026.02 – 2029.02（预计）", fr: "févr. 2026 – févr. 2029 (prévu)" }
+    what: { en: "PhD in computer science (CIFRE)", zh: "计算机科学博士（CIFRE 校企联合培养）", fr: "Doctorat en informatique (CIFRE)" }
+    where: { en: "INSA Rennes / IRISA (DiverSE team) and Nokia Bell Labs", zh: "INSA Rennes / IRISA（DiverSE 团队）与诺基亚贝尔实验室", fr: "INSA Rennes / IRISA (équipe DiverSE) et Nokia Bell Labs" }
+    notes:
+      en: ["Language and reasoning models for telecom network management.", "Advisors: Mathieu Acher (INSA Rennes / IRISA) and Dominique Verchere (Nokia Bell Labs)."]
+      zh: ["研究方向：面向电信网络管理的语言与推理模型。", "导师：Mathieu Acher（INSA Rennes / IRISA）、Dominique Verchere（诺基亚贝尔实验室）。"]
+      fr: ["Modèles de langage et de raisonnement pour la gestion des réseaux de télécommunications.", "Encadrement : Mathieu Acher (INSA Rennes / IRISA) et Dominique Verchere (Nokia Bell Labs)."]
+  - when: { en: "Sep 2023 – Oct 2025", zh: "2023.09 – 2025.10", fr: "sept. 2023 – oct. 2025" }
+    what: { en: "MSc in computer science and engineering", zh: "计算机科学与工程硕士", fr: "Master en informatique et ingénierie" }
+    where: { en: "École Polytechnique (Institut Polytechnique de Paris)", zh: "巴黎综合理工学院（巴黎理工学院联盟）", fr: "École polytechnique (Institut Polytechnique de Paris)" }
+    notes:
+      en: ["Ranked 1st of 14. French Government scholarship."]
+      zh: ["专业排名 1/14，法国政府奖学金。"]
+      fr: ["Classé 1er sur 14. Bourse du gouvernement français."]
+  - when: { en: "Sep 2020 – Jun 2024", zh: "2020.09 – 2024.06", fr: "sept. 2020 – juin 2024" }
+    what: { en: "BEng in information engineering", zh: "信息工程学士", fr: "Licence d’ingénierie de l’information" }
+    where: { en: "South China University of Technology", zh: "华南理工大学", fr: "Université de technologie de Chine du Sud" }
+    notes:
+      en: ["SCUT – École Polytechnique 3+2 joint programme. University scholarship."]
+      zh: ["华南理工—巴黎综合理工 3+2 本硕连读项目，校级奖学金。"]
+      fr: ["Programme conjoint 3+2 SCUT – École polytechnique. Bourse universitaire."]
 
-      - institution: Institut Polytechnique de Paris (IPP) | École Polytechnique
-        location: Palaiseau, France
-        area: Computer Science & Engineering
-        studyType: MSc
-        start_date: 2023-09
-        end_date: 2025-10
-        highlights:
-          - "Ranked 1/14, French scholarship recipient"
+experience:
+  - when: { en: "Oct 2025 – Feb 2026", zh: "2025.10 – 2026.02", fr: "oct. 2025 – févr. 2026" }
+    what: { en: "Quantitative AI agent intern", zh: "量化 AI Agent 实习生", fr: "Stagiaire, agents IA pour la finance quantitative" }
+    where: { en: "Feiconvex (Zhenying Asset)", zh: "非凸科技（正瀛资产）", fr: "Feiconvex (Zhenying Asset)" }
+    notes:
+      en: ["Worked on DataDig, a real-time financial news system: incremental clustering with stable cluster IDs across re-runs, story chains that record only what changed, and grounded retrieval."]
+      zh: ["参与实时金融新闻系统 DataDig：增量聚类及跨轮次稳定的 cluster ID、只记录增量的事件链、有依据的检索。"]
+      fr: ["Travail sur DataDig, un système d’analyse d’actualités financières en temps réel : regroupement incrémental avec des identifiants stables d’une exécution à l’autre, chaînes d’événements qui ne retiennent que les changements, recherche ancrée dans les documents."]
+  - when: { en: "Mar 2025 – Oct 2025", zh: "2025.03 – 2025.10", fr: "mars 2025 – oct. 2025" }
+    what: { en: "AI research intern", zh: "AI 研究实习生", fr: "Stagiaire de recherche en IA" }
+    where: { en: "Nokia Bell Labs, Paris", zh: "诺基亚贝尔实验室，巴黎", fr: "Nokia Bell Labs, Paris" }
+    notes:
+      en: ["Structured reasoning for causal questions: having the model build a knowledge graph before answering raised Corr2Cause F1 from 32.71 to 48.26 with Qwen3-32B.", "Pipeline with schema-constrained tool calls, knowledge-graph construction and natural-language-to-Cypher queries."]
+      zh: ["面向因果问题的结构化推理：先让模型构建知识图谱再作答，用 Qwen3-32B 将 Corr2Cause 上的 F1 从 32.71 提升到 48.26。", "搭建了 schema 约束的工具调用、知识图谱构建和自然语言到 Cypher 查询的流程。"]
+      fr: ["Raisonnement structuré pour les questions causales : faire construire au modèle un graphe de connaissances avant de répondre a fait passer le F1 sur Corr2Cause de 32,71 à 48,26 avec Qwen3-32B.", "Chaîne avec appels d’outils contraints par schéma, construction du graphe et requêtes Cypher à partir du langage naturel."]
+  - when: { en: "Mar 2024 – Sep 2024", zh: "2024.03 – 2024.09", fr: "mars 2024 – sept. 2024" }
+    what: { en: "Robotics intern", zh: "机器人实习工程师", fr: "Stagiaire en robotique" }
+    where: { en: "Institute of Automation, Chinese Academy of Sciences, Beijing", zh: "中国科学院自动化研究所，北京", fr: "Institut d’automatique, Académie chinoise des sciences, Pékin" }
+    notes:
+      en: ["Perception and navigation for a wheeled humanoid robot: solid-state LiDAR (FAST-LIO2, OctoMap) and depth camera fused with an EKF, cutting relocalization time by 80%.", "RRT* planning plugin, then a lighter planner that replaced Nav2 with 30% less computation."]
+      zh: ["轮式人形机器人的感知与导航：用 EKF 融合固态激光雷达（FAST-LIO2、OctoMap）与深度相机，重定位时间缩短 80%。", "开发 RRT* 路径规划插件，之后重写轻量规划器替换 Nav2，计算量减少 30%。"]
+      fr: ["Perception et navigation d’un robot humanoïde à roues : fusion par EKF d’un lidar à semi-conducteurs (FAST-LIO2, OctoMap) et d’une caméra de profondeur, temps de relocalisation réduit de 80 %.", "Module de planification RRT*, puis un planificateur plus léger qui a remplacé Nav2 avec 30 % de calcul en moins."]
 
-      - institution: South China University of Technology (华南理工大学)
-        location: Guangzhou, China
-        area: Information Engineering
-        studyType: BEng
-        start_date: 2020-09
-        end_date: 2024-06
-        highlights:
-          - "SCUT–École Polytechnique '3+2' joint BSc-MSc program"
-          - "University scholarship recipient"
+skills:
+  - label: { en: "Programming", zh: "编程", fr: "Programmation" }
+    value: { en: "Python (daily), C++", zh: "Python（日常使用）、C++", fr: "Python (au quotidien), C++" }
+  - label: { en: "Language models", zh: "大模型", fr: "Modèles de langage" }
+    value: { en: "Qwen, DeepSeek, Llama; constrained decoding and structured output, tool calling, RAG, agents, LoRA fine-tuning; vLLM", zh: "Qwen、DeepSeek、Llama；约束解码与结构化输出、工具调用、RAG、智能体、LoRA 微调；vLLM", fr: "Qwen, DeepSeek, Llama ; décodage contraint et sorties structurées, appels d’outils, RAG, agents, fine-tuning LoRA ; vLLM" }
+  - label: { en: "Tools", zh: "工具", fr: "Outils" }
+    value: { en: "PyTorch, Transformers, Dagster, Kafka, Docker, ROS 2", zh: "PyTorch、Transformers、Dagster、Kafka、Docker、ROS 2", fr: "PyTorch, Transformers, Dagster, Kafka, Docker, ROS 2" }
 
-    Experience:
-      - company: Feiou Technology (正瀛资产)
-        position: Quant AI Agent Intern
-        location: Remote
-        start_date: 2025-10
-        end_date: present
-        summary: Independently designed a real-time financial news intelligent analysis system (DataDig) for the global market.
-        highlights:
-          - "Built full async pipeline: Kafka consumer → LLM multi-dimensional feature extraction → 3-layer incremental clustering → event fusion, orchestrated by Dagster with 8-way parallel snippet extraction, incremental updates every 5 min (Python 15,000+ lines)"
-          - "Designed 3-layer real-time clustering: Layer 1 HAC (cosine ≥ 0.8) deduplication; Layer 2 (≥ 0.6) semantic clustering with summary generation; Layer 3 LLM structured output (Pydantic Schema) for merge/new/ignore decisions, fusing real-time clusters into a 365-day long-term event table"
-          - "Designed cross-cycle Cluster ID stability algorithm: Jaccard similarity UUID mapping + two-phase post-repair (anti-split/anti-merge) for stable cluster boundaries under incremental HAC; embedding stabilization (cosine ≥ 0.9 reuses old vectors) to suppress cascading effects from LLM phrasing variation"
-
-      - company: Nokia Bell Labs
-        position: AI Research Intern
-        location: Paris, France
-        start_date: 2025-03
-        end_date: 2025-10
-        summary: Developed a Graph RAG system enhancing LLM reasoning through structured text generation.
-        highlights:
-          - "Achieved F1 improvement of 47.5% (32.71 → 48.26) on the Corr2Cause benchmark"
-          - "Implemented 3-stage architecture: regex-constrained JSON tool calling with 100% schema compliance; knowledge graph construction with 95% entity precision and 92% disambiguation accuracy; NL-to-Cypher query with 100% syntax validity"
-          - "Core innovation: hybrid BM25-vector retrieval for entity disambiguation, semantic-aware document chunking, Qwen3-32B-based tool calling and structured output, significantly reducing hallucination and improving multi-hop reasoning"
-
-      - company: Institute of Automation, Chinese Academy of Sciences (中科院自动化所)
-        position: Robotics Intern Engineer (Prof. Qiao Hong's Team)
-        location: Beijing, China
-        start_date: 2024-03
-        end_date: 2024-09
-        summary: Designed complex perception-navigation system for wheeled humanoid robots.
-        highlights:
-          - "Achieved whole-body path planning and centimeter-level relocalization accuracy"
-          - "Fused solid-state LiDAR (fastlio2 + octomap) with depth camera (Intel D435i), used EKF to fuse multi-source pose data, reducing relocalization time by 80%"
-          - "Developed SLAM-based RRT* path planning plugin, then refactored mini planner to replace Nav2, reducing computation by 30%"
-
-    Projects:
-      - name: ASR-based Speech Recognition System
-        summary: "Outstanding Graduation Project — Built a speech recognition web app based on Whisper/FunASR, integrated Zhipu AI for text correction and translation, achieving 95% recognition rate for minority languages. Extended to robot system for voice command recognition with LLM-prompt-based automatic behavior tree generation."
-        start_date: 2024-02
-        end_date: 2024-05
-
-    Skills:
-      - name: Programming Languages
-        level: ""
-        icon: fa-solid fa-code
-        keywords: "Python (proficient), C++"
-
-      - name: Frameworks & Tools
-        level: ""
-        icon: fa-solid fa-toolbox
-        keywords: "PyTorch, Transformer, LangChain, ROS2 Humble, Docker"
-
-      - name: Large Language Models
-        level: ""
-        icon: fa-solid fa-robot
-        keywords: "Llama, Qwen, DeepSeek, RAG, Agent, Tool Calling, Structured Output"
-
-    Languages:
-      - name: Chinese (Mandarin)
-        summary: "Native speaker (一级乙等)"
-
-      - name: English
-        summary: "IELTS 6.5"
-
-      - name: French
-        summary: "A2"
+languages:
+  en: "Mandarin (native), English (IELTS 6.5), French (A2)"
+  zh: "普通话（母语，一级乙等）、英语（雅思 6.5）、法语（A2）"
+  fr: "Mandarin (langue maternelle), anglais (IELTS 6,5), français (A2)"

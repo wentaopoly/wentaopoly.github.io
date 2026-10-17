@@ -1,0 +1,6 @@
+{%- comment -%} Renders a YYYY-MM string (include.d) as a localized month. {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign parts = include.d | split: "-" -%}
+{%- assign mi = parts[1] | plus: 0 | minus: 1 -%}
+{%- assign out = t.date_format | replace: "{y}", parts[0] | replace: "{m}", t.months[mi] -%}
+<time datetime="{{ include.d }}">{{ out }}</time>

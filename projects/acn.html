@@ -1,0 +1,65 @@
+---
+layout: project
+ref: p-acn
+title: Do shared notes help a coding agent?
+lede: Agent Claim Network is a terminal coding agent that saves what it figures out as “claims” other agents can look up. I ran the evaluation that asks whether those claims actually help, on 111 long software-engineering tasks.
+meta:
+  When: 2026
+  Role: Evaluation, and several agent features, in a team project
+  Code: <a href="https://github.com/FTShare-Lab/agent-claim-network">agent-claim-network</a> · <a href="https://github.com/FTShare-Lab/acn-deepswe-eval">acn-deepswe-eval</a>
+---
+<section class="sec">
+  <h2>The idea</h2>
+  <div class="sec-body prose">
+    <p>Most multi-agent setups share a memory store and leave it there. ACN instead stores conclusions as claims: a statement with a scope, its evidence, who holds it and how confident they are. A router indexes claims so other agents can find them, and a maintainer handles the cases where two claims disagree. The core design is the team’s; my question was narrower.</p>
+    <p>If one agent solves a task and leaves claims behind, does a fresh agent on the same task do better?</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Setup</h2>
+  <div class="sec-body prose">
+    <p>The benchmark is DeepSWE v1.1, long tasks written from active open-source repositories and checked by hand-written verifiers. Each task was given to four isolated agents running DeepSeek-V4.1-Flash, identical except for how claims reach them:</p>
+    <ul>
+      <li><strong>Producer</strong> solves the task first and writes claims. Only producers that pass the verifier get to hand their claims on.</li>
+      <li><strong>No claims</strong>: a fresh agent, the baseline.</li>
+      <li><strong>Claims on demand</strong>: a fresh agent that sees a list of claim summaries and fetches the ones it wants.</li>
+      <li><strong>Claims forced</strong>: a fresh agent with every claim pasted into its first prompt.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Results</h2>
+  <div class="sec-body prose">
+    <figure class="bars" aria-labelledby="acn-chart-title">
+      <p class="chart-title" id="acn-chart-title">Tasks passed, out of 111</p>
+      <div class="bar-row"><span class="bar-label">Producer</span><span class="bar-track"><span class="bar" style="width: 64.86%"></span></span><span class="bar-value">72</span></div>
+      <div class="bar-row"><span class="bar-label">No claims</span><span class="bar-track"><span class="bar" style="width: 56.76%"></span></span><span class="bar-value">63</span></div>
+      <div class="bar-row is-key"><span class="bar-label">Claims on demand</span><span class="bar-track"><span class="bar" style="width: 65.77%"></span></span><span class="bar-value">73</span></div>
+      <div class="bar-row"><span class="bar-label">Claims forced</span><span class="bar-track"><span class="bar" style="width: 58.56%"></span></span><span class="bar-value">65</span></div>
+      <figcaption>DeepSWE v1.1, DeepSeek-V4.1-Flash, one run per arm. Bars are drawn on a 0–111 scale.</figcaption>
+    </figure>
+    <p>The agent that fetched claims on demand passed 10 more tasks than the baseline and used 15.9% fewer input tokens and 10.3% fewer model requests. Pasting the same claims into the prompt gained only 2 tasks, so the benefit comes from the agent choosing what to read, not from more context.</p>
+    <p>That is encouraging, but not conclusive. Paired by task, the two arms disagree on 30 tasks:</p>
+    <table class="data">
+      <thead><tr><th></th><th class="num">On demand passed</th><th class="num">On demand failed</th></tr></thead>
+      <tbody>
+        <tr><th>Baseline passed</th><td class="num">53</td><td class="num">10</td></tr>
+        <tr><th>Baseline failed</th><td class="num">20</td><td class="num">28</td></tr>
+      </tbody>
+    </table>
+    <p>Twenty to ten points the right way, but an exact McNemar test gives p ≈ 0.099, and this is a single run. In an earlier full run with the previous model, DeepSeek-V4-Flash, the claim arm did worse than the baseline (44 against 52 of 113). I would want repeated runs before calling this an effect.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>What I built</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>The DeepSWE runner and the evaluation itself: four isolated arms per task, the quality gate on claims, paired statistics, and a report that only counts runs that finished with a full denominator.</li>
+      <li>The claim tool agents use to look claims up in the middle of a task, and the <code>/claim</code> panel in the terminal UI.</li>
+      <li>OAuth login for MCP servers, and recovery when a model provider rejects a request mid-session.</li>
+    </ul>
+  </div>
+</section>

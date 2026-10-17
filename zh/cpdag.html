@@ -1,0 +1,62 @@
+---
+layout: default
+ref: cpdag
+title: Externalized CPDAG Summaries Improve LLM Causal Deduction
+description: NeurIPS 2026 论文，作者孙文涛、João Paulo Nogueira、Dominique Verchere、Mathieu Acher、Alonso Silva，附讲解视频。
+image: /assets/img/cpdag/poster.jpg
+---
+{%- assign pub = site.data.publications | first -%}
+<article class="paper">
+  {% include cpdag/head.html %}
+
+  <section class="sec">
+    <h2>视频</h2>
+    <div class="sec-body">{% include cpdag/video.html %}</div>
+  </section>
+
+  <section class="sec">
+    <h2>简单说</h2>
+    <div class="sec-body prose">
+      <p>Corr2Cause 会给语言模型几个变量之间的相关关系和条件独立关系，然后问某个因果结论能不能推出来。只有当这个结论在<em>每一个</em>与证据相容的因果图里都成立时，答案才是“是”。难就难在“每一个”上。自由形式的思维链常常跳过这一步：模型找到一种说得通的解释，就照着它作答了。</p>
+      <p>我们让模型把这笔账公开算出来。第一轮，模型在 JSON schema 约束下写出 CPDAG，也就是概括所有相容图的那个对象；第二轮，模型对照这份记录回答问题。整个过程不做微调，也不调用符号求解器。</p>
+      {% include cpdag/toy.html %}
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>方法</h2>
+    <div class="sec-body">{% include cpdag/flow.html %}</div>
+  </section>
+
+  <section class="sec">
+    <h2>结果</h2>
+    <div class="sec-body prose">
+      <p>在 Qwen3.5-27B 上，“是”类的 F1 从 73.0 提高到 86.4。两类错误都减少了：漏掉的“是”从 61 个降到 28 个，误报从 27 个降到 20 个。一个两轮的对照实验让模型在第一轮写自然语言而不是结构化的图，结果只有 67.6，比基线还低，说明起作用的不只是多了一轮。</p>
+      {% include cpdag/results.html %}
+      <p>本来就强的模型提升有限：GPT-5.4-mini 和 Gemma-4-31B 的基线在 85 左右，单次运行分别提高 3.2 和 2.0。另外，这个方法消耗的 token 大约是单轮基线的两倍。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>图真的被用上了吗</h2>
+    <div class="sec-body prose">
+      <p>模型完全可能写出一张整齐的图，然后不理它，所以我们故意把图弄乱。在两轮之间把整张 CPDAG 打乱，F1 下降 12.0；只打乱骨架、只打乱对撞结构或只打乱有向边，各自下降 6 左右；而在第二轮去掉前提，只下降 3.8。</p>
+      <p>模型写出的图大多也是对的。和参考 CPDAG 比，骨架的 F1 达到 0.960，75.9% 的图完全一致；图完全正确时，最终答案的正确率是 97.2%。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>局限</h2>
+    <div class="sec-body prose">
+      <p>所有结果都来自 Corr2Cause，这里的独立关系是直接给出的干净陈述，而不是从数据中估计出来的。模型输出的图满足 schema，但没有经过验证，18% 到 21% 的输出存在某种内部不一致。除了主实验用三个随机种子重复过（平均提升 +8.1 ± 5.3），上面其余各行都是单次运行。</p>
+      <p>这条线更早的一个版本是 2025 年 5 月的 <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>。</p>
+    </div>
+  </section>
+
+  <section class="sec" id="bibtex">
+    <h2>引用</h2>
+    <div class="sec-body">
+      <div class="codeblock"><pre><code>{{ pub.bibtex | strip | escape }}</code></pre><button class="copy" type="button" data-copy data-copied="{{ site.data.i18n[page.lang].copied }}">{{ site.data.i18n[page.lang].copy }}</button></div>
+    </div>
+  </section>
+</article>

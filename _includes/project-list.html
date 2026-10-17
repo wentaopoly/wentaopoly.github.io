@@ -1,0 +1,11 @@
+{%- assign prefix = "" -%}
+{%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
+<ul class="plist">
+  {%- for p in site.data.projects %}
+  <li>
+    <a href="{{ prefix }}/projects/{{ p.slug }}/"><span class="p-title">{{ p.title[page.lang] }}</span></a>
+    <span class="p-when">{{ p.period }}</span>
+    <span class="p-desc">{{ p.summary[page.lang] }}</span>
+  </li>
+  {%- endfor %}
+</ul>

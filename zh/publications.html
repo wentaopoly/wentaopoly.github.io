@@ -1,0 +1,18 @@
+---
+ref: publications
+title: 论文
+permalink: /zh/publications/
+---
+{%- assign t = site.data.i18n[page.lang] -%}
+<section class="sec">
+  <h2>2026</h2>
+  <div class="sec-body">{% for p in site.data.publications %}{% if p.year == 2026 %}{% include pub.html p=p %}{% endif %}{% endfor %}</div>
+</section>
+<section class="sec">
+  <h2>2025</h2>
+  <div class="sec-body">{% for p in site.data.publications %}{% if p.year == 2025 %}{% include pub.html p=p %}{% endif %}{% endfor %}</div>
+</section>
+<section class="sec">
+  <h2 class="visually-hidden">Google Scholar</h2>
+  <div class="sec-body"><p class="note">{{ t.scholar_note }}</p></div>
+</section>

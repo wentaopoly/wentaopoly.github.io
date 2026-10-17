@@ -1,0 +1,90 @@
+<!doctype html>
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign prefix = "" -%}
+{%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
+{%- assign siblings = site.pages | where: "ref", page.ref -%}
+<html lang="{% if page.lang == 'zh' %}zh-Hans{% else %}{{ page.lang }}{% endif %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ t.name }}</title>
+  <meta name="description" content="{{ page.description | default: t.description | strip_html | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  {%- for lang in site.languages %}
+  {%- assign alt = siblings | where: "lang", lang | first %}
+  {%- if alt %}
+  <link rel="alternate" hreflang="{{ lang }}" href="{{ alt.url | absolute_url }}">
+  {%- if lang == "en" %}
+  <link rel="alternate" hreflang="x-default" href="{{ alt.url | absolute_url }}">
+  {%- endif %}
+  {%- endif %}
+  {%- endfor %}
+  <meta property="og:title" content="{{ page.title | default: t.name | escape }}">
+  <meta property="og:description" content="{{ page.description | default: t.description | strip_html | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:image" content="{{ page.image | default: '/assets/img/prof_pic.jpg' | absolute_url }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
+  {%- if page.lang == "zh" %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap">
+  {%- endif %}
+  <link rel="stylesheet" href="/assets/css/site.css">
+  {%- if page.lang == "en" %}
+  <script>
+    // First visit from outside the site: follow the browser's language once.
+    // An explicit choice in the language switcher is stored and always wins.
+    (function () {
+      var alternates = { {% for p in siblings %}{% unless p.lang == "en" %}"{{ p.lang }}": "{{ p.url }}",{% endunless %}{% endfor %} };
+      try {
+        if (localStorage.getItem("lang")) return;
+        if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+      } catch (e) { return; }
+      var prefs = navigator.languages || [navigator.language];
+      for (var i = 0; i < prefs.length; i++) {
+        var code = String(prefs[i]).slice(0, 2).toLowerCase();
+        if (code === "en") return;
+        if (alternates[code]) { location.replace(alternates[code]); return; }
+      }
+    })();
+  </script>
+  {%- endif %}
+  <script>window.visitorMapConfig = { apiUrl: "{{ site.visitor_map.api_url }}", trackIntervalHours: {{ site.visitor_map.track_interval_hours }} };</script>
+  <script src="/assets/js/visitor-tracker.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body class="lang-{{ page.lang }}{% if page.body_class %} {{ page.body_class }}{% endif %}">
+  <header class="top wrap">
+    {%- unless page.ref == "home" %}
+    <a class="top-name" href="{{ prefix }}/">{{ t.name }}</a>
+    {%- endunless %}
+    <nav class="top-nav" aria-label="Site">
+      {%- for item in t.nav %}
+      {%- capture href %}{{ prefix }}/{{ item[0] }}/{% endcapture %}
+      <a href="{{ href }}"{% if page.url contains href %} aria-current="page"{% endif %}>{{ item[1] }}</a>
+      {%- endfor %}
+    </nav>
+    <nav class="top-langs" aria-label="Language">
+      {%- for lang in site.languages %}
+      {%- assign alt = siblings | where: "lang", lang | first %}
+      {%- assign label = site.data.i18n[lang].lang_label %}
+      {%- if lang == page.lang %}
+      <span aria-current="true" lang="{{ lang }}" title="{{ label }}">{% case lang %}{% when "en" %}EN{% when "zh" %}中{% when "fr" %}FR{% endcase %}</span>
+      {%- elsif alt %}
+      <a href="{{ alt.url }}" lang="{{ lang }}" hreflang="{{ lang }}" title="{{ label }}" data-lang-link="{{ lang }}">{% case lang %}{% when "en" %}EN{% when "zh" %}中{% when "fr" %}FR{% endcase %}</a>
+      {%- endif %}
+      {%- endfor %}
+    </nav>
+  </header>
+
+  <main class="wrap" id="main">
+    {{ content }}
+  </main>
+
+  <footer class="foot wrap">
+    <p>© {{ site.time | date: "%Y" }} Wentao Sun · {{ t.updated }} {{ site.time | date: "%Y-%m-%d" }}</p>
+  </footer>
+</body>
+</html>

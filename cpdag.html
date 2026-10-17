@@ -1,0 +1,63 @@
+---
+layout: default
+ref: cpdag
+title: Externalized CPDAG Summaries Improve LLM Causal Deduction
+description: NeurIPS 2026 paper by Wentao Sun, João Paulo Nogueira, Dominique Verchere, Mathieu Acher and Alonso Silva, with an explainer video.
+image: /assets/img/cpdag/poster.jpg
+---
+{%- assign s = site.data.cpdag[page.lang] -%}
+{%- assign pub = site.data.publications | first -%}
+<article class="paper">
+  {% include cpdag/head.html %}
+
+  <section class="sec">
+    <h2>Video</h2>
+    <div class="sec-body">{% include cpdag/video.html %}</div>
+  </section>
+
+  <section class="sec">
+    <h2>In short</h2>
+    <div class="sec-body prose">
+      <p>Corr2Cause gives a language model the correlations and conditional independencies among a handful of variables, then asks whether a causal claim follows. The claim counts as true only if it holds in <em>every</em> causal graph that fits the evidence. That “every” is the hard part, and free-form chain-of-thought tends to skip it: the model finds one story that fits and answers from it.</p>
+      <p>We make the model do the bookkeeping in the open. In a first turn it writes down the CPDAG, the object that summarizes all graphs consistent with the evidence, as a typed record under a JSON schema. In a second turn it answers against that record. There is no fine-tuning and no symbolic solver.</p>
+      {% include cpdag/toy.html %}
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Method</h2>
+    <div class="sec-body">{% include cpdag/flow.html %}</div>
+  </section>
+
+  <section class="sec">
+    <h2>Results</h2>
+    <div class="sec-body prose">
+      <p>With Qwen3.5-27B, F1 on the “Yes” class goes from 73.0 to 86.4. Both kinds of error go down: missed “Yes” cases fall from 61 to 28 and false alarms from 27 to 20. A two-turn control that writes prose instead of a typed graph scores 67.6, below the baseline, so the second turn alone is not what helps.</p>
+      {% include cpdag/results.html %}
+      <p>Strong models gain less: GPT-5.4-mini and Gemma-4-31B start near 85 and improve by 3.2 and 2.0 points in single runs. The method also costs about twice the tokens of the one-turn baseline.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Is the graph used?</h2>
+    <div class="sec-body prose">
+      <p>A model can produce a tidy graph and then ignore it, so we broke the graph on purpose. Scrambling the whole CPDAG between the two turns costs 12.0 points of F1. Scrambling only the skeleton, only the colliders or only the directed edges costs about 6 points each, while dropping the premise from the second turn costs 3.8.</p>
+      <p>The graphs are also mostly right. Against the reference CPDAG, the emitted skeletons reach an F1 of 0.960 and 75.9% of graphs match exactly. When the graph is exact, the final answer is correct 97.2% of the time.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Limits</h2>
+    <div class="sec-body prose">
+      <p>Everything here is measured on Corr2Cause, where the independencies arrive as clean statements instead of being estimated from data. The emitted graph is schema-valid but not certified; 18 to 21% of outputs contain some internal inconsistency. Apart from the main comparison, which we ran with three seeds (+8.1 ± 5.3 on average), the rows above are single runs.</p>
+      <p>An earlier version of this line of work appeared in May 2025 as <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="bibtex">
+    <h2>Cite</h2>
+    <div class="sec-body">
+      <div class="codeblock"><pre><code>{{ pub.bibtex | strip | escape }}</code></pre><button class="copy" type="button" data-copy data-copied="{{ site.data.i18n[page.lang].copied }}">{{ site.data.i18n[page.lang].copy }}</button></div>
+    </div>
+  </section>
+</article>

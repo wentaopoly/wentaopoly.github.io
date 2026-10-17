@@ -1,0 +1,38 @@
+{%- assign s = site.data.cpdag[page.lang].toy -%}
+<figure class="toy" aria-labelledby="toy-title">
+  <svg width="0" height="0" class="defs" aria-hidden="true">
+    <defs>
+      <marker id="toy-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,1 L10,5 L0,9 z"/>
+      </marker>
+    </defs>
+  </svg>
+  <h3 id="toy-title">{{ s.title }}</h3>
+  <fieldset class="toy-pick">
+    <legend>{{ s.pick }}</legend>
+    <label><input type="radio" name="toy-evidence" value="chain" checked> {{ s.case_chain }}</label>
+    <label><input type="radio" name="toy-evidence" value="collider"> {{ s.case_collider }}</label>
+  </fieldset>
+
+  <div class="toy-case toy-chain">
+    <p class="toy-h">{{ s.fits }}</p>
+    <div class="toy-graphs">
+      <div class="holds">{% include cpdag/graph3.html ab="r" bc="r" label="A → B → C" %}<span>{{ s.names.chain }} <b>✓</b></span></div>
+      <div>{% include cpdag/graph3.html ab="l" bc="l" label="A ← B ← C" %}<span>{{ s.names.reverse }} <b>✗</b></span></div>
+      <div>{% include cpdag/graph3.html ab="l" bc="r" label="A ← B → C" %}<span>{{ s.names.fork }} <b>✗</b></span></div>
+    </div>
+    <p class="toy-h">{{ s.cpdag }}</p>
+    <div class="toy-graphs"><div>{% include cpdag/graph3.html ab="u" bc="u" label="A — B — C" %}</div></div>
+    <p class="toy-verdict"><strong>{{ s.claim }}.</strong> {{ s.verdict_chain }}</p>
+  </div>
+
+  <div class="toy-case toy-collider">
+    <p class="toy-h">{{ s.fits }}</p>
+    <div class="toy-graphs">
+      <div class="holds">{% include cpdag/graph3.html ab="r" bc="l" label="A → B ← C" %}<span>{{ s.names.collider }} <b>✓</b></span></div>
+    </div>
+    <p class="toy-h">{{ s.cpdag }}</p>
+    <div class="toy-graphs"><div>{% include cpdag/graph3.html ab="r" bc="l" label="A → B ← C" %}</div></div>
+    <p class="toy-verdict"><strong>{{ s.claim }}.</strong> {{ s.verdict_collider }}</p>
+  </div>
+</figure>

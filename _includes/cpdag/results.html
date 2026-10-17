@@ -1,0 +1,40 @@
+{%- comment -%} Dumbbell chart: baseline vs Structured Thinking per model. x maps 30..100 onto 0..100%. {%- endcomment -%}
+{%- assign s = site.data.cpdag[page.lang].chart -%}
+{%- assign rows = site.data.cpdag.results -%}
+<figure class="dumbbell" aria-labelledby="dumbbell-title">
+  <p class="chart-title" id="dumbbell-title">{{ s.title }}</p>
+  <p class="chart-legend"><span class="key key-base"></span>{{ s.base }} <span class="key key-ours"></span>{{ s.ours }}</p>
+  <div class="db-plot">
+    <div class="db-grid" aria-hidden="true">
+      {%- for tick in (4..10) %}{% assign v = tick | times: 10 %}
+      <span style="left: {{ v | minus: 30 | times: 100.0 | divided_by: 70 }}%">{{ v }}</span>
+      {%- endfor %}
+    </div>
+    {%- for r in rows %}
+    {%- assign x0 = r.base | minus: 30 | times: 100.0 | divided_by: 70 -%}
+    {%- assign x1 = r.ours | minus: 30 | times: 100.0 | divided_by: 70 -%}
+    <div class="db-row">
+      <span class="db-label">{{ r.label[page.lang] }}</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: {{ x0 }}%; width: {{ x1 | minus: x0 }}%"></span>
+        <span class="db-dot db-base" style="left: {{ x0 }}%" title="{{ s.base }}: {{ r.base | round: 1 }}"></span>
+        <span class="db-dot db-ours" style="left: {{ x1 }}%" title="{{ s.ours }}: {{ r.ours | round: 1 }}"></span>
+      </span>
+      <span class="db-delta">{{ r.d1 }}</span>
+    </div>
+    {%- endfor %}
+    <div class="db-axis" aria-hidden="true"></div>
+  </div>
+  <figcaption>{{ s.note }}</figcaption>
+  <details class="chart-table">
+    <summary>{{ s.table }}</summary>
+    <table>
+      <thead><tr><th>{{ s.col_model }}</th><th>{{ s.col_base }}</th><th>{{ s.col_ours }}</th><th>{{ s.col_delta }}</th></tr></thead>
+      <tbody>
+        {%- for r in rows %}
+        <tr><td>{{ r.label[page.lang] }}</td><td>{{ r.base }}</td><td>{{ r.ours }}</td><td>{{ r.d2 }}</td></tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </details>
+</figure>

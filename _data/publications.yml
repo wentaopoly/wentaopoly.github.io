@@ -1,0 +1,53 @@
+# Newest first. `page` is a site path without the language prefix; `links` keys
+# must exist under `links:` in _data/i18n.yml. Author names follow the arXiv listing.
+- title: Externalized CPDAG Summaries Improve LLM Causal Deduction
+  authors: [Wentao Sun, João Paulo Nogueira, Dominique Verchere, Mathieu Acher, Alonso Silva]
+  venue: NeurIPS 2026
+  note: { en: poster, zh: 海报, fr: poster }
+  year: 2026
+  thumb: /assets/img/cpdag/thumb.jpg
+  page: /cpdag/
+  links:
+    paper: https://arxiv.org/pdf/2609.31071
+    arxiv: https://arxiv.org/abs/2609.31071
+    openreview: https://openreview.net/forum?id=jNkJv4Cfma
+    video: /cpdag/#video
+  bibtex: |
+    @inproceedings{sun2026externalized,
+      title     = {Externalized {CPDAG} Summaries Improve {LLM} Causal Deduction},
+      author    = {Sun, Wentao and Nogueira, Jo{\~a}o Paulo and Verchere, Dominique and Acher, Mathieu and Silva, Alonso},
+      booktitle = {Advances in Neural Information Processing Systems},
+      year      = {2026},
+      eprint    = {2609.31071},
+      archivePrefix = {arXiv}
+    }
+
+- title: "Certainty-Guided Reasoning in Large Language Models: A Dynamic Thinking Budget Approach"
+  authors: [João Paulo Nogueira, Wentao Sun, Alonso Silva, Laith Zumot]
+  venue: arXiv preprint, 2025
+  year: 2025
+  links:
+    paper: https://arxiv.org/pdf/2509.07820
+    arxiv: https://arxiv.org/abs/2509.07820
+  bibtex: |
+    @article{nogueira2025certainty,
+      title   = {Certainty-Guided Reasoning in Large Language Models: A Dynamic Thinking Budget Approach},
+      author  = {Nogueira, Jo{\~a}o Paulo and Sun, Wentao and Silva, Alonso and Zumot, Laith},
+      journal = {arXiv preprint arXiv:2509.07820},
+      year    = {2025}
+    }
+
+- title: "Structured Thinking Matters: Improving LLMs Generalization in Causal Inference Tasks"
+  authors: [Wentao Sun, João Paulo Nogueira, Alonso Silva]
+  venue: arXiv preprint, 2025
+  year: 2025
+  links:
+    paper: https://arxiv.org/pdf/2505.18034
+    arxiv: https://arxiv.org/abs/2505.18034
+  bibtex: |
+    @article{sun2025structured,
+      title   = {Structured Thinking Matters: Improving {LLMs} Generalization in Causal Inference Tasks},
+      author  = {Sun, Wentao and Nogueira, Jo{\~a}o Paulo and Silva, Alonso},
+      journal = {arXiv preprint arXiv:2505.18034},
+      year    = {2025}
+    }

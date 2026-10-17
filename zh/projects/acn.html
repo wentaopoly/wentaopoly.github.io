@@ -1,0 +1,65 @@
+---
+layout: project
+ref: p-acn
+title: 共享笔记能帮编程智能体吗？
+lede: Agent Claim Network 是一个终端里的编程智能体，会把自己弄明白的东西存成别的智能体可以检索的 claim。我做的是评测：这些 claim 到底有没有用，在 111 道长程软件工程任务上检验。
+meta:
+  时间: 2026 年
+  角色: 团队项目中负责评测，并开发了几项智能体功能
+  代码: <a href="https://github.com/FTShare-Lab/agent-claim-network">agent-claim-network</a> · <a href="https://github.com/FTShare-Lab/acn-deepswe-eval">acn-deepswe-eval</a>
+---
+<section class="sec">
+  <h2>想法</h2>
+  <div class="sec-body prose">
+    <p>多数多智能体系统共享一个记忆库就算完事。ACN 的做法是把结论存成 claim：一条带适用范围、证据、持有者和置信度的判断。router 给 claim 建索引，方便其他智能体检索；两条 claim 冲突时由 maintainer 处理。核心设计是团队的，我关心的问题更窄一些。</p>
+    <p>一个智能体解完一道题、留下了 claim，换一个全新的智能体来做同一道题，会不会做得更好？</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>实验设置</h2>
+  <div class="sec-body prose">
+    <p>基准是 DeepSWE v1.1，题目取自活跃的开源仓库，每题由手写的 verifier 判定。每道题交给四个彼此隔离的智能体，都用 DeepSeek-V4.1-Flash，只有拿到 claim 的方式不同：</p>
+    <ul>
+      <li><strong>生产者</strong>先独立解题并写下 claim。只有通过 verifier 的生产者，claim 才会交给后面的智能体。</li>
+      <li><strong>无 claim</strong>：全新的智能体，作为基线。</li>
+      <li><strong>按需取用</strong>：全新的智能体，只看到 claim 摘要列表，自己决定读哪些。</li>
+      <li><strong>强制注入</strong>：全新的智能体，所有 claim 直接贴进第一轮提示。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>结果</h2>
+  <div class="sec-body prose">
+    <figure class="bars" aria-labelledby="acn-chart-title">
+      <p class="chart-title" id="acn-chart-title">通过的题数（共 111 题）</p>
+      <div class="bar-row"><span class="bar-label">生产者</span><span class="bar-track"><span class="bar" style="width: 64.86%"></span></span><span class="bar-value">72</span></div>
+      <div class="bar-row"><span class="bar-label">无 claim</span><span class="bar-track"><span class="bar" style="width: 56.76%"></span></span><span class="bar-value">63</span></div>
+      <div class="bar-row is-key"><span class="bar-label">按需取用</span><span class="bar-track"><span class="bar" style="width: 65.77%"></span></span><span class="bar-value">73</span></div>
+      <div class="bar-row"><span class="bar-label">强制注入</span><span class="bar-track"><span class="bar" style="width: 58.56%"></span></span><span class="bar-value">65</span></div>
+      <figcaption>DeepSWE v1.1，DeepSeek-V4.1-Flash，每组各运行一次。条形按 0–111 的比例绘制。</figcaption>
+    </figure>
+    <p>按需取用 claim 的智能体比基线多通过 10 题，输入 token 少 15.9%，模型请求少 10.3%。把同样的 claim 强制塞进提示只多过 2 题，所以收益来自智能体自己挑着读，而不是上下文更多。</p>
+    <p>结果令人鼓舞，但还不能下结论。按题配对，两组在 30 道题上结果不同：</p>
+    <table class="data">
+      <thead><tr><th></th><th class="num">按需取用：通过</th><th class="num">按需取用：未通过</th></tr></thead>
+      <tbody>
+        <tr><th>基线：通过</th><td class="num">53</td><td class="num">10</td></tr>
+        <tr><th>基线：未通过</th><td class="num">20</td><td class="num">28</td></tr>
+      </tbody>
+    </table>
+    <p>20 比 10，方向是对的，但精确 McNemar 检验的 p ≈ 0.099，而且只跑了一次。更早用上一代模型 DeepSeek-V4-Flash 的完整运行里，claim 组反而不如基线（113 题中 44 对 52）。要说这是一个确定的效应，我还想看到重复实验。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>我做的部分</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>DeepSWE 评测本身和它的 runner：每题四组隔离运行、claim 的质量门控、配对统计，报告只收录分母完整、已经跑完的运行。</li>
+      <li>智能体在解题过程中检索 claim 用的 claim 工具，以及终端界面里的 <code>/claim</code> 面板。</li>
+      <li>MCP 服务器的 OAuth 登录，以及模型服务在会话中途拒绝请求时的恢复机制。</li>
+    </ul>
+  </div>
+</section>

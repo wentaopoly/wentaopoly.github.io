@@ -1,0 +1,61 @@
+---
+layout: project
+ref: p-datadig
+title: 让新闻聚类保持稳定
+lede: DataDig 把中文金融新闻流拆成简短的事实，每隔几分钟把它们归入正在发展的事件。我负责的是让这种归类在时间上保持稳定，新文章进来时，一个事件还是原来那个事件。
+meta:
+  时间: 2025–2026 年
+  角色: 团队系统中负责聚类、事件链和检索
+  代码: 未公开
+---
+<section class="sec">
+  <h2>为什么身份很重要</h2>
+  <div class="sec-body prose">
+    <p>每隔几分钟，系统从新进来的文章里抽取片段，并对最近的片段重新聚类。时间线、摘要和提醒都指向 cluster ID。如果某次重跑把昨天的一个 cluster 拆成了两个，或者给它换了 ID，这个事件的历史就被切断了，尽管事件本身什么都没变。</p>
+    <p>用 Ward linkage 的层次聚类在流式数据上恰恰会这样。它的合并是贪心的，加入几个新点就会改变合并顺序；在我们的运行里，已有 cluster 中大约 1% 的成员会被打散到新的 cluster 里。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>防拆分与防合并</h2>
+  <div class="sec-body prose">
+    <figure class="fig clusters" aria-label="示意图：重新聚类拆散了一个旧 cluster，修复后成员被拉回原处；两个被合并的旧 cluster 会被重新分开。">
+      <svg viewBox="0 0 560 150" role="img">
+        <g class="lbl"><text x="70" y="16">之前</text><text x="210" y="16">重新聚类</text><text x="350" y="16">修复之后</text></g>
+        <g class="old"><circle cx="70" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="55" cy="52" r="5"/><circle cx="78" cy="48" r="5"/><circle cx="64" cy="75" r="5"/><circle cx="86" cy="70" r="5"/>
+        </g>
+        <text class="arrow" x="135" y="66">→</text>
+        <g class="new"><circle cx="196" cy="58" r="24"/><circle cx="243" cy="78" r="14"/></g>
+        <g class="pts">
+          <circle cx="188" cy="50" r="5"/><circle cx="208" cy="48" r="5"/><circle cx="196" cy="70" r="5"/><circle class="moved" cx="243" cy="78" r="5"/>
+        </g>
+        <text class="arrow" x="282" y="66">→</text>
+        <g class="old"><circle cx="350" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="335" cy="52" r="5"/><circle cx="358" cy="48" r="5"/><circle cx="344" cy="75" r="5"/><circle class="moved" cx="366" cy="70" r="5"/>
+        </g>
+        <g class="lbl small"><text x="70" y="120">一个事件</text><text x="215" y="120">一个成员跑了出去</text><text x="350" y="120">拉回来，ID 不变</text></g>
+      </svg>
+      <figcaption>防拆分。防合并是对称的情形：两个旧 cluster 被归到同一个新标签下时，把它们重新分开。</figcaption>
+    </figure>
+    <p>每次重新聚类之后，都会跑一遍两阶段的修复。第一阶段，旧 cluster 中被打散到不同新标签的成员，回到拥有其中大多数成员的那个标签。第二阶段，如果某个新标签吞下了好几个旧 cluster，就按旧 cluster 重新拆开。平局时取编号最小的标签，所以修复是确定性的。</p>
+    <p>之后，新 cluster 按成员的 Jaccard 重合度继承旧 ID。实践中还有一个细节很要紧：语言模型每一轮都会稍微改写片段的措辞，向量随之移动，并可能在聚类里层层传导。所以当新向量与旧向量的余弦相似度在 0.9 以上时，沿用旧向量。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>事件链</h2>
+  <div class="sec-body prose">
+    <p>cluster 会被串成事件链，跟踪一个事件在几天、几周里的发展。链上的每个节点只记录相对上一个节点变了什么，而不是重新概括一遍全部内容，这样读者能看到事件是怎么推进的，不用从头再读。</p>
+    <p>检索上，我用了一种有依据的 HyDE 变体：先检索真实文档，证据不足时干脆不生成，只有在这之后才让模型根据找到的内容写一条简短的桥接查询。凭空写出来的假想文档，往往检索回来的是模型自己的预设。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>规模</h2>
+  <div class="sec-body prose">
+    <p>在一次用早期版本流水线离线重放三天新闻的实验里，抽出的 29,832 个片段去重后剩 7,628 个，聚成 4,510 个 cluster，再由模型逐个判断：并入已有事件、新开事件，或者作为噪声丢掉。</p>
+  </div>
+</section>

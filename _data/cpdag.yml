@@ -1,0 +1,111 @@
+# Strings for the NeurIPS 2026 paper page (cpdag.html in each language).
+# Numbers come from the paper (arXiv 2609.31071), Table 1 and Sections 4-5.
+results:
+  - { label: { en: "Qwen3.5-27B", zh: "Qwen3.5-27B", fr: "Qwen3.5-27B" }, base: 73.01, ours: 86.36 , d1: "+13.4", d2: "+13.35" }
+  - { label: { en: "Qwen3.5-27B, reworded test", zh: "Qwen3.5-27B，改写后的测试集", fr: "Qwen3.5-27B, test reformulé" }, base: 72.33, ours: 82.79 , d1: "+10.5", d2: "+10.46" }
+  - { label: { en: "Qwen3.6-27B", zh: "Qwen3.6-27B", fr: "Qwen3.6-27B" }, base: 75.92, ours: 85.71 , d1: "+9.8", d2: "+9.79" }
+  - { label: { en: "Qwen3.5-9B", zh: "Qwen3.5-9B", fr: "Qwen3.5-9B" }, base: 39.18, ours: 59.56 , d1: "+20.4", d2: "+20.38" }
+  - { label: { en: "Gemma-4-31B *", zh: "Gemma-4-31B *", fr: "Gemma-4-31B *" }, base: 85.38, ours: 87.39 , d1: "+2.0", d2: "+2.01" }
+  - { label: { en: "GPT-5.4-mini", zh: "GPT-5.4-mini", fr: "GPT-5.4-mini" }, base: 85.39, ours: 88.58 , d1: "+3.2", d2: "+3.19" }
+
+en:
+  venue_line: NeurIPS 2026 · Poster, Paris Poster Hall, Wednesday 9 December 2026, 12:30–14:30 (Paris time)
+  affiliations: ["Nokia Bell Labs", "Institut Polytechnique de Paris", "IRISA / Inria"]
+  video_label: Explainer video, 8 min 31 s
+  video_fallback: Your browser cannot play this video. <a href="/assets/video/cpdag-explainer.mp4">Download it</a> instead.
+  subs: { en: English, zh: 中文, fr: Français }
+  toy:
+    title: Try it with three variables
+    pick: The evidence
+    case_chain: A and C are correlated, but independent once you know B
+    case_collider: A and C are independent, but correlated once you know B
+    fits: Causal graphs that fit this evidence
+    names: { chain: chain, reverse: reverse chain, fork: common cause, collider: collider }
+    cpdag: What all of them agree on (the CPDAG)
+    claim: "Hypothesis: A causes B"
+    verdict_chain: "Holds in 1 of 3 graphs. Possible, but not deducible: the answer is No."
+    verdict_collider: "Holds in the only graph. Deducible: the answer is Yes."
+  flow:
+    input: Premise + hypothesis
+    turn1: "Turn 1: write down the graph"
+    turn2: "Turn 2: answer against it"
+    answer: Yes / No
+    caption: The baseline gets the same PC-algorithm instructions in a single turn, so the gain is not explained by better instructions. Turn 1 is decoded under a JSON schema; the object below is what the model emits for a five-variable example.
+  chart:
+    title: F1 on “Yes” answers, Corr2Cause test set
+    base: One turn, same PC-algorithm prompt
+    ours: Structured Thinking
+    note: "The first row is the primary paired run (McNemar p = 2.4 × 10⁻⁶; over three seeds the gain averages +8.1 ± 5.3). Other rows are single runs. * Gemma was run without hard constrained decoding."
+    table: Show the numbers
+    col_model: Model
+    col_base: Baseline
+    col_ours: Structured
+    col_delta: Change
+
+zh:
+  venue_line: NeurIPS 2026 · 海报，巴黎海报厅，2026 年 12 月 9 日（周三）12:30–14:30（巴黎时间）
+  affiliations: ["诺基亚贝尔实验室", "巴黎理工学院联盟", "IRISA / Inria"]
+  video_label: 讲解视频，8 分 31 秒
+  video_fallback: 你的浏览器无法播放这段视频，可以<a href="/assets/video/cpdag-explainer.mp4">直接下载</a>。
+  subs: { en: English, zh: 中文, fr: Français }
+  toy:
+    title: 用三个变量试一试
+    pick: 给定的证据
+    case_chain: A 和 C 相关，但在已知 B 之后独立
+    case_collider: A 和 C 独立，但在已知 B 之后相关
+    fits: 与这组证据相容的因果图
+    names: { chain: 链, reverse: 反向链, fork: 共同原因, collider: 对撞 }
+    cpdag: 所有相容图的共同部分（CPDAG）
+    claim: 假设：A 导致 B
+    verdict_chain: 只在 3 个图中的 1 个里成立。可能为真，但推不出来：答案是“否”。
+    verdict_collider: 在唯一相容的图里成立。可以推出：答案是“是”。
+  flow:
+    input: 前提 + 假设
+    turn1: 第一轮：把图写下来
+    turn2: 第二轮：对照图作答
+    answer: 是 / 否
+    caption: 基线在单轮里拿到同样的 PC 算法提示，所以提升不能归功于提示写得更好。第一轮在 JSON schema 约束下解码；下面是模型对一个五变量例子输出的对象。
+  chart:
+    title: Corr2Cause 测试集上 “是” 类的 F1
+    base: 单轮，相同的 PC 算法提示
+    ours: Structured Thinking
+    note: 第一行是主实验的配对比较（McNemar p = 2.4 × 10⁻⁶；三个随机种子平均提升 +8.1 ± 5.3）。其余各行为单次运行。* Gemma 未使用硬约束解码。
+    table: 查看具体数字
+    col_model: 模型
+    col_base: 基线
+    col_ours: 结构化
+    col_delta: 变化
+
+fr:
+  venue_line: NeurIPS 2026 · Poster, Paris Poster Hall, mercredi 9 décembre 2026, 12 h 30 – 14 h 30 (heure de Paris)
+  affiliations: ["Nokia Bell Labs", "Institut Polytechnique de Paris", "IRISA / Inria"]
+  video_label: Vidéo explicative, 8 min 31 s
+  video_fallback: Votre navigateur ne peut pas lire cette vidéo. Vous pouvez <a href="/assets/video/cpdag-explainer.mp4">la télécharger</a>.
+  subs: { en: English, zh: 中文, fr: Français }
+  toy:
+    title: Essayer avec trois variables
+    pick: Les observations
+    case_chain: A et C sont corrélés, mais indépendants une fois B connu
+    case_collider: A et C sont indépendants, mais corrélés une fois B connu
+    fits: Graphes causaux compatibles avec ces observations
+    names: { chain: chaîne, reverse: chaîne inverse, fork: cause commune, collider: collisionneur }
+    cpdag: Ce sur quoi ils s’accordent tous (le CPDAG)
+    claim: "Hypothèse : A cause B"
+    verdict_chain: "Vraie dans 1 graphe sur 3. Possible, mais pas déductible : la réponse est Non."
+    verdict_collider: "Vraie dans le seul graphe compatible. Déductible : la réponse est Oui."
+  flow:
+    input: Prémisse + hypothèse
+    turn1: "Tour 1 : écrire le graphe"
+    turn2: "Tour 2 : répondre à partir du graphe"
+    answer: Oui / Non
+    caption: La référence reçoit les mêmes instructions de l’algorithme PC, en un seul tour ; le gain ne vient donc pas de meilleures instructions. Le tour 1 est décodé sous un schéma JSON ; l’objet ci-dessous est ce que le modèle produit pour un exemple à cinq variables.
+  chart:
+    title: F1 sur les réponses « Oui », jeu de test Corr2Cause
+    base: Un seul tour, même consigne PC
+    ours: Structured Thinking
+    note: "La première ligne est l’expérience principale appariée (McNemar p = 2,4 × 10⁻⁶ ; sur trois graines, le gain moyen est de +8,1 ± 5,3). Les autres lignes sont des exécutions uniques. * Gemma a été évalué sans décodage contraint strict."
+    table: Voir les chiffres
+    col_model: Modèle
+    col_base: Référence
+    col_ours: Structuré
+    col_delta: Écart

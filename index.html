@@ -1,0 +1,47 @@
+---
+layout: home
+ref: home
+---
+{%- assign t = site.data.i18n[page.lang] -%}
+<section class="intro">
+  <img class="intro-photo" src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="352" height="440">
+  <div>
+    <h1>Wentao Sun<span class="cjk" lang="zh-Hans">孙文涛</span></h1>
+    <p class="role">PhD student at INSA Rennes / IRISA and Nokia Bell Labs</p>
+    <p>I am a PhD student at INSA Rennes (IRISA, DiverSE team) and Nokia Bell Labs, on a CIFRE contract that started in February 2026. My advisors are Mathieu Acher and Dominique Verchere.</p>
+    <p>I work on language models that reason with explicit structure. Asked a causal question, a model will often match on the wording. Asked to write down the causal graph first and answer from it, it gets more answers right, and we can check whether the answer really used the graph. That is my first PhD paper, which will appear at NeurIPS 2026.</p>
+    <p>The rest of the thesis is about networks, where the structure is a service model with hard constraints. At the moment I am working on turning plain-language requests into network configuration intents that are validated before anything reaches a device, and on language-model agents for optical network operations.</p>
+    <p>Before this I did an MSc at École Polytechnique and a BEng at South China University of Technology, and spent six months on robot navigation at the Institute of Automation of the Chinese Academy of Sciences. I also like building data systems end to end; some of them are on the <a href="/projects/">projects page</a>.</p>
+    <p class="contact">
+      <a href="mailto:wentao.sun@nokia.com">wentao.sun@nokia.com</a>
+      <a href="https://github.com/wentaopoly">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/wentao-sun">LinkedIn</a>
+    </p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>{{ t.news }}</h2>
+  <div class="sec-body">{% include news.html limit=4 %}</div>
+</section>
+
+<section class="sec">
+  <h2><a href="/publications/">{{ t.publications }}</a></h2>
+  <div class="sec-body">
+    {%- for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}
+  </div>
+</section>
+
+<section class="sec">
+  <h2><a href="/projects/">{{ t.projects }}</a></h2>
+  <div class="sec-body">{% include project-list.html %}</div>
+</section>
+
+<section class="sec">
+  <h2 class="visually-hidden">{{ t.map_label }}</h2>
+  <div class="sec-body">
+    <blockquote class="epigraph" lang="en">You’re waiting for a train. A train that will take you far away. You know where you hope this train will take you, but you don’t know for sure. Yet it doesn’t matter.<cite>Mal, <i>Inception</i></cite></blockquote>
+    {% include visits.html %}
+  </div>
+</section>

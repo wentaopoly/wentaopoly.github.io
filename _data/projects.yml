@@ -1,0 +1,30 @@
+# Newest first. Each slug has a page at projects/<slug>.html in every language.
+- slug: annual-reports
+  period: "2026"
+  title: { en: "Reading 5,000 annual reports", zh: "读五千份年报", fr: "Lire 5 000 rapports annuels" }
+  summary:
+    en: The three financial statements from every A-share annual report for 2025, with a confidence on each value and a review queue for the rest.
+    zh: 从 2025 年全部 A 股年报里抽出三大报表，每个值带置信度，拿不准的转人工复核。
+    fr: Les trois états financiers de tous les rapports annuels A-share de 2025, avec un indice de confiance par valeur et une file de vérification pour le reste.
+- slug: acn
+  period: "2026"
+  title: { en: "Do shared notes help a coding agent?", zh: "共享笔记能帮编程智能体吗？", fr: "Des notes partagées aident-elles un agent de code ?" }
+  summary:
+    en: Evaluating Agent Claim Network on 111 DeepSWE tasks. Fetching claims on demand passed 10 more tasks with 16% fewer input tokens; not yet significant.
+    zh: 在 111 道 DeepSWE 任务上评测 Agent Claim Network。按需取用 claim 多通过 10 题、输入 token 少 16%，但还不显著。
+    fr: Évaluation d’Agent Claim Network sur 111 tâches DeepSWE. Consulter les claims à la demande réussit 10 tâches de plus avec 16 % de tokens en moins ; pas encore significatif.
+- slug: midnight-restart
+  period: "2026"
+  title: { en: "The worker that stopped every midnight", zh: "每到午夜就停摆的进程", fr: "Le processus qui s’arrêtait à minuit" }
+  summary:
+    en: A long-running browser-automation worker that hung at every scheduled restart, and the two stacked asyncio deadlocks behind it.
+    zh: 一个长期运行的浏览器自动化进程，每次定时重启都会卡死，背后是两层叠在一起的 asyncio 死锁。
+    fr: Un processus d’automatisation de navigateur qui se bloquait à chaque redémarrage programmé, et les deux interblocages asyncio empilés qui l’expliquaient.
+- slug: datadig
+  period: 2025–2026
+  title: { en: "Keeping news clusters stable", zh: "让新闻聚类保持稳定", fr: "Des clusters d’actualités qui restent stables" }
+  summary:
+    en: Re-clustering a stream of financial news every few minutes without breaking the identity of the stories it already tracks.
+    zh: 每隔几分钟对金融新闻流重新聚类，同时不打断已经在追踪的事件。
+    fr: Regrouper à nouveau un flux d’actualités financières toutes les quelques minutes sans casser l’identité des sujets déjà suivis.
+

@@ -1,0 +1,21 @@
+# Newest first. `date` is YYYY-MM.
+- date: 2026-09
+  en: Our paper on externalized CPDAG summaries was accepted at NeurIPS 2026. There is an <a href="/cpdag/#video">eight-minute explainer video</a> if you would rather watch than read.
+  zh: 关于“先让模型写出 CPDAG 再作答”的论文被 NeurIPS 2026 接收。不想读论文的话，可以看这段 <a href="/zh/cpdag/#video">8 分钟的讲解视频</a>。
+  fr: Notre article sur les résumés CPDAG explicites est accepté à NeurIPS 2026. Pour qui préfère regarder plutôt que lire, il y a une <a href="/fr/cpdag/#video">vidéo explicative de huit minutes</a>.
+- date: 2026-02
+  en: Started my PhD at INSA Rennes (IRISA) and Nokia Bell Labs.
+  zh: 在 INSA Rennes（IRISA）与诺基亚贝尔实验室开始攻读博士。
+  fr: Début de ma thèse à l’INSA Rennes (IRISA) et chez Nokia Bell Labs.
+- date: 2025-10
+  en: Finished my MSc at École Polytechnique.
+  zh: 从巴黎综合理工学院硕士毕业。
+  fr: Fin de mon master à l’École polytechnique.
+- date: 2025-05
+  en: Posted <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a> on arXiv, the first version of the causal-reasoning work.
+  zh: 在 arXiv 发布 <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>，这是因果推理这条线的第一版。
+  fr: Mise en ligne sur arXiv de <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>, la première version de ce travail sur le raisonnement causal.
+- date: 2025-03
+  en: Joined Nokia Bell Labs in Paris as a research intern.
+  zh: 加入巴黎诺基亚贝尔实验室，担任研究实习生。
+  fr: Arrivée chez Nokia Bell Labs à Paris comme stagiaire de recherche.

@@ -1,0 +1,23 @@
+# Earlier work without its own page.
+- period: "2025"
+  title: { en: "Graph RAG for causal reasoning", zh: "面向因果推理的 Graph RAG", fr: "Graph RAG pour le raisonnement causal" }
+  where: { en: "Nokia Bell Labs", zh: "诺基亚贝尔实验室", fr: "Nokia Bell Labs" }
+  summary:
+    en: Having the model build a knowledge graph from correlational premises before answering raised Corr2Cause F1 from 32.7 to 48.3 with Qwen3-32B. The first version of the NeurIPS work.
+    zh: 先让模型把相关性前提整理成知识图谱再作答，用 Qwen3-32B 把 Corr2Cause 上的 F1 从 32.7 提到 48.3。这是 NeurIPS 那篇工作的第一版。
+    fr: Faire construire au modèle un graphe de connaissances à partir des prémisses avant de répondre a fait passer le F1 sur Corr2Cause de 32,7 à 48,3 avec Qwen3-32B. La première version du travail publié à NeurIPS.
+  link: https://arxiv.org/abs/2505.18034
+- period: "2024"
+  title: { en: "Navigation for a wheeled humanoid robot", zh: "轮式人形机器人的感知与导航", fr: "Navigation d’un robot humanoïde à roues" }
+  where: { en: "Institute of Automation, Chinese Academy of Sciences", zh: "中国科学院自动化研究所", fr: "Institut d’automatique, Académie chinoise des sciences" }
+  summary:
+    en: LiDAR and depth-camera fusion with an EKF cut relocalization time by 80%; a lighter planner replaced Nav2 and used 30% less computation.
+    zh: 用 EKF 融合固态激光雷达和深度相机，重定位时间缩短 80%；用更轻的规划器替换 Nav2，计算量减少 30%。
+    fr: La fusion lidar et caméra de profondeur par EKF a réduit de 80 % le temps de relocalisation ; un planificateur plus léger a remplacé Nav2 avec 30 % de calcul en moins.
+- period: "2024"
+  title: { en: "Speech recognition for low-resource languages", zh: "面向小语种的语音识别", fr: "Reconnaissance vocale pour langues peu dotées" }
+  where: { en: "Graduation project, South China University of Technology", zh: "华南理工大学本科毕业设计", fr: "Projet de fin d’études, Université de technologie de Chine du Sud" }
+  summary:
+    en: A Whisper and FunASR web app with LLM correction, later used for voice commands that generate robot behaviour trees. Outstanding graduation project.
+    zh: 基于 Whisper 和 FunASR 的语音识别网页应用，接入大模型纠错，之后用于语音指令自动生成机器人行为树。获评优秀毕业设计。
+    fr: Une application web Whisper et FunASR avec correction par LLM, réutilisée ensuite pour générer des arbres de comportement de robot à partir de commandes vocales. Projet de fin d’études distingué.
