@@ -1,5 +1,6 @@
 # Newest first. Each slug has a page at projects/<slug>.html in every language.
 - slug: annual-reports
+  cover: annual
   period: "2026"
   title: { en: "Reading 5,000 annual reports", zh: "读五千份年报", fr: "Lire 5 000 rapports annuels" }
   summary:
@@ -7,6 +8,7 @@
     zh: 从 2025 年全部 A 股年报里抽出三大报表，每个值带置信度，拿不准的转人工复核。
     fr: Les trois états financiers de tous les rapports annuels A-share de 2025, avec un indice de confiance par valeur et une file de vérification pour le reste.
 - slug: acn
+  cover: acn
   period: "2026"
   title: { en: "Do shared notes help a coding agent?", zh: "共享笔记能帮编程智能体吗？", fr: "Des notes partagées aident-elles un agent de code ?" }
   summary:
@@ -14,6 +16,7 @@
     zh: 在 111 道 DeepSWE 任务上评测 Agent Claim Network。按需取用 claim 多通过 10 题、输入 token 少 16%，但还不显著。
     fr: Évaluation d’Agent Claim Network sur 111 tâches DeepSWE. Consulter les claims à la demande réussit 10 tâches de plus avec 16 % de tokens en moins ; pas encore significatif.
 - slug: midnight-restart
+  cover: midnight
   period: "2026"
   title: { en: "The worker that stopped every midnight", zh: "每到午夜就停摆的进程", fr: "Le processus qui s’arrêtait à minuit" }
   summary:
@@ -21,6 +24,7 @@
     zh: 一个长期运行的浏览器自动化进程，每次定时重启都会卡死，背后是两层叠在一起的 asyncio 死锁。
     fr: Un processus d’automatisation de navigateur qui se bloquait à chaque redémarrage programmé, et les deux interblocages asyncio empilés qui l’expliquaient.
 - slug: datadig
+  cover: datadig
   period: 2025–2026
   title: { en: "Keeping news clusters stable", zh: "让新闻聚类保持稳定", fr: "Des clusters d’actualités qui restent stables" }
   summary:

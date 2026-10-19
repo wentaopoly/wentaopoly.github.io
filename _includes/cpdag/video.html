@@ -1,6 +1,6 @@
 {%- assign s = site.data.cpdag[page.lang] -%}
 <figure class="video" id="video">
-  <video controls preload="metadata" playsinline poster="/assets/img/cpdag/poster.jpg" width="1280" height="720">
+  <video controls preload="metadata" playsinline poster="/assets/img/covers/cpdag.jpg" width="1280" height="720">
     <source src="/assets/video/cpdag-explainer.mp4" type="video/mp4">
     {%- for lang in site.languages %}
     <track kind="subtitles" srclang="{{ lang }}" label="{{ s.subs[lang] }}" src="/assets/video/cpdag-explainer.{{ lang }}.vtt"{% if lang == page.lang and lang != "en" %} default{% endif %}>

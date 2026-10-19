@@ -15,5 +15,10 @@ layout: default
       {%- endfor %}
     </dl>
   </header>
+  {%- assign parts = page.url | split: "/" %}
+  {%- assign proj = site.data.projects | where: "slug", parts.last | first %}
+  {%- if proj %}
+  <figure class="cover-hero"><img src="/assets/img/covers/{{ proj.cover }}.jpg" alt="" width="1600" height="900"></figure>
+  {%- endif %}
   {{ content }}
 </article>

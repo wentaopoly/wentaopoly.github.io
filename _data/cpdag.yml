@@ -9,6 +9,9 @@ results:
   - { label: { en: "GPT-5.4-mini", zh: "GPT-5.4-mini", fr: "GPT-5.4-mini" }, base: 85.39, ours: 88.58 , d1: "+3.2", d2: "+3.19" }
 
 en:
+  kicker: NeurIPS 2026 · poster · Paris, 9 December
+  play: Watch the 8-minute explainer
+  summary: Asked to write down the causal graph before answering, a language model gets more causal questions right, and we can check whether its answer actually used the graph. With Qwen3.5-27B, F1 on Corr2Cause rises from 73.0 to 86.4.
   venue_line: NeurIPS 2026 · Poster, Paris Poster Hall, Wednesday 9 December 2026, 12:30–14:30 (Paris time)
   affiliations: ["Nokia Bell Labs", "Institut Polytechnique de Paris", "IRISA / Inria"]
   video_label: Explainer video, 8 min 31 s
@@ -43,6 +46,9 @@ en:
     col_delta: Change
 
 zh:
+  kicker: NeurIPS 2026 · 海报 · 巴黎，12 月 9 日
+  play: 观看 8 分钟讲解视频
+  summary: 让语言模型先写出因果图再作答，它答对的因果问题更多，而且我们能检查答案到底有没有用上这张图。在 Qwen3.5-27B 上，Corr2Cause 的 F1 从 73.0 提高到 86.4。
   venue_line: NeurIPS 2026 · 海报，巴黎海报厅，2026 年 12 月 9 日（周三）12:30–14:30（巴黎时间）
   affiliations: ["诺基亚贝尔实验室", "巴黎理工学院联盟", "IRISA / Inria"]
   video_label: 讲解视频，8 分 31 秒
@@ -77,6 +83,9 @@ zh:
     col_delta: 变化
 
 fr:
+  kicker: NeurIPS 2026 · poster · Paris, 9 décembre
+  play: Voir la vidéo explicative (8 min)
+  summary: Quand on lui demande d’écrire le graphe causal avant de répondre, un modèle de langage répond juste plus souvent, et l’on peut vérifier si sa réponse s’appuie vraiment sur le graphe. Avec Qwen3.5-27B, le F1 sur Corr2Cause passe de 73,0 à 86,4.
   venue_line: NeurIPS 2026 · Poster, Paris Poster Hall, mercredi 9 décembre 2026, 12 h 30 – 14 h 30 (heure de Paris)
   affiliations: ["Nokia Bell Labs", "Institut Polytechnique de Paris", "IRISA / Inria"]
   video_label: Vidéo explicative, 8 min 31 s

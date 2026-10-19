@@ -1,47 +1,51 @@
 ---
 layout: home
 ref: home
+hero_name: Wentao Sun
+hero_alt: 孙文涛
+hero_line: Doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs. Je travaille sur des modèles de langage qui raisonnent à partir d’une structure explicite, d’abord des graphes causaux, aujourd’hui des réseaux de télécommunications.
 ---
 {%- assign t = site.data.i18n[page.lang] -%}
-<section class="intro">
-  <img class="intro-photo" src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="352" height="440">
+{% include feature.html %}
+
+<section class="home-sec">
+  <h2 class="sec-title">{{ t.projects }} <a class="more" href="/fr/projects/">{{ t.all_projects }} →</a></h2>
+  {% include cards.html %}
+</section>
+
+<section class="home-sec">
+  <h2 class="sec-title">{{ t.ongoing }}</h2>
+  <div class="now">
+    <div class="now-item">
+      <h3>Des intentions réseau à partir du langage courant</h3>
+      <p>Transformer une demande comme « relier ces deux bureaux » en intention de configuration réseau, et la valider à partir des modèles d’équipements avant que quoi que ce soit n’atteigne un équipement.</p>
+    </div>
+    <div class="now-item">
+      <h3>Des agents pour les réseaux optiques</h3>
+      <p>Des agents fondés sur des modèles de langage pour l’exploitation courante des réseaux optiques. Travail en cours.</p>
+    </div>
+  </div>
+</section>
+
+<section class="home-sec two-col">
   <div>
-    <h1>Wentao Sun<span class="cjk" lang="zh-Hans">孙文涛</span></h1>
-    <p class="role">Doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs</p>
-    <p>Je suis doctorant à l’INSA Rennes (IRISA, équipe DiverSE) et chez Nokia Bell Labs, en thèse CIFRE depuis février 2026. Je suis encadré par Mathieu Acher et Dominique Verchere.</p>
-    <p>Je travaille sur des modèles de langage qui raisonnent à partir d’une structure explicite. Face à une question causale, un modèle se fie souvent à la formulation. Si on lui demande d’abord d’écrire le graphe causal puis de répondre à partir de ce graphe, il répond juste plus souvent, et l’on peut vérifier si sa réponse s’appuie vraiment sur le graphe. C’est l’objet de mon premier article de thèse, qui sera publié à NeurIPS 2026.</p>
-    <p>Le reste de la thèse porte sur les réseaux, où la structure est un modèle de service soumis à des contraintes strictes. En ce moment, je travaille à transformer des demandes en langage courant en intentions de configuration réseau, validées avant que rien ne soit envoyé à un équipement. Je travaille aussi sur des agents fondés sur des modèles de langage pour l’exploitation des réseaux optiques.</p>
-    <p>Auparavant, j’ai fait un master à l’École polytechnique et une licence d’ingénierie à l’Université de technologie de Chine du Sud, et j’ai passé six mois à travailler sur la navigation de robots à l’Institut d’automatique de l’Académie chinoise des sciences. J’aime aussi construire des systèmes de données de bout en bout ; certains sont présentés sur la <a href="/fr/projects/">page des projets</a>.</p>
-    <p class="contact">
-      <a href="mailto:wentao.sun@nokia.com">wentao.sun@nokia.com</a>
-      <a href="https://github.com/wentaopoly">GitHub</a>
-      <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>
-      <a href="https://www.linkedin.com/in/wentao-sun">LinkedIn</a>
-    </p>
+    <h2>{{ t.publications }}</h2>
+    <div class="pubs-compact">{% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}</div>
+  </div>
+  <div>
+    <h2>{{ t.news }}</h2>
+    {% include news.html limit=5 %}
   </div>
 </section>
 
-<section class="sec">
-  <h2>{{ t.news }}</h2>
-  <div class="sec-body">{% include news.html limit=4 %}</div>
-</section>
-
-<section class="sec">
-  <h2><a href="/fr/publications/">{{ t.publications }}</a></h2>
-  <div class="sec-body">
-    {%- for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}
-  </div>
-</section>
-
-<section class="sec">
-  <h2><a href="/fr/projects/">{{ t.projects }}</a></h2>
-  <div class="sec-body">{% include project-list.html %}</div>
-</section>
-
-<section class="sec">
-  <h2 class="visually-hidden">{{ t.map_label }}</h2>
-  <div class="sec-body">
-    <blockquote class="epigraph" lang="en">You’re waiting for a train. A train that will take you far away. You know where you hope this train will take you, but you don’t know for sure. Yet it doesn’t matter.<cite>Mal, <i>Inception</i></cite></blockquote>
-    {% include visits.html %}
+<section class="home-sec">
+  <h2 class="sec-title">{{ t.about }}</h2>
+  <div class="about">
+    <img src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="352" height="440" loading="lazy">
+    <div class="about-text">
+      <p>Je suis doctorant à l’INSA Rennes (IRISA, équipe DiverSE) et chez Nokia Bell Labs, en thèse CIFRE depuis février 2026. Je suis encadré par Mathieu Acher et Dominique Verchere.</p>
+      <p>Face à une question causale, un modèle de langage se fie souvent à la formulation. Si on lui demande d’abord d’écrire le graphe causal puis de répondre à partir de ce graphe, il répond juste plus souvent, et l’on peut vérifier si sa réponse s’appuie vraiment sur le graphe. C’était mon premier article de thèse. Le reste de la thèse applique la même idée aux réseaux, où la structure est un modèle de service soumis à des contraintes strictes.</p>
+      <p>Auparavant, j’ai fait un master à l’École polytechnique et une licence d’ingénierie à l’Université de technologie de Chine du Sud, et j’ai passé six mois sur la navigation de robots à l’Institut d’automatique de l’Académie chinoise des sciences. J’aime aussi construire des systèmes de données de bout en bout ; quatre d’entre eux sont présentés plus haut.</p>
+    </div>
   </div>
 </section>

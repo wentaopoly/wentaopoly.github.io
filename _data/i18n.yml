@@ -12,7 +12,8 @@ en:
   research: Research
   publications: Publications
   projects: Projects
-  ongoing: Ongoing
+  ongoing: Now
+  about: About
   all_publications: All publications
   all_projects: All projects
   links:
@@ -49,6 +50,7 @@ zh:
   publications: 论文
   projects: 项目
   ongoing: 在做的事
+  about: 关于我
   all_publications: 全部论文
   all_projects: 全部项目
   links:
@@ -84,7 +86,8 @@ fr:
   research: Recherche
   publications: Publications
   projects: Projets
-  ongoing: En cours
+  ongoing: En ce moment
+  about: À propos
   all_publications: Toutes les publications
   all_projects: Tous les projets
   links:

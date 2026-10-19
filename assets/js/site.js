@@ -43,3 +43,15 @@ if (visits) {
     })
     .catch(() => visits.remove());
 }
+
+// Featured video: the cover links to the paper page; with JS it plays in place.
+document.querySelectorAll("[data-player]").forEach((box) => {
+  const video = box.querySelector("video");
+  const play = box.querySelector("[data-play]");
+  play.addEventListener("click", (event) => {
+    event.preventDefault();
+    play.remove();
+    video.controls = true;
+    video.play();
+  });
+});

@@ -1,0 +1,38 @@
+{%- comment -%} Featured paper on the home page: cover that plays the explainer video in place. {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign s = site.data.cpdag[page.lang] -%}
+{%- assign pub = site.data.publications | first -%}
+{%- assign prefix = "" -%}
+{%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
+<section class="feature" aria-labelledby="feature-title">
+  <div class="feature-media" data-player>
+    <video preload="none" playsinline poster="/assets/img/covers/cpdag.jpg" width="1600" height="900">
+      <source src="/assets/video/cpdag-explainer.mp4" type="video/mp4">
+      {%- for lang in site.languages %}
+      <track kind="subtitles" srclang="{{ lang }}" label="{{ s.subs[lang] }}" src="/assets/video/cpdag-explainer.{{ lang }}.vtt"{% if lang == page.lang and lang != "en" %} default{% endif %}>
+      {%- endfor %}
+    </video>
+    <a class="play" href="{{ prefix }}/cpdag/#video" data-play>
+      <span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg></i>{{ s.play }}</span>
+    </a>
+  </div>
+  <div class="feature-text">
+    <div>
+      <p class="kicker">{{ s.kicker }}</p>
+      <h2 id="feature-title"><a href="{{ prefix }}/cpdag/">{{ pub.title }}</a></h2>
+      <p class="authors">
+        {%- for a in pub.authors -%}
+        {%- if a == "Wentao Sun" -%}<span class="me">{{ a }}</span>{%- else -%}{{ a }}{%- endif -%}{%- unless forloop.last %}, {% endunless -%}
+        {%- endfor -%}
+      </p>
+    </div>
+    <div>
+      <p class="summary">{{ s.summary }}</p>
+      <p class="linkrow">
+        <a href="{{ prefix }}/cpdag/">{{ t.links.page }}</a>
+        <a href="{{ pub.links.arxiv }}">arXiv</a>
+        <a href="{{ pub.links.openreview }}">OpenReview</a>
+      </p>
+    </div>
+  </div>
+</section>
