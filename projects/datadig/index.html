@@ -1,0 +1,134 @@
+<!doctype html><html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataDig: real-time event tracking over financial news · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <link rel="canonical" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/datadig/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/datadig/">
+  <meta property="og:title" content="DataDig: real-time event tracking over financial news">
+  <meta property="og:description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <meta property="og:url" content="https://wentaopoly.github.io/projects/datadig/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>
+    // First visit from outside the site: follow the browser's language once.
+    // An explicit choice in the language switcher is stored and always wins.
+    (function () {
+      var alternates = { "fr": "/fr/projects/datadig/","zh": "/zh/projects/datadig/", };
+      try {
+        if (localStorage.getItem("lang")) return;
+        if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+      } catch (e) { return; }
+      var prefs = navigator.languages || [navigator.language];
+      for (var i = 0; i < prefs.length; i++) {
+        var code = String(prefs[i]).slice(0, 2).toLowerCase();
+        if (code === "en") return;
+        if (alternates[code]) { location.replace(alternates[code]); return; }
+      }
+    })();
+  </script>
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-en">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/#about">About</a>
+    <a href="/#news">News</a>
+    <a href="/#publications">Publications</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#honors">Honors</a>
+    <a href="/#visitors">Visitors</a>
+    <a href="/cv/">CV</a>
+    <span class="site-langs">
+      <span aria-current="true" lang="en" title="English">EN</span>
+      <a href="/zh/projects/datadig/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <a href="/fr/projects/datadig/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/projects/">← All projects</a></p>
+    <h1>DataDig: real-time event tracking over financial news</h1>
+    <p class="lede">DataDig turns a stream of Chinese financial news into short facts and groups them into ongoing stories every few minutes. My part was making that grouping stable over time, so a story keeps its identity as new articles arrive.</p>
+    <dl class="meta">
+      <div><dt>When</dt><dd>2025–2026</dd></div>
+      <div><dt>Role</dt><dd>Clustering, story chains and retrieval, in a team system</dd></div>
+      <div><dt>Code</dt><dd>Not public</dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/datadig.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>Why identity matters</h2>
+  <div class="sec-body prose">
+    <p>Every few minutes, new snippets are extracted from incoming articles and the recent ones are clustered again. Timelines, summaries and alerts all point at cluster IDs. If a re-run splits yesterday’s cluster in two, or gives it a new ID, the story’s history is cut in half even though nothing about the story changed.</p>
+    <p>Hierarchical clustering with Ward linkage does exactly this on streaming data. Its merges are greedy, so adding a few points changes the merge order, and in our runs about 1% of the members of existing clusters ended up scattered across new ones.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Anti-split, anti-merge</h2>
+  <div class="sec-body prose">
+    <figure class="fig clusters" aria-label="Diagram: an old cluster split by re-clustering is pulled back together; two old clusters merged by re-clustering are separated again.">
+      <svg viewBox="0 0 560 150" role="img">
+        <g class="lbl"><text x="70" y="16">before</text><text x="210" y="16">re-clustered</text><text x="350" y="16">after repair</text></g>
+        <g class="old"><circle cx="70" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="55" cy="52" r="5"/><circle cx="78" cy="48" r="5"/><circle cx="64" cy="75" r="5"/><circle cx="86" cy="70" r="5"/>
+        </g>
+        <text class="arrow" x="135" y="66">→</text>
+        <g class="new"><circle cx="196" cy="58" r="24"/><circle cx="243" cy="78" r="14"/></g>
+        <g class="pts">
+          <circle cx="188" cy="50" r="5"/><circle cx="208" cy="48" r="5"/><circle cx="196" cy="70" r="5"/><circle class="moved" cx="243" cy="78" r="5"/>
+        </g>
+        <text class="arrow" x="282" y="66">→</text>
+        <g class="old"><circle cx="350" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="335" cy="52" r="5"/><circle cx="358" cy="48" r="5"/><circle cx="344" cy="75" r="5"/><circle class="moved" cx="366" cy="70" r="5"/>
+        </g>
+        <g class="lbl small"><text x="70" y="120">one story</text><text x="215" y="120">one member drifts off</text><text x="350" y="120">pulled back, same ID</text></g>
+      </svg>
+      <figcaption>Anti-split. Anti-merge is the mirror case: when two old clusters land under one new label, they are separated again.</figcaption>
+    </figure>
+    <p>After each re-clustering, a repair pass runs in two phases. In the first, the members of each old cluster that were scattered across new labels go back to the label that holds most of them. In the second, any new label that swallowed several old clusters is split back into one label per old cluster. Ties are broken by the smallest label, so the pass is deterministic.</p>
+    <p>New clusters then inherit old IDs by Jaccard overlap of their members. One more detail mattered in practice: the language model rewrites a snippet’s wording slightly on each pass, which moves its embedding and can ripple through the clustering. When the new embedding is within cosine 0.9 of the old one, the old vector is kept.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Story chains</h2>
+  <div class="sec-body prose">
+    <p>Clusters are linked into chains that follow a story over days and weeks. Each node in a chain stores only what changed since the previous one, not a fresh summary of everything, so a reader can see how a story moved instead of rereading it.</p>
+    <p>For retrieval I used a grounded variant of HyDE: look up real documents first, skip generation entirely if the evidence is weak, and only then let the model write a short bridging query from what was found. A hypothetical document written from nothing tends to retrieve the model’s own assumptions.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Scale</h2>
+  <div class="sec-body prose">
+    <p>In an offline replay of three days of news on an earlier version of the pipeline, 29,832 extracted snippets came down to 7,628 after de-duplication and to 4,510 clusters, which the model then merged into existing stories, opened as new ones, or dropped as noise.</p>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Last updated 2026-11-25 · <a href="/lamp/">A puzzle game (in Chinese)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

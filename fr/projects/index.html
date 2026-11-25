@@ -1,0 +1,102 @@
+<!doctype html><html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projets · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <link rel="canonical" href="https://wentaopoly.github.io/fr/projects/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/">
+  <meta property="og:title" content="Projets">
+  <meta property="og:description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <meta property="og:url" content="https://wentaopoly.github.io/fr/projects/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-fr">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/fr/#about">À propos</a>
+    <a href="/fr/#news">Actualités</a>
+    <a href="/fr/#publications">Publications</a>
+    <a href="/fr/#projects">Projets</a>
+    <a href="/fr/#honors">Distinctions</a>
+    <a href="/fr/#visitors">Visiteurs</a>
+    <a href="/fr/cv/">CV</a>
+    <span class="site-langs">
+      <a href="/projects/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <a href="/zh/projects/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <span aria-current="true" lang="fr" title="Français">FR</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="page">
+  <header class="page-head">
+    <h1>Projets</h1>
+    <p class="lede">Des systèmes que j’ai construits ou évalués, surtout autour des données et des agents fondés sur des modèles de langage. Quand un projet était collectif, la page précise ce que j’y ai fait.</p>
+  </header>
+  <section class="sec">
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="/fr/projects/annual-reports/"><strong>Service d’extraction des états financiers des rapports de sociétés A-share</strong></a></span><span class="cv-when">2026</span></div>
+  <p class="cv-role">Responsable du projet<span class="sep">/</span><a href="/fr/projects/annual-reports/">En détail</a></p>
+  <ul><li>Un service en production qui extrait le bilan, le compte de résultat et le tableau des flux de trésorerie des rapports annuels, semestriels et trimestriels A-share vers environ 270 champs standard. Chaque valeur porte un indice de confiance, et les rapports qui échouent aux contrôles comptables partent en vérification humaine.</li><li>Un lot de 4 735 rapports annuels 2025 a été traité en 30 heures environ sur un cluster GPU, dont 4 733 avec succès ; sur l’ensemble du lot, <strong>99,90 % de 1,29 million de valeurs concordent</strong> avec une base de données commerciale.</li><li>La correspondance entre lignes et champs est apprise à partir des données, sans règle écrite à la main. Sur 1 200 rapports jamais vus d’entreprises non financières : précision de 99,85 % pour une couverture de 98,06 %.</li></ul>
+</div>
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="/fr/projects/datadig/"><strong>DataDig : suivi d’événements en temps réel dans l’actualité financière</strong></a></span><span class="cv-when">2025–2026</span></div>
+  <p class="cv-role">Clustering, chaînes d’événements et recherche dans un système d’équipe<span class="sep">/</span><a href="/fr/projects/datadig/">En détail</a></p>
+  <ul><li>Découpe un flux d’actualités financières chinoises en faits courts et les regroupe, toutes les quelques minutes, en événements suivis sur lesquels reposent chronologies, résumés et alertes. Sur trois jours rejoués, 29 832 faits extraits en donnent 7 628 après dédoublonnage, puis 4 510 clusters d’événements.</li><li>Ma partie garde l’identité des événements stable d’un regroupement au suivant, qui disperse sinon environ 1 % des membres existants : réparation en deux étapes contre les scissions et les fusions, identifiants de cluster hérités par recouvrement de Jaccard, réutilisation des vecteurs antérieurs au-delà de 0,9 de similarité cosinus.</li><li>Les chaînes d’événements n’enregistrent que ce qui a changé depuis l’étape précédente, et la recherche consulte d’abord les documents réels avant d’écrire la requête de liaison.</li></ul>
+</div>
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="/fr/projects/acn/"><strong>Agent Claim Network</strong></a></span><span class="cv-when">2026</span></div>
+  <p class="cv-role">Projet d’équipe open source ; fonctionnalités de l’agent et évaluation<span class="sep">/</span><a href="/fr/projects/acn/">En détail</a><span class="sep">/</span><a href="https://github.com/FTShare-Lab/agent-claim-network">Code</a></p>
+  <ul><li>Un agent de code en terminal, open source, qui enregistre ce qu’il établit sous forme de « claims » munis d’une portée, de preuves et d’un niveau de confiance, que d’autres agents peuvent consulter. J’ai développé l’outil de consultation des claims en cours de résolution et le panneau /claim, la connexion OAuth aux serveurs MCP, et la reprise quand le service de modèle refuse une requête en cours de session.</li><li>J’ai construit l’évaluation sur DeepSWE v1.1 : 111 tâches, quatre exécutions isolées par tâche, filtre de qualité des claims et statistiques appariées. L’agent qui consulte les claims à la demande réussit <strong>73 tâches contre 63</strong> pour la référence, avec 15,9 % de tokens d’entrée en moins (une seule exécution, McNemar p ≈ 0,099).</li></ul>
+</div>
+</section>
+<section class="sec">
+  <h2>Autres travaux</h2>
+  <div class="sec-body"><ul class="plist earlier">
+  <li>
+    <span><a href="/fr/projects/midnight-restart/"><span class="p-title">Un processus d’automatisation de navigateur bloqué à chaque redémarrage</span></a><span class="p-where"> · compte rendu de débogage</span></span>
+    <span class="p-when">2026</span>
+    <span class="p-desc">Un processus de collecte au long cours se bloquait à chaque redémarrage nocturne tout en paraissant vivant ; la cause était deux interblocages asyncio empilés, désormais couverts par des tests de non-régression.</span>
+  </li>
+  <li>
+    <span><a href="https://arxiv.org/abs/2505.18034"><span class="p-title">Graph RAG pour le raisonnement causal</span></a><span class="p-where"> · Nokia Bell Labs</span></span>
+    <span class="p-when">2025</span>
+    <span class="p-desc">Faire construire au modèle un graphe de connaissances à partir des prémisses avant de répondre a fait passer le F1 sur Corr2Cause de 32,7 à 48,3 avec Qwen3-32B. La première version du travail publié à NeurIPS.</span>
+  </li>
+  <li>
+    <span><span class="p-title">Navigation d’un robot humanoïde à roues</span><span class="p-where"> · Institut d’automatique, Académie chinoise des sciences</span></span>
+    <span class="p-when">2024</span>
+    <span class="p-desc">La fusion lidar et caméra de profondeur par EKF a réduit de 80 % le temps de relocalisation ; un planificateur plus léger a remplacé Nav2 avec 30 % de calcul en moins.</span>
+  </li>
+  <li>
+    <span><span class="p-title">Reconnaissance vocale pour langues peu dotées</span><span class="p-where"> · Projet de fin d’études, Université de technologie de Chine du Sud</span></span>
+    <span class="p-when">2024</span>
+    <span class="p-desc">Une application web Whisper et FunASR avec correction par LLM, réutilisée ensuite pour générer des arbres de comportement de robot à partir de commandes vocales. Projet de fin d’études distingué.</span>
+  </li>
+</ul>
+</div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Dernière mise à jour 2026-11-25 · <a href="/lamp/">Un jeu d’énigmes (en chinois)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

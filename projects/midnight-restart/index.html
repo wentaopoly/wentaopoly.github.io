@@ -1,0 +1,130 @@
+<!doctype html><html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A browser-automation worker that hung at every restart · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <link rel="canonical" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/midnight-restart/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/midnight-restart/">
+  <meta property="og:title" content="A browser-automation worker that hung at every restart">
+  <meta property="og:description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <meta property="og:url" content="https://wentaopoly.github.io/projects/midnight-restart/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>
+    // First visit from outside the site: follow the browser's language once.
+    // An explicit choice in the language switcher is stored and always wins.
+    (function () {
+      var alternates = { "fr": "/fr/projects/midnight-restart/","zh": "/zh/projects/midnight-restart/", };
+      try {
+        if (localStorage.getItem("lang")) return;
+        if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+      } catch (e) { return; }
+      var prefs = navigator.languages || [navigator.language];
+      for (var i = 0; i < prefs.length; i++) {
+        var code = String(prefs[i]).slice(0, 2).toLowerCase();
+        if (code === "en") return;
+        if (alternates[code]) { location.replace(alternates[code]); return; }
+      }
+    })();
+  </script>
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-en">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/#about">About</a>
+    <a href="/#news">News</a>
+    <a href="/#publications">Publications</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#honors">Honors</a>
+    <a href="/#visitors">Visitors</a>
+    <a href="/cv/">CV</a>
+    <span class="site-langs">
+      <span aria-current="true" lang="en" title="English">EN</span>
+      <a href="/zh/projects/midnight-restart/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <a href="/fr/projects/midnight-restart/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/projects/">← All projects</a></p>
+    <h1>A browser-automation worker that hung at every restart</h1>
+    <p class="lede">A browser-automation worker collected articles for weeks at a time, and every night at its scheduled restart it hung while looking perfectly alive. The cause turned out to be two deadlocks stacked on top of each other.</p>
+    <dl class="meta">
+      <div><dt>When</dt><dd>January–August 2026</dd></div>
+      <div><dt>Role</dt><dd>Design and implementation</dd></div>
+      <div><dt>Code</dt><dd>Not public</dd></div>
+    </dl>
+  </header>
+  <section class="sec">
+  <h2>The setup</h2>
+  <div class="sec-body prose">
+    <p>A Python process drives a logged-in Chrome through <a href="https://github.com/browser-use/browser-use">browser-use</a>, reads articles section by section, and hands each one to a Kafka topic. An article is marked done only after the broker acknowledges it, and per-section progress is written atomically, so a crash at any point does not lose an article. Once a day, at midnight, the worker closes the browser and replaces itself with a fresh copy through <code>os.execv</code>.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>The symptom</h2>
+  <div class="sec-body prose">
+    <p>At the midnight restart the worker simply stopped. The process was still there and every PID-based health check passed, but no article arrived. The one visible clue was in the process list: a healthy session has nine Chrome processes for its profile, and a stuck one had a single process left. It was not intermittent; both nights we examined, it hung in exactly the same place.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Layer one</h2>
+  <div class="sec-body prose">
+    <p>The library’s <code>stop()</code> tears Chrome down first, then waits for a completion signal on its event bus. That signal can never arrive, because the handler that would send it needs the DevTools connection <code>stop()</code> has just closed. The event bus also swallows <code>CancelledError</code> while cleaning up.</p>
+    <p>So the obvious timeout does not time out. <code>asyncio.wait_for</code> cancels the task when time is up and then waits for the cancellation to finish, which never happens here.</p>
+<pre><code><span class="c"># hangs: wait_for needs the task to accept cancellation</span>
+await asyncio.wait_for(browser.stop(), timeout=12)
+
+<span class="c"># returns after 12 s whatever the task does</span>
+task = asyncio.ensure_future(browser.stop())
+await asyncio.wait({task}, timeout=12)
+<span class="c"># then abandon the task and kill Chrome by its profile path</span></code></pre>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Layer two</h2>
+  <div class="sec-body prose">
+    <p>Fixing the first layer only moved the hang. On the way out, <code>asyncio.run</code> cancels every pending task and waits for each of them, including the abandoned <code>stop()</code> that will never finish. The process never reaches <code>os.execv</code>.</p>
+    <p>The fix is to run the main coroutine with <code>loop.run_until_complete</code>, which leaves pending tasks alone. When <code>os.execv</code> replaces the process image, the stuck task disappears with it.</p>
+    <p>Both layers have regression tests that use a <code>stop()</code> which really swallows cancellation. If either fix is undone, the test hangs instead of passing quietly.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Smaller lessons</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>“Alive” is not a useful health signal for a worker. The alert that matters is “the broker has acknowledged nothing for 60 minutes”, and its state is stored on disk so a restart does not fire it twice.</li>
+      <li>That watchdog is the last thing cancelled on shutdown. If it goes first, a stuck shutdown is also a silent one.</li>
+      <li>A deadlock that happens at the same time every night is a gift. It is far easier to catch than one that happens once a month.</li>
+    </ul>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Last updated 2026-11-25 · <a href="/lamp/">A puzzle game (in Chinese)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

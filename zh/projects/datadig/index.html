@@ -1,0 +1,118 @@
+<!doctype html><html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataDig 实时金融新闻事件系统 · 孙文涛</title>
+  <meta name="description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <link rel="canonical" href="https://wentaopoly.github.io/zh/projects/datadig/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/datadig/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/datadig/">
+  <meta property="og:title" content="DataDig 实时金融新闻事件系统">
+  <meta property="og:description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <meta property="og:url" content="https://wentaopoly.github.io/zh/projects/datadig/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-zh">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/zh/#about">关于</a>
+    <a href="/zh/#news">动态</a>
+    <a href="/zh/#publications">论文</a>
+    <a href="/zh/#projects">项目</a>
+    <a href="/zh/#honors">荣誉</a>
+    <a href="/zh/#visitors">访客</a>
+    <a href="/zh/cv/">简历</a>
+    <span class="site-langs">
+      <a href="/projects/datadig/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <span aria-current="true" lang="zh" title="中文">中</span>
+      <a href="/fr/projects/datadig/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/zh/projects/">← 全部项目</a></p>
+    <h1>DataDig 实时金融新闻事件系统</h1>
+    <p class="lede">DataDig 把中文金融新闻流拆成简短的事实，每隔几分钟把它们归入正在发展的事件。我负责的是让这种归类在时间上保持稳定，新文章进来时，一个事件还是原来那个事件。</p>
+    <dl class="meta">
+      <div><dt>时间</dt><dd>2025–2026 年</dd></div>
+      <div><dt>角色</dt><dd>团队系统中负责聚类、事件链和检索</dd></div>
+      <div><dt>代码</dt><dd>未公开</dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/datadig.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>为什么身份很重要</h2>
+  <div class="sec-body prose">
+    <p>每隔几分钟，系统从新进来的文章里抽取片段，并对最近的片段重新聚类。时间线、摘要和提醒都指向 cluster ID。如果某次重跑把昨天的一个 cluster 拆成了两个，或者给它换了 ID，这个事件的历史就被切断了，尽管事件本身什么都没变。</p>
+    <p>用 Ward linkage 的层次聚类在流式数据上恰恰会这样。它的合并是贪心的，加入几个新点就会改变合并顺序；在我们的运行里，已有 cluster 中大约 1% 的成员会被打散到新的 cluster 里。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>防拆分与防合并</h2>
+  <div class="sec-body prose">
+    <figure class="fig clusters" aria-label="示意图：重新聚类拆散了一个旧 cluster，修复后成员被拉回原处；两个被合并的旧 cluster 会被重新分开。">
+      <svg viewBox="0 0 560 150" role="img">
+        <g class="lbl"><text x="70" y="16">之前</text><text x="210" y="16">重新聚类</text><text x="350" y="16">修复之后</text></g>
+        <g class="old"><circle cx="70" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="55" cy="52" r="5"/><circle cx="78" cy="48" r="5"/><circle cx="64" cy="75" r="5"/><circle cx="86" cy="70" r="5"/>
+        </g>
+        <text class="arrow" x="135" y="66">→</text>
+        <g class="new"><circle cx="196" cy="58" r="24"/><circle cx="243" cy="78" r="14"/></g>
+        <g class="pts">
+          <circle cx="188" cy="50" r="5"/><circle cx="208" cy="48" r="5"/><circle cx="196" cy="70" r="5"/><circle class="moved" cx="243" cy="78" r="5"/>
+        </g>
+        <text class="arrow" x="282" y="66">→</text>
+        <g class="old"><circle cx="350" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="335" cy="52" r="5"/><circle cx="358" cy="48" r="5"/><circle cx="344" cy="75" r="5"/><circle class="moved" cx="366" cy="70" r="5"/>
+        </g>
+        <g class="lbl small"><text x="70" y="120">一个事件</text><text x="215" y="120">一个成员跑了出去</text><text x="350" y="120">拉回来，ID 不变</text></g>
+      </svg>
+      <figcaption>防拆分。防合并是对称的情形：两个旧 cluster 被归到同一个新标签下时，把它们重新分开。</figcaption>
+    </figure>
+    <p>每次重新聚类之后，都会跑一遍两阶段的修复。第一阶段，旧 cluster 中被打散到不同新标签的成员，回到拥有其中大多数成员的那个标签。第二阶段，如果某个新标签吞下了好几个旧 cluster，就按旧 cluster 重新拆开。平局时取编号最小的标签，所以修复是确定性的。</p>
+    <p>之后，新 cluster 按成员的 Jaccard 重合度继承旧 ID。实践中还有一个细节很要紧：语言模型每一轮都会稍微改写片段的措辞，向量随之移动，并可能在聚类里层层传导。所以当新向量与旧向量的余弦相似度在 0.9 以上时，沿用旧向量。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>事件链</h2>
+  <div class="sec-body prose">
+    <p>cluster 会被串成事件链，跟踪一个事件在几天、几周里的发展。链上的每个节点只记录相对上一个节点变了什么，而不是重新概括一遍全部内容，这样读者能看到事件是怎么推进的，不用从头再读。</p>
+    <p>检索上，我用了一种有依据的 HyDE 变体：先检索真实文档，证据不足时干脆不生成，只有在这之后才让模型根据找到的内容写一条简短的桥接查询。凭空写出来的假想文档，往往检索回来的是模型自己的预设。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>规模</h2>
+  <div class="sec-body prose">
+    <p>在一次用早期版本流水线离线重放三天新闻的实验里，抽出的 29,832 个片段去重后剩 7,628 个，聚成 4,510 个 cluster，再由模型逐个判断：并入已有事件、新开事件，或者作为噪声丢掉。</p>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · 最后更新 2026-11-25 · <a href="/lamp/">解谜游戏《不在清单上的灯》</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

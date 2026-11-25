@@ -1,0 +1,146 @@
+<!doctype html><html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financial-statement extraction service for A-share company reports · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <link rel="canonical" href="https://wentaopoly.github.io/projects/annual-reports/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/annual-reports/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/annual-reports/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/annual-reports/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/annual-reports/">
+  <meta property="og:title" content="Financial-statement extraction service for A-share company reports">
+  <meta property="og:description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <meta property="og:url" content="https://wentaopoly.github.io/projects/annual-reports/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>
+    // First visit from outside the site: follow the browser's language once.
+    // An explicit choice in the language switcher is stored and always wins.
+    (function () {
+      var alternates = { "fr": "/fr/projects/annual-reports/","zh": "/zh/projects/annual-reports/", };
+      try {
+        if (localStorage.getItem("lang")) return;
+        if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+      } catch (e) { return; }
+      var prefs = navigator.languages || [navigator.language];
+      for (var i = 0; i < prefs.length; i++) {
+        var code = String(prefs[i]).slice(0, 2).toLowerCase();
+        if (code === "en") return;
+        if (alternates[code]) { location.replace(alternates[code]); return; }
+      }
+    })();
+  </script>
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-en">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/#about">About</a>
+    <a href="/#news">News</a>
+    <a href="/#publications">Publications</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#honors">Honors</a>
+    <a href="/#visitors">Visitors</a>
+    <a href="/cv/">CV</a>
+    <span class="site-langs">
+      <span aria-current="true" lang="en" title="English">EN</span>
+      <a href="/zh/projects/annual-reports/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <a href="/fr/projects/annual-reports/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/projects/">← All projects</a></p>
+    <h1>Financial-statement extraction service for A-share company reports</h1>
+    <p class="lede">Pulling the balance sheet, income statement and cash-flow statement out of every A-share annual report for 2025, and saying how far each number can be trusted.</p>
+    <dl class="meta">
+      <div><dt>When</dt><dd>September–October 2026</dd></div>
+      <div><dt>Role</dt><dd>Led the project; built the extraction layer, the dataset and the evaluation</dd></div>
+      <div><dt>Code</dt><dd>Not public</dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/annual.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>The first finding</h2>
+  <div class="sec-body prose">
+    <p>Before writing any extraction code I looked at the comparison everyone was using to judge the parser. It reported 17,405 differences in the cash-flow statements against a commercial financial database, most of them marked “missing in the reference”.</p>
+    <p>Almost none of that was the parser. In 97.9% of the “missing” cases the stock code had changed: 230 companies on the Beijing Stock Exchange moved from 83/87 codes to 920 codes in 2025, and the reference only keeps data under the current code. Another large group came from comparing restated prior-year figures with the originally published ones. With the comparison fixed, problems on the parsing side made up 4.8% of the cash-flow differences.</p>
+    <p>That set the rule for the rest of the project: every number gets a script that reproduces it, and a disagreement is not an error until we know which side is wrong.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>How it works</h2>
+  <div class="sec-body prose">
+    <figure class="fig report-fig">
+      <img src="/assets/img/projects/finreport-vanke.jpg" alt="The consolidated balance sheet page from Vanke's 2025 annual report, in Chinese." width="827" height="320" loading="lazy">
+      <table>
+        <thead><tr><th>Row in the report</th><th class="num">Value (CNY)</th><th class="num">Conf.</th></tr></thead>
+        <tbody>
+          <tr><td>货币资金 · cash</td><td class="num">67,240,949,734.90</td><td class="num">0.999</td></tr>
+          <tr><td>应收票据 · notes receivable</td><td class="num">2,370,899.21</td><td class="num">1.000</td></tr>
+          <tr><td>应收账款 · accounts receivable</td><td class="num">9,519,075,011.05</td><td class="num">0.999</td></tr>
+          <tr><td><em>both receivables, by formula</em></td><td class="num">9,521,445,910.26</td><td class="num">1.000</td></tr>
+          <tr><td>存货 · inventories</td><td class="num">373,738,098,060.15</td><td class="num">0.999</td></tr>
+          <tr><td>流动资产合计 · total current assets</td><td class="num">697,373,854,032.79</td><td class="num">0.999</td></tr>
+        </tbody>
+      </table>
+      <figcaption>Left: part of the consolidated balance sheet in Vanke’s 2025 annual report. Right: some of the 306 values extracted from that report. The fourth row has no line of its own in the report; it comes from a learned formula.</figcaption>
+    </figure>
+    <ol>
+      <li><strong>Find the pages.</strong> Only the pages that hold the three statements are sent to the document parser (MinerU), which keeps the GPU cost low and the output small.</li>
+      <li><strong>Rebuild the tables in plain code.</strong> Continued tables are joined, the current and prior-period columns are identified, and units are read from the page.</li>
+      <li><strong>Map rows to about 270 standard fields.</strong> The mapping is learned, not written by hand: 11,520 row-name aliases and 35 field formulas, found by matching numbers against reference data on a development set. There is no rule for any particular company or line item.</li>
+      <li><strong>Check the result.</strong> A report is accepted only if units are consistent, ten key fields come from the statement itself, and the accounting identities hold. Otherwise it goes to a human review queue with the reason attached.</li>
+      <li><strong>Attach a confidence to every value</strong>: how often the alias or formula that produced it was right on the development set, as matches / (uses + 1).</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Results</h2>
+  <div class="sec-body prose">
+    <p>The headline numbers come from 1,200 reports the mappings had never seen, drawn as two frozen samples and evaluated once each. 99.3% passed the checks, and 99.8% of those had all ten key fields right. Across every field, precision was 99.85% at 98.06% coverage. These are non-financial companies; banks and brokers are harder (see below).</p>
+    <p>The same mappings, without relearning, were then run on 382 annual reports from the previous year. All 290 non-financial reports passed, and on the same companies each statement’s coverage stayed within 0.3 percentage points of the newer year. The full set of 5,488 companies runs in 93 seconds once parsed, 5,451 of them pass, and two runs with different hash seeds produce byte-identical output.</p>
+    <p>The confidence score is useful in practice. Keeping only values above a threshold trades coverage for precision in a predictable way:</p>
+    <table class="data">
+      <thead><tr><th>Keep values with confidence ≥</th><th class="num">Precision</th><th class="num">Coverage</th></tr></thead>
+      <tbody>
+        <tr><td>0.5 (everything)</td><td class="num">99.85%</td><td class="num">98.06%</td></tr>
+        <tr><td>0.95</td><td class="num">99.89%</td><td class="num">96.76%</td></tr>
+        <tr><td>0.99</td><td class="num">99.95%</td><td class="num">92.37%</td></tr>
+        <tr><td>0.999</td><td class="num">99.97%</td><td class="num">54.16%</td></tr>
+      </tbody>
+    </table>
+    <p>All of these are agreement with a commercial database whose own labels contain mistakes. Disagreements were attributed automatically to the extraction or to the label, and there was no random human audit, so read them as strong agreement rather than measured truth.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>What did not work</h2>
+  <div class="sec-body prose">
+    <p>I tried letting language models map the rows the aliases could not. When two inexpensive models agreed on a field, they were right only 82% of the time, well below what the learned mappings achieve. They now only propose candidates, and a candidate is used only if the numbers confirm it.</p>
+    <p>Financial companies are the weak spot. Their statements use their own line items, about 86% of them pass the checks, and cash-flow coverage for them is around 87%. Those reports are the main item on the review list.</p>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Last updated 2026-11-25 · <a href="/lamp/">A puzzle game (in Chinese)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html><html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>项目 · 孙文涛</title>
+  <meta name="description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <link rel="canonical" href="https://wentaopoly.github.io/zh/projects/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/">
+  <meta property="og:title" content="项目">
+  <meta property="og:description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <meta property="og:url" content="https://wentaopoly.github.io/zh/projects/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-zh">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/zh/#about">关于</a>
+    <a href="/zh/#news">动态</a>
+    <a href="/zh/#publications">论文</a>
+    <a href="/zh/#projects">项目</a>
+    <a href="/zh/#honors">荣誉</a>
+    <a href="/zh/#visitors">访客</a>
+    <a href="/zh/cv/">简历</a>
+    <span class="site-langs">
+      <a href="/projects/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <span aria-current="true" lang="zh" title="中文">中</span>
+      <a href="/fr/projects/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="page">
+  <header class="page-head">
+    <h1>项目</h1>
+    <p class="lede">我做过或评测过的一些系统，大多和数据、大模型智能体有关。团队项目会写明哪部分是我做的。</p>
+  </header>
+  <section class="sec">
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="/zh/projects/annual-reports/"><strong>A 股财报三大报表取数服务</strong></a></span><span class="cv-when">2026</span></div>
+  <p class="cv-role">项目负责人<span class="sep">/</span><a href="/zh/projects/annual-reports/">详细介绍</a></p>
+  <ul><li>已上线的解析服务：从 A 股年报、半年报和季报中抽取资产负债表、利润表和现金流量表，对应到约 270 个标准字段；每个值带置信度，勾稽关系不成立的报告转人工复核。</li><li>一批 4,735 份 2025 年年报在 GPU 集群上约 30 小时跑完，4,733 份成功；整批 <strong>129 万个值与商业数据库的一致率为 99.90%</strong>。</li><li>行名到字段的对应关系由数据学出，不手写规则；在 1,200 份未见过的非金融企业年报上，准确率 99.85%、覆盖率 98.06%。</li></ul>
+</div>
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="/zh/projects/datadig/"><strong>DataDig 实时金融新闻事件系统</strong></a></span><span class="cv-when">2025–2026</span></div>
+  <p class="cv-role">团队系统中负责聚类、事件链与检索<span class="sep">/</span><a href="/zh/projects/datadig/">详细介绍</a></p>
+  <ul><li>把中文金融新闻流拆成简短的事实，每隔几分钟归入正在发展的事件，时间线、摘要和提醒都建立在这些事件上。一次三天新闻的重放中，抽出的 29,832 个片段去重后剩 7,628 个，聚成 4,510 个事件簇。</li><li>我负责让事件身份在反复重新聚类时保持稳定（不处理时每轮约有 1% 的已有成员被打散）：两阶段防拆分与防合并修复、按 Jaccard 重合度继承 cluster ID、余弦相似度 0.9 以上沿用旧向量。</li><li>事件链只记录相对上一节点的变化；检索先查真实文档，再生成桥接查询。</li></ul>
+</div>
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="/zh/projects/acn/"><strong>Agent Claim Network</strong></a></span><span class="cv-when">2026</span></div>
+  <p class="cv-role">开源团队项目，负责智能体功能与评测<span class="sep">/</span><a href="/zh/projects/acn/">详细介绍</a><span class="sep">/</span><a href="https://github.com/FTShare-Lab/agent-claim-network">代码</a></p>
+  <ul><li>开源的终端编程智能体，把解题得到的结论存成带适用范围、证据和置信度的 claim，供其他智能体检索。我开发了解题过程中检索 claim 的工具和 /claim 面板、MCP 服务器的 OAuth 登录，以及模型服务中途拒绝请求时的恢复机制。</li><li>搭建了 DeepSWE v1.1 上的评测：111 题，每题四组隔离运行，带 claim 质量门控和配对统计。按需取用 claim 的智能体<strong>通过 73 题，基线 63 题</strong>，输入 token 少 15.9%（单次运行，McNemar p ≈ 0.099）。</li></ul>
+</div>
+</section>
+<section class="sec">
+  <h2>其他</h2>
+  <div class="sec-body"><ul class="plist earlier">
+  <li>
+    <span><a href="/zh/projects/midnight-restart/"><span class="p-title">每次定时重启都卡死的浏览器自动化进程</span></a><span class="p-where"> · 排查记录</span></span>
+    <span class="p-when">2026</span>
+    <span class="p-desc">一个长期运行的采集进程每晚定时重启时卡住，看上去却一切正常；原因是两层叠在一起的 asyncio 死锁，两处修复都有回归测试。</span>
+  </li>
+  <li>
+    <span><a href="https://arxiv.org/abs/2505.18034"><span class="p-title">面向因果推理的 Graph RAG</span></a><span class="p-where"> · 诺基亚贝尔实验室</span></span>
+    <span class="p-when">2025</span>
+    <span class="p-desc">先让模型把相关性前提整理成知识图谱再作答，用 Qwen3-32B 把 Corr2Cause 上的 F1 从 32.7 提到 48.3。这是 NeurIPS 那篇工作的第一版。</span>
+  </li>
+  <li>
+    <span><span class="p-title">轮式人形机器人的感知与导航</span><span class="p-where"> · 中国科学院自动化研究所</span></span>
+    <span class="p-when">2024</span>
+    <span class="p-desc">用 EKF 融合固态激光雷达和深度相机，重定位时间缩短 80%；用更轻的规划器替换 Nav2，计算量减少 30%。</span>
+  </li>
+  <li>
+    <span><span class="p-title">面向小语种的语音识别</span><span class="p-where"> · 华南理工大学本科毕业设计</span></span>
+    <span class="p-when">2024</span>
+    <span class="p-desc">基于 Whisper 和 FunASR 的语音识别网页应用，接入大模型纠错，之后用于语音指令自动生成机器人行为树。获评优秀毕业设计。</span>
+  </li>
+</ul>
+</div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · 最后更新 2026-11-25 · <a href="/lamp/">解谜游戏《不在清单上的灯》</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

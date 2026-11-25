@@ -1,0 +1,129 @@
+<!doctype html><html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service d’extraction des états financiers des rapports de sociétés A-share · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <link rel="canonical" href="https://wentaopoly.github.io/fr/projects/annual-reports/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/annual-reports/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/annual-reports/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/annual-reports/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/annual-reports/">
+  <meta property="og:title" content="Service d’extraction des états financiers des rapports de sociétés A-share">
+  <meta property="og:description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <meta property="og:url" content="https://wentaopoly.github.io/fr/projects/annual-reports/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-fr">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/fr/#about">À propos</a>
+    <a href="/fr/#news">Actualités</a>
+    <a href="/fr/#publications">Publications</a>
+    <a href="/fr/#projects">Projets</a>
+    <a href="/fr/#honors">Distinctions</a>
+    <a href="/fr/#visitors">Visiteurs</a>
+    <a href="/fr/cv/">CV</a>
+    <span class="site-langs">
+      <a href="/projects/annual-reports/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <a href="/zh/projects/annual-reports/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <span aria-current="true" lang="fr" title="Français">FR</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/fr/projects/">← Tous les projets</a></p>
+    <h1>Service d’extraction des états financiers des rapports de sociétés A-share</h1>
+    <p class="lede">Extraire le bilan, le compte de résultat et le tableau des flux de trésorerie de tous les rapports annuels A-share de 2025, et dire jusqu’à quel point on peut se fier à chaque chiffre.</p>
+    <dl class="meta">
+      <div><dt>Période</dt><dd>septembre – octobre 2026</dd></div>
+      <div><dt>Rôle</dt><dd>Responsable du projet ; j’ai réalisé la couche d’extraction, le jeu de données et l’évaluation</dd></div>
+      <div><dt>Code</dt><dd>Non public</dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/annual.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>Premier constat</h2>
+  <div class="sec-body prose">
+    <p>Avant d’écrire la moindre ligne de code d’extraction, j’ai regardé la comparaison que tout le monde utilisait pour juger le parseur. Elle signalait 17 405 écarts sur les tableaux des flux de trésorerie par rapport à une base de données financières commerciale, la plupart marqués « absent de la référence ».</p>
+    <p>Presque rien de tout cela ne venait du parseur. Dans 97,9 % des cas « absents », le code boursier avait changé. En 2025, 230 sociétés de la Bourse de Pékin sont passées de codes en 83/87 à des codes en 920, et la référence ne conserve les données que sous le code actuel. Un autre groupe important venait de la comparaison entre des chiffres de l’exercice précédent retraités et les chiffres publiés à l’origine. Une fois la comparaison corrigée, les problèmes côté parseur représentaient 4,8 % des écarts sur les flux de trésorerie.</p>
+    <p>Cela a fixé la règle pour la suite du projet : chaque chiffre a un script qui le reproduit, et un désaccord n’est pas une erreur tant qu’on ne sait pas lequel des deux côtés a tort.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Fonctionnement</h2>
+  <div class="sec-body prose">
+    <figure class="fig report-fig">
+      <img src="/assets/img/projects/finreport-vanke.jpg" alt="La page du bilan consolidé dans le rapport annuel 2025 de Vanke, en chinois." width="827" height="320" loading="lazy">
+      <table>
+        <thead><tr><th>Ligne du rapport</th><th class="num">Valeur (CNY)</th><th class="num">Conf.</th></tr></thead>
+        <tbody>
+          <tr><td>货币资金 · trésorerie</td><td class="num">67 240 949 734,90</td><td class="num">0,999</td></tr>
+          <tr><td>应收票据 · effets à recevoir</td><td class="num">2 370 899,21</td><td class="num">1,000</td></tr>
+          <tr><td>应收账款 · créances clients</td><td class="num">9 519 075 011,05</td><td class="num">0,999</td></tr>
+          <tr><td><em>effets et créances, par formule</em></td><td class="num">9 521 445 910,26</td><td class="num">1,000</td></tr>
+          <tr><td>存货 · stocks</td><td class="num">373 738 098 060,15</td><td class="num">0,999</td></tr>
+          <tr><td>流动资产合计 · total des actifs courants</td><td class="num">697 373 854 032,79</td><td class="num">0,999</td></tr>
+        </tbody>
+      </table>
+      <figcaption>À gauche, une partie du bilan consolidé du rapport annuel 2025 de Vanke. À droite, quelques-unes des 306 valeurs extraites de ce rapport. La quatrième ligne n’existe pas telle quelle dans le rapport ; elle provient d’une formule apprise.</figcaption>
+    </figure>
+    <ol>
+      <li><strong>Trouver les pages.</strong> Seules les pages qui contiennent les trois états financiers sont envoyées au parseur de documents (MinerU), ce qui limite le coût GPU et la taille de la sortie.</li>
+      <li><strong>Reconstruire les tableaux avec du code simple.</strong> Les tableaux qui se poursuivent d’une page à l’autre sont raccordés, les colonnes de l’exercice en cours et de l’exercice précédent sont identifiées, et les unités sont lues sur la page.</li>
+      <li><strong>Faire correspondre les lignes à environ 270 champs standard.</strong> La correspondance est apprise, pas écrite à la main. Elle se compose de 11 520 alias de noms de lignes et de 35 formules de champs, trouvés en rapprochant les chiffres des données de référence sur un jeu de développement. Aucune règle ne vise une société ou un poste en particulier.</li>
+      <li><strong>Vérifier le résultat.</strong> Un rapport n’est accepté que si les unités sont cohérentes, si dix champs clés proviennent de l’état financier lui-même et si les identités comptables sont respectées. Sinon, il part dans une file de vérification manuelle, avec le motif du rejet.</li>
+      <li><strong>Associer un indice de confiance à chaque valeur</strong> : la proportion de cas où l’alias ou la formule qui l’a produite était juste sur le jeu de développement, calculée comme correspondances / (utilisations + 1).</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Résultats</h2>
+  <div class="sec-body prose">
+    <p>Les chiffres principaux portent sur 1 200 rapports que les correspondances apprises n’avaient jamais vus, tirés en deux échantillons figés et évalués une seule fois chacun. Parmi eux, 99,3 % ont passé les vérifications, et 99,8 % de ceux-ci avaient les dix champs clés justes. Sur l’ensemble des champs, la précision était de 99,85 % pour une couverture de 98,06 %. Il s’agit de sociétés non financières ; les banques et les courtiers sont plus difficiles (voir plus bas).</p>
+    <p>Les mêmes correspondances, sans réapprentissage, ont ensuite été appliquées à 382 rapports annuels de l’année précédente. Les 290 rapports de sociétés non financières ont tous passé les vérifications, et pour les mêmes sociétés, la couverture de chaque état est restée à moins de 0,3 point de pourcentage de celle de l’année la plus récente. Une fois le parsing effectué, l’ensemble des 5 488 sociétés est traité en 93 secondes, 5 451 d’entre elles passent les vérifications, et deux exécutions avec des graines de hachage différentes produisent des sorties identiques à l’octet près.</p>
+    <p>Le score de confiance est utile en pratique. En ne gardant que les valeurs au-dessus d’un seuil, on échange de la couverture contre de la précision, de façon prévisible :</p>
+    <table class="data">
+      <thead><tr><th>Valeurs gardées si confiance ≥</th><th class="num">Précision</th><th class="num">Couverture</th></tr></thead>
+      <tbody>
+        <tr><td>0,5 (tout)</td><td class="num">99,85 %</td><td class="num">98,06 %</td></tr>
+        <tr><td>0,95</td><td class="num">99,89 %</td><td class="num">96,76 %</td></tr>
+        <tr><td>0,99</td><td class="num">99,95 %</td><td class="num">92,37 %</td></tr>
+        <tr><td>0,999</td><td class="num">99,97 %</td><td class="num">54,16 %</td></tr>
+      </tbody>
+    </table>
+    <p>Tous ces chiffres mesurent l’accord avec une base commerciale dont les étiquettes contiennent elles-mêmes des erreurs. Les désaccords ont été attribués automatiquement à l’extraction ou à l’étiquette, sans audit manuel sur un échantillon aléatoire. Il faut donc les lire comme un fort accord plutôt que comme une exactitude mesurée.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Ce qui n’a pas marché</h2>
+  <div class="sec-body prose">
+    <p>J’ai essayé de laisser des modèles de langage faire correspondre les lignes que les alias ne reconnaissaient pas. Quand deux modèles peu coûteux s’accordaient sur un champ, ils n’avaient raison que dans 82 % des cas, bien en dessous des correspondances apprises. Désormais, ils se contentent de proposer des candidats, et un candidat n’est retenu que si les chiffres le confirment.</p>
+    <p>Les sociétés financières sont le point faible. Leurs états utilisent des postes qui leur sont propres. Environ 86 % d’entre elles passent les vérifications, et leur couverture sur les flux de trésorerie tourne autour de 87 %. Ces rapports forment l’essentiel de la file de vérification.</p>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Dernière mise à jour 2026-11-25 · <a href="/lamp/">Un jeu d’énigmes (en chinois)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

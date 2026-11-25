@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>g{stroke:#1d1d1f;fill:#1d1d1f}@media (prefers-color-scheme:dark){g{stroke:#e8e6e1;fill:#e8e6e1}}</style>
+  <!-- A collider, A → B ← C: the one pattern whose direction the data can force. -->
+  <g stroke-width="2.2" stroke-linecap="round">
+    <line x1="8.10" y1="10.89" x2="12.20" y2="18.46"/>
+    <line x1="23.90" y1="10.89" x2="19.80" y2="18.46"/>
+    <path d="M13.86 21.54 L14.00 16.12 L9.25 18.69z" stroke="none"/>
+    <path d="M18.14 21.54 L22.75 18.69 L18.00 16.12z" stroke="none"/>
+    <circle cx="6" cy="7" r="3.4" stroke="none"/>
+    <circle cx="26" cy="7" r="3.4" stroke="none"/>
+    <circle cx="16" cy="25.5" r="3.4" stroke="none"/>
+  </g>
+</svg>

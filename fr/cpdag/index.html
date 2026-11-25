@@ -1,0 +1,291 @@
+<!doctype html><html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Externalized CPDAG Summaries Improve LLM Causal Deduction · Wentao Sun</title>
+  <meta name="description" content="Article publié à NeurIPS 2026 par Wentao Sun, João Paulo Nogueira, Dominique Verchere, Mathieu Acher et Alonso Silva, avec une vidéo explicative.">
+  <link rel="canonical" href="https://wentaopoly.github.io/fr/cpdag/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/cpdag/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/cpdag/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/cpdag/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/cpdag/">
+  <meta property="og:title" content="Externalized CPDAG Summaries Improve LLM Causal Deduction">
+  <meta property="og:description" content="Article publié à NeurIPS 2026 par Wentao Sun, João Paulo Nogueira, Dominique Verchere, Mathieu Acher et Alonso Silva, avec une vidéo explicative.">
+  <meta property="og:url" content="https://wentaopoly.github.io/fr/cpdag/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/cpdag/poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-fr">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/fr/#about">À propos</a>
+    <a href="/fr/#news">Actualités</a>
+    <a href="/fr/#publications">Publications</a>
+    <a href="/fr/#projects">Projets</a>
+    <a href="/fr/#honors">Distinctions</a>
+    <a href="/fr/#visitors">Visiteurs</a>
+    <a href="/fr/cv/">CV</a>
+    <span class="site-langs">
+      <a href="/cpdag/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <a href="/zh/cpdag/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <span aria-current="true" lang="fr" title="Français">FR</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="paper">
+  <header class="page-head paper-head">
+  <h1>Externalized CPDAG Summaries Improve LLM Causal Deduction</h1>
+  <p class="paper-authors"><span class="me">Wentao Sun<sup>1</sup></span>, <span>João Paulo Nogueira<sup>2</sup></span>, <span>Dominique Verchere<sup>1</sup></span>, <span>Mathieu Acher<sup>3</sup></span>, <span>Alonso Silva<sup>1</sup></span></p>
+  <p class="paper-affils"><span><sup>1</sup>Nokia Bell Labs</span><span><sup>2</sup>Institut Polytechnique de Paris</span><span><sup>3</sup>IRISA / Inria</span></p>
+  <p class="paper-venue">NeurIPS 2026 · Poster, Paris Poster Hall, mercredi 9 décembre 2026, 12 h 30 – 14 h 30 (heure de Paris)</p>
+  <p class="pub-links"><a href="https://arxiv.org/pdf/2609.31071">Article</a><span class="sep">/</span><a href="https://arxiv.org/abs/2609.31071">arXiv</a><span class="sep">/</span><a href="https://openreview.net/forum?id=jNkJv4Cfma">OpenReview</a><span class="sep">/</span>
+    <a href="#bibtex">BibTeX</a>
+  </p>
+</header>
+
+  <div class="media-hero"><figure class="video" id="video">
+  <video controls preload="metadata" playsinline poster="/assets/img/covers/cpdag.jpg" width="1280" height="720">
+    <source src="/assets/video/cpdag-explainer.mp4" type="video/mp4">
+    <track kind="subtitles" srclang="en" label="English" src="/assets/video/cpdag-explainer.en.vtt">
+    <track kind="subtitles" srclang="zh" label="中文" src="/assets/video/cpdag-explainer.zh.vtt">
+    <track kind="subtitles" srclang="fr" label="Français" src="/assets/video/cpdag-explainer.fr.vtt" default>
+    <p>Votre navigateur ne peut pas lire cette vidéo. Vous pouvez <a href="/assets/video/cpdag-explainer.mp4">la télécharger</a>.</p>
+  </video>
+  <figcaption>Vidéo explicative, 8 min 31 s</figcaption>
+</figure>
+</div>
+
+
+  <section class="sec">
+    <h2>En bref</h2>
+    <div class="sec-body prose">
+      <p>Corr2Cause fournit à un modèle de langage les corrélations et les indépendances conditionnelles entre quelques variables, puis lui demande si une affirmation causale s’en déduit. L’affirmation n’est considérée comme vraie que si elle tient dans <em>tous</em> les graphes causaux compatibles avec les observations. C’est ce « tous » qui est difficile, et le chain-of-thought libre a tendance à le négliger. Le modèle trouve un scénario qui convient et en tire sa réponse.</p>
+      <p>Nous faisons faire ce travail au modèle de façon explicite. Dans un premier tour, il écrit le CPDAG, la structure qui résume tous les graphes compatibles avec les observations, sous la forme d’un objet typé contraint par un schéma JSON. Dans un second tour, il répond en s’appuyant sur cet objet. Il n’y a ni fine-tuning ni solveur symbolique.</p>
+      <figure class="toy" aria-labelledby="toy-title">
+  <svg width="0" height="0" class="defs" aria-hidden="true">
+    <defs>
+      <marker id="toy-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,1 L10,5 L0,9 z"/>
+      </marker>
+    </defs>
+  </svg>
+  <h3 id="toy-title">Essayer avec trois variables</h3>
+  <fieldset class="toy-pick">
+    <legend>Les observations</legend>
+    <label><input type="radio" name="toy-evidence" value="chain" checked> A et C sont corrélés, mais indépendants une fois B connu</label>
+    <label><input type="radio" name="toy-evidence" value="collider"> A et C sont indépendants, mais corrélés une fois B connu</label>
+  </fieldset>
+
+  <div class="toy-case toy-chain">
+    <p class="toy-h">Graphes causaux compatibles avec ces observations</p>
+    <div class="toy-graphs">
+      <div class="holds"><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A → B → C"><line x1="32" y1="22" x2="62" y2="22" marker-end="url(#toy-arrow)"/><line x1="87" y1="22" x2="117" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>chaîne <b>✓</b></span></div>
+      <div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A ← B ← C"><line x1="63" y1="22" x2="33" y2="22" marker-end="url(#toy-arrow)"/><line x1="118" y1="22" x2="88" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>chaîne inverse <b>✗</b></span></div>
+      <div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A ← B → C"><line x1="63" y1="22" x2="33" y2="22" marker-end="url(#toy-arrow)"/><line x1="87" y1="22" x2="117" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>cause commune <b>✗</b></span></div>
+    </div>
+    <p class="toy-h">Ce sur quoi ils s’accordent tous (le CPDAG)</p>
+    <div class="toy-graphs"><div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A — B — C"><line x1="32" y1="22" x2="63" y2="22"/><line x1="87" y1="22" x2="118" y2="22"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+</div></div>
+    <p class="toy-verdict"><strong>Hypothèse : A cause B.</strong> Vraie dans 1 graphe sur 3. Possible, mais pas déductible : la réponse est Non.</p>
+  </div>
+
+  <div class="toy-case toy-collider">
+    <p class="toy-h">Graphes causaux compatibles avec ces observations</p>
+    <div class="toy-graphs">
+      <div class="holds"><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A → B ← C"><line x1="32" y1="22" x2="62" y2="22" marker-end="url(#toy-arrow)"/><line x1="118" y1="22" x2="88" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>collisionneur <b>✓</b></span></div>
+    </div>
+    <p class="toy-h">Ce sur quoi ils s’accordent tous (le CPDAG)</p>
+    <div class="toy-graphs"><div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A → B ← C"><line x1="32" y1="22" x2="62" y2="22" marker-end="url(#toy-arrow)"/><line x1="118" y1="22" x2="88" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+</div></div>
+    <p class="toy-verdict"><strong>Hypothèse : A cause B.</strong> Vraie dans le seul graphe compatible. Déductible : la réponse est Oui.</p>
+  </div>
+</figure>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Méthode</h2>
+    <div class="sec-body"><figure class="flow">
+  <ol class="flow-steps">
+    <li>Prémisse + hypothèse</li>
+    <li class="flow-model">Tour 1 : écrire le graphe</li>
+    <li class="flow-object">CausalAnalysis</li>
+    <li class="flow-model">Tour 2 : répondre à partir du graphe</li>
+    <li>Oui / Non</li>
+  </ol>
+  <pre class="flow-json"><code><span class="k">variables</span>     [A, B, C, D, E]
+<span class="k">skeleton</span>      [A–C, B–C, C–D, A–E]
+<span class="k">non_adjacent</span>  [A–B | ∅, A–D | C, B–D | C, B–E | ∅, C–E | A, D–E | A]
+<span class="k">v_structures</span>  [A → C ← B]
+<span class="k">directed</span>      [A → C, B → C, C → D]
+<span class="k">undirected</span>    [A – E]</code></pre>
+  <figcaption>La référence reçoit les mêmes instructions de l’algorithme PC, en un seul tour ; le gain ne vient donc pas de meilleures instructions. Le tour 1 est décodé sous un schéma JSON ; l’objet ci-dessous est ce que le modèle produit pour un exemple à cinq variables.</figcaption>
+</figure>
+</div>
+  </section>
+
+  <section class="sec">
+    <h2>Résultats</h2>
+    <div class="sec-body prose">
+      <p>Avec Qwen3.5-27B, le F1 sur la classe « Oui » passe de 73,0 à 86,4. Les deux types d’erreur diminuent : les « Oui » manqués passent de 61 à 28 et les fausses alertes de 27 à 20. Une variante de contrôle en deux tours, qui écrit du texte libre au lieu d’un graphe typé, obtient 67,6, en dessous de la référence. Ce n’est donc pas le second tour en lui-même qui aide.</p>
+      <figure class="dumbbell" aria-labelledby="dumbbell-title">
+  <p class="chart-title" id="dumbbell-title">F1 sur les réponses « Oui », jeu de test Corr2Cause</p>
+  <p class="chart-legend"><span class="key key-base"></span>Un seul tour, même consigne PC <span class="key key-ours"></span>Structured Thinking</p>
+  <div class="db-plot">
+    <div class="db-grid" aria-hidden="true">
+      <span style="left: 14.285714285714286%">40</span>
+      <span style="left: 28.571428571428573%">50</span>
+      <span style="left: 42.857142857142854%">60</span>
+      <span style="left: 57.142857142857146%">70</span>
+      <span style="left: 71.42857142857143%">80</span>
+      <span style="left: 85.71428571428571%">90</span>
+      <span style="left: 100.0%">100</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.5-27B</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 61.44285714285714%; width: 19.07142857142858%"></span>
+        <span class="db-dot db-base" style="left: 61.44285714285714%" title="Un seul tour, même consigne PC: 73.0"></span>
+        <span class="db-dot db-ours" style="left: 80.51428571428572%" title="Structured Thinking: 86.4"></span>
+      </span>
+      <span class="db-delta">+13.4</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.5-27B, test reformulé</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 60.47142857142857%; width: 14.94285714285714%"></span>
+        <span class="db-dot db-base" style="left: 60.47142857142857%" title="Un seul tour, même consigne PC: 72.3"></span>
+        <span class="db-dot db-ours" style="left: 75.41428571428571%" title="Structured Thinking: 82.8"></span>
+      </span>
+      <span class="db-delta">+10.5</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.6-27B</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 65.6%; width: 13.98571428571429%"></span>
+        <span class="db-dot db-base" style="left: 65.6%" title="Un seul tour, même consigne PC: 75.9"></span>
+        <span class="db-dot db-ours" style="left: 79.58571428571429%" title="Structured Thinking: 85.7"></span>
+      </span>
+      <span class="db-delta">+9.8</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.5-9B</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 13.114285714285714%; width: 29.114285714285717%"></span>
+        <span class="db-dot db-base" style="left: 13.114285714285714%" title="Un seul tour, même consigne PC: 39.2"></span>
+        <span class="db-dot db-ours" style="left: 42.22857142857143%" title="Structured Thinking: 59.6"></span>
+      </span>
+      <span class="db-delta">+20.4</span>
+    </div><div class="db-row">
+      <span class="db-label">Gemma-4-31B *</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 79.11428571428571%; width: 2.87142857142857%"></span>
+        <span class="db-dot db-base" style="left: 79.11428571428571%" title="Un seul tour, même consigne PC: 85.4"></span>
+        <span class="db-dot db-ours" style="left: 81.98571428571428%" title="Structured Thinking: 87.4"></span>
+      </span>
+      <span class="db-delta">+2.0</span>
+    </div><div class="db-row">
+      <span class="db-label">GPT-5.4-mini</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 79.12857142857143%; width: 4.55714285714285%"></span>
+        <span class="db-dot db-base" style="left: 79.12857142857143%" title="Un seul tour, même consigne PC: 85.4"></span>
+        <span class="db-dot db-ours" style="left: 83.68571428571428%" title="Structured Thinking: 88.6"></span>
+      </span>
+      <span class="db-delta">+3.2</span>
+    </div>
+    <div class="db-axis" aria-hidden="true"></div>
+  </div>
+  <figcaption>La première ligne est l’expérience principale appariée (McNemar p = 2,4 × 10⁻⁶ ; sur trois graines, le gain moyen est de +8,1 ± 5,3). Les autres lignes sont des exécutions uniques. * Gemma a été évalué sans décodage contraint strict.</figcaption>
+  <details class="chart-table">
+    <summary>Voir les chiffres</summary>
+    <table>
+      <thead><tr><th>Modèle</th><th>Référence</th><th>Structuré</th><th>Écart</th></tr></thead>
+      <tbody>
+        <tr><td>Qwen3.5-27B</td><td>73.01</td><td>86.36</td><td>+13.35</td></tr>
+        <tr><td>Qwen3.5-27B, test reformulé</td><td>72.33</td><td>82.79</td><td>+10.46</td></tr>
+        <tr><td>Qwen3.6-27B</td><td>75.92</td><td>85.71</td><td>+9.79</td></tr>
+        <tr><td>Qwen3.5-9B</td><td>39.18</td><td>59.56</td><td>+20.38</td></tr>
+        <tr><td>Gemma-4-31B *</td><td>85.38</td><td>87.39</td><td>+2.01</td></tr>
+        <tr><td>GPT-5.4-mini</td><td>85.39</td><td>88.58</td><td>+3.19</td></tr>
+      </tbody>
+    </table>
+  </details>
+</figure>
+
+      <p>Les modèles plus forts gagnent moins. GPT-5.4-mini et Gemma-4-31B partent d’environ 85 et progressent de 3,2 et 2,0 points, chacun sur une seule exécution. La méthode consomme aussi environ deux fois plus de tokens que la référence en un tour.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Le modèle se sert-il du graphe ?</h2>
+    <div class="sec-body prose">
+      <p>Un modèle peut produire un graphe propre puis l’ignorer. Nous avons donc volontairement abîmé le graphe. Brouiller tout le CPDAG entre les deux tours fait perdre 12,0 points de F1. Brouiller seulement le squelette, seulement les collisionneurs ou seulement les arêtes orientées fait perdre environ 6 points dans chaque cas, alors que retirer la prémisse du second tour en coûte 3,8.</p>
+      <p>Les graphes sont d’ailleurs le plus souvent corrects. Par rapport au CPDAG de référence, les squelettes produits atteignent un F1 de 0,960 et 75,9 % des graphes sont exactement identiques. Quand le graphe est exact, la réponse finale est correcte dans 97,2 % des cas.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Limites</h2>
+    <div class="sec-body prose">
+      <p>Tous ces résultats portent sur Corr2Cause, où les indépendances sont données sous forme d’énoncés exacts au lieu d’être estimées à partir de données. Le graphe produit est conforme au schéma, mais il n’est pas certifié ; 18 à 21 % des sorties contiennent au moins une incohérence interne. À part la comparaison principale, que nous avons répétée avec trois graines (+8,1 ± 5,3 en moyenne), les lignes ci-dessus correspondent à une seule exécution.</p>
+      <p>Une première version de ces travaux est parue en mai 2025 sous le titre <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="bibtex">
+    <h2>Citer</h2>
+    <div class="sec-body">
+      <div class="codeblock"><pre><code>@inproceedings{sun2026externalized,
+  title     = {Externalized {CPDAG} Summaries Improve {LLM} Causal Deduction},
+  author    = {Sun, Wentao and Nogueira, Jo{\~a}o Paulo and Verchere, Dominique and Acher, Mathieu and Silva, Alonso},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026},
+  eprint    = {2609.31071},
+  archivePrefix = {arXiv}
+}</code></pre><button class="copy" type="button" data-copy data-copied="Copié">Copier</button></div>
+    </div>
+  </section>
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Dernière mise à jour 2026-11-25 · <a href="/lamp/">Un jeu d’énigmes (en chinois)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

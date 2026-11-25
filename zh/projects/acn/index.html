@@ -1,0 +1,122 @@
+<!doctype html><html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Claim Network · 孙文涛</title>
+  <meta name="description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <link rel="canonical" href="https://wentaopoly.github.io/zh/projects/acn/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/acn/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/acn/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/acn/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/acn/">
+  <meta property="og:title" content="Agent Claim Network">
+  <meta property="og:description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <meta property="og:url" content="https://wentaopoly.github.io/zh/projects/acn/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-zh">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/zh/#about">关于</a>
+    <a href="/zh/#news">动态</a>
+    <a href="/zh/#publications">论文</a>
+    <a href="/zh/#projects">项目</a>
+    <a href="/zh/#honors">荣誉</a>
+    <a href="/zh/#visitors">访客</a>
+    <a href="/zh/cv/">简历</a>
+    <span class="site-langs">
+      <a href="/projects/acn/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <span aria-current="true" lang="zh" title="中文">中</span>
+      <a href="/fr/projects/acn/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/zh/projects/">← 全部项目</a></p>
+    <h1>Agent Claim Network</h1>
+    <p class="lede">Agent Claim Network 是一个终端里的编程智能体，会把自己弄明白的东西存成别的智能体可以检索的 claim。我做的是评测：这些 claim 到底有没有用，在 111 道长程软件工程任务上检验。</p>
+    <dl class="meta">
+      <div><dt>时间</dt><dd>2026 年</dd></div>
+      <div><dt>角色</dt><dd>团队项目中负责评测，并开发了几项智能体功能</dd></div>
+      <div><dt>代码</dt><dd><a href="https://github.com/FTShare-Lab/agent-claim-network">agent-claim-network</a> · <a href="https://github.com/FTShare-Lab/acn-deepswe-eval">acn-deepswe-eval</a></dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/acn.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>想法</h2>
+  <div class="sec-body prose">
+    <p>多数多智能体系统共享一个记忆库就算完事。ACN 的做法是把结论存成 claim：一条带适用范围、证据、持有者和置信度的判断。router 给 claim 建索引，方便其他智能体检索；两条 claim 冲突时由 maintainer 处理。核心设计是团队的，我关心的问题更窄一些。</p>
+    <p>一个智能体解完一道题、留下了 claim，换一个全新的智能体来做同一道题，会不会做得更好？</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>实验设置</h2>
+  <div class="sec-body prose">
+    <p>基准是 DeepSWE v1.1，题目取自活跃的开源仓库，每题由手写的 verifier 判定。每道题交给四个彼此隔离的智能体，都用 DeepSeek-V4.1-Flash，只有拿到 claim 的方式不同：</p>
+    <ul>
+      <li><strong>生产者</strong>先独立解题并写下 claim。只有通过 verifier 的生产者，claim 才会交给后面的智能体。</li>
+      <li><strong>无 claim</strong>：全新的智能体，作为基线。</li>
+      <li><strong>按需取用</strong>：全新的智能体，只看到 claim 摘要列表，自己决定读哪些。</li>
+      <li><strong>强制注入</strong>：全新的智能体，所有 claim 直接贴进第一轮提示。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>结果</h2>
+  <div class="sec-body prose">
+    <figure class="bars" aria-labelledby="acn-chart-title">
+      <p class="chart-title" id="acn-chart-title">通过的题数（共 111 题）</p>
+      <div class="bar-row"><span class="bar-label">生产者</span><span class="bar-track"><span class="bar" style="width: 64.86%"></span></span><span class="bar-value">72</span></div>
+      <div class="bar-row"><span class="bar-label">无 claim</span><span class="bar-track"><span class="bar" style="width: 56.76%"></span></span><span class="bar-value">63</span></div>
+      <div class="bar-row is-key"><span class="bar-label">按需取用</span><span class="bar-track"><span class="bar" style="width: 65.77%"></span></span><span class="bar-value">73</span></div>
+      <div class="bar-row"><span class="bar-label">强制注入</span><span class="bar-track"><span class="bar" style="width: 58.56%"></span></span><span class="bar-value">65</span></div>
+      <figcaption>DeepSWE v1.1，DeepSeek-V4.1-Flash，每组各运行一次。条形按 0–111 的比例绘制。</figcaption>
+    </figure>
+    <p>按需取用 claim 的智能体比基线多通过 10 题，输入 token 少 15.9%，模型请求少 10.3%。把同样的 claim 强制塞进提示只多过 2 题，所以收益来自智能体自己挑着读，而不是上下文更多。</p>
+    <p>结果令人鼓舞，但还不能下结论。按题配对，两组在 30 道题上结果不同：</p>
+    <table class="data">
+      <thead><tr><th></th><th class="num">按需取用：通过</th><th class="num">按需取用：未通过</th></tr></thead>
+      <tbody>
+        <tr><th>基线：通过</th><td class="num">53</td><td class="num">10</td></tr>
+        <tr><th>基线：未通过</th><td class="num">20</td><td class="num">28</td></tr>
+      </tbody>
+    </table>
+    <p>20 比 10，方向是对的，但精确 McNemar 检验的 p ≈ 0.099，而且只跑了一次。更早用上一代模型 DeepSeek-V4-Flash 的完整运行里，claim 组反而不如基线（113 题中 44 对 52）。要说这是一个确定的效应，我还想看到重复实验。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>我做的部分</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>DeepSWE 评测本身和它的 runner：每题四组隔离运行、claim 的质量门控、配对统计，报告只收录分母完整、已经跑完的运行。</li>
+      <li>智能体在解题过程中检索 claim 用的 claim 工具，以及终端界面里的 <code>/claim</code> 面板。</li>
+      <li>MCP 服务器的 OAuth 登录，以及模型服务在会话中途拒绝请求时的恢复机制。</li>
+    </ul>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · 最后更新 2026-11-25 · <a href="/lamp/">解谜游戏《不在清单上的灯》</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

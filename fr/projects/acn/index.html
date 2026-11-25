@@ -1,0 +1,121 @@
+<!doctype html><html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Claim Network · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <link rel="canonical" href="https://wentaopoly.github.io/fr/projects/acn/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/acn/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/acn/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/acn/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/acn/">
+  <meta property="og:title" content="Agent Claim Network">
+  <meta property="og:description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <meta property="og:url" content="https://wentaopoly.github.io/fr/projects/acn/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-fr">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/fr/#about">À propos</a>
+    <a href="/fr/#news">Actualités</a>
+    <a href="/fr/#publications">Publications</a>
+    <a href="/fr/#projects">Projets</a>
+    <a href="/fr/#honors">Distinctions</a>
+    <a href="/fr/#visitors">Visiteurs</a>
+    <a href="/fr/cv/">CV</a>
+    <span class="site-langs">
+      <a href="/projects/acn/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <a href="/zh/projects/acn/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <span aria-current="true" lang="fr" title="Français">FR</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/fr/projects/">← Tous les projets</a></p>
+    <h1>Agent Claim Network</h1>
+    <p class="lede">Agent Claim Network est un agent de code en terminal qui enregistre ce qu’il découvre sous forme de « claims » que d’autres agents peuvent consulter. J’ai mené l’évaluation qui cherche à savoir si ces claims aident vraiment, sur 111 tâches longues de génie logiciel.</p>
+    <dl class="meta">
+      <div><dt>Période</dt><dd>2026</dd></div>
+      <div><dt>Rôle</dt><dd>Évaluation et plusieurs fonctionnalités de l’agent, dans un projet d’équipe</dd></div>
+      <div><dt>Code</dt><dd><a href="https://github.com/FTShare-Lab/agent-claim-network">agent-claim-network</a> · <a href="https://github.com/FTShare-Lab/acn-deepswe-eval">acn-deepswe-eval</a></dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/acn.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>L’idée</h2>
+  <div class="sec-body prose">
+    <p>La plupart des systèmes multi-agents partagent une mémoire commune et s’en tiennent là. ACN stocke plutôt des conclusions sous forme de claims. Un claim est un énoncé avec une portée, les éléments qui le justifient, l’agent qui le détient et son degré de confiance. Un routeur indexe les claims pour que d’autres agents puissent les retrouver, et un mainteneur traite les cas où deux claims se contredisent. L’architecture d’ensemble est due à l’équipe ; ma question était plus restreinte.</p>
+    <p>Si un agent résout une tâche et laisse des claims derrière lui, un nouvel agent fait-il mieux sur la même tâche ?</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Protocole</h2>
+  <div class="sec-body prose">
+    <p>Le benchmark est DeepSWE v1.1, un ensemble de tâches longues construites à partir de dépôts open source actifs et contrôlées par des vérificateurs écrits à la main. Chaque tâche a été confiée à quatre agents isolés qui utilisent DeepSeek-V4.1-Flash. Ils ne diffèrent que par la façon dont les claims leur parviennent :</p>
+    <ul>
+      <li><strong>Producteur</strong> : il résout la tâche en premier et écrit des claims. Seuls les producteurs qui passent le vérificateur peuvent transmettre leurs claims.</li>
+      <li><strong>Sans claims</strong> : un nouvel agent, qui sert de référence.</li>
+      <li><strong>Claims à la demande</strong> : un nouvel agent qui voit une liste de résumés de claims et va chercher ceux qu’il veut.</li>
+      <li><strong>Claims imposés</strong> : un nouvel agent dont le premier prompt contient tous les claims, collés tels quels.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Résultats</h2>
+  <div class="sec-body prose">
+    <figure class="bars" aria-labelledby="acn-chart-title">
+      <p class="chart-title" id="acn-chart-title">Tâches réussies, sur 111</p>
+      <div class="bar-row"><span class="bar-label">Producteur</span><span class="bar-track"><span class="bar" style="width: 64.86%"></span></span><span class="bar-value">72</span></div>
+      <div class="bar-row"><span class="bar-label">Sans claims</span><span class="bar-track"><span class="bar" style="width: 56.76%"></span></span><span class="bar-value">63</span></div>
+      <div class="bar-row is-key"><span class="bar-label">Claims à la demande</span><span class="bar-track"><span class="bar" style="width: 65.77%"></span></span><span class="bar-value">73</span></div>
+      <div class="bar-row"><span class="bar-label">Claims imposés</span><span class="bar-track"><span class="bar" style="width: 58.56%"></span></span><span class="bar-value">65</span></div>
+      <figcaption>DeepSWE v1.1, DeepSeek-V4.1-Flash, une exécution par configuration. Les barres sont tracées sur une échelle de 0 à 111.</figcaption>
+    </figure>
+    <p>L’agent qui allait chercher les claims à la demande a réussi 10 tâches de plus que la référence, avec 15,9 % de tokens d’entrée et 10,3 % de requêtes au modèle en moins. Coller les mêmes claims dans le prompt n’a fait gagner que 2 tâches. Le gain vient donc du fait que l’agent choisit ce qu’il lit, et non d’un contexte plus fourni.</p>
+    <p>C’est encourageant, mais pas concluant. Appariées par tâche, les deux configurations divergent sur 30 tâches :</p>
+    <table class="data">
+      <thead><tr><th></th><th class="num">À la demande : réussite</th><th class="num">À la demande : échec</th></tr></thead>
+      <tbody>
+        <tr><th>Référence : réussite</th><td class="num">53</td><td class="num">10</td></tr>
+        <tr><th>Référence : échec</th><td class="num">20</td><td class="num">28</td></tr>
+      </tbody>
+    </table>
+    <p>Cela fait vingt cas favorables contre dix défavorables, mais un test exact de McNemar donne p ≈ 0,099, et il s’agit d’une seule exécution. Lors d’une exécution complète antérieure avec le modèle précédent, DeepSeek-V4-Flash, la configuration avec claims avait fait moins bien que la référence (44 contre 52 sur 113). Il me faudrait des exécutions répétées avant de parler d’un effet.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Ce que j’ai développé</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>Le runner DeepSWE et l’évaluation elle-même : quatre configurations isolées par tâche, le filtre de qualité sur les claims, les statistiques appariées, et un rapport qui ne compte que les exécutions terminées avec un dénominateur complet.</li>
+      <li>L’outil que les agents utilisent pour consulter les claims en cours de tâche, et le panneau <code>/claim</code> de l’interface en terminal.</li>
+      <li>La connexion OAuth aux serveurs MCP, et la reprise quand un fournisseur de modèles rejette une requête en cours de session.</li>
+    </ul>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Dernière mise à jour 2026-11-25 · <a href="/lamp/">Un jeu d’énigmes (en chinois)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,4 +1,75 @@
-User-agent: *
+<!doctype html><html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wentao Sun</title>
+  <meta name="description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <link rel="canonical" href="https://wentaopoly.github.io/robots.txt">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/robots.txt">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/robots.txt">
+  <meta property="og:title" content="Wentao Sun">
+  <meta property="og:description" content="Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.">
+  <meta property="og:url" content="https://wentaopoly.github.io/robots.txt">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>
+    // First visit from outside the site: follow the browser's language once.
+    // An explicit choice in the language switcher is stored and always wins.
+    (function () {
+      var alternates = {  };
+      try {
+        if (localStorage.getItem("lang")) return;
+        if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+      } catch (e) { return; }
+      var prefs = navigator.languages || [navigator.language];
+      for (var i = 0; i < prefs.length; i++) {
+        var code = String(prefs[i]).slice(0, 2).toLowerCase();
+        if (code === "en") return;
+        if (alternates[code]) { location.replace(alternates[code]); return; }
+      }
+    })();
+  </script>
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-en">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/#about">About</a>
+    <a href="/#news">News</a>
+    <a href="/#publications">Publications</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#honors">Honors</a>
+    <a href="/#visitors">Visitors</a>
+    <a href="/cv/">CV</a>
+    <span class="site-langs">
+      <span aria-current="true" lang="en" title="English">EN</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="page">
+  <header class="page-head">
+    <h1></h1>
+  </header>
+  User-agent: *
 Disallow:
 
 Sitemap: https://wentaopoly.github.io/sitemap.xml
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Last updated 2026-11-25 · <a href="/lamp/">A puzzle game (in Chinese)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

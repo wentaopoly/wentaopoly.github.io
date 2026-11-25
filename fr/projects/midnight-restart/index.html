@@ -1,0 +1,113 @@
+<!doctype html><html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Un processus d’automatisation de navigateur bloqué à chaque redémarrage · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <link rel="canonical" href="https://wentaopoly.github.io/fr/projects/midnight-restart/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/midnight-restart/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/midnight-restart/">
+  <meta property="og:title" content="Un processus d’automatisation de navigateur bloqué à chaque redémarrage">
+  <meta property="og:description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <meta property="og:url" content="https://wentaopoly.github.io/fr/projects/midnight-restart/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-fr">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/fr/#about">À propos</a>
+    <a href="/fr/#news">Actualités</a>
+    <a href="/fr/#publications">Publications</a>
+    <a href="/fr/#projects">Projets</a>
+    <a href="/fr/#honors">Distinctions</a>
+    <a href="/fr/#visitors">Visiteurs</a>
+    <a href="/fr/cv/">CV</a>
+    <span class="site-langs">
+      <a href="/projects/midnight-restart/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <a href="/zh/projects/midnight-restart/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <span aria-current="true" lang="fr" title="Français">FR</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/fr/projects/">← Tous les projets</a></p>
+    <h1>Un processus d’automatisation de navigateur bloqué à chaque redémarrage</h1>
+    <p class="lede">Un processus d’automatisation de navigateur collectait des articles pendant des semaines d’affilée, et chaque nuit, au redémarrage programmé, il se bloquait tout en ayant l’air parfaitement vivant. Le problème venait en fait de deux interblocages superposés.</p>
+    <dl class="meta">
+      <div><dt>Période</dt><dd>janvier – août 2026</dd></div>
+      <div><dt>Rôle</dt><dd>Conception et réalisation</dd></div>
+      <div><dt>Code</dt><dd>Non public</dd></div>
+    </dl>
+  </header>
+  <section class="sec">
+  <h2>Le contexte</h2>
+  <div class="sec-body prose">
+    <p>Un processus Python pilote une session Chrome authentifiée via <a href="https://github.com/browser-use/browser-use">browser-use</a>, lit les articles rubrique par rubrique et envoie chacun d’eux dans un topic Kafka. Un article n’est marqué comme traité qu’une fois que le broker en a accusé réception, et la progression par rubrique est écrite de façon atomique. Un plantage, à n’importe quel moment, ne fait donc perdre aucun article. Une fois par jour, à minuit, le worker ferme le navigateur et se remplace par une copie neuve via <code>os.execv</code>.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Le symptôme</h2>
+  <div class="sec-body prose">
+    <p>Au redémarrage de minuit, le worker s’arrêtait tout simplement. Le processus existait toujours et tous les health checks fondés sur le PID passaient, mais aucun article n’arrivait. Le seul indice visible se trouvait dans la liste des processus. Une session saine compte neuf processus Chrome pour son profil, et une session bloquée n’en avait plus qu’un. Le problème n’avait rien d’intermittent. Les deux nuits que nous avons examinées, le blocage s’est produit exactement au même endroit.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Première couche</h2>
+  <div class="sec-body prose">
+    <p>La méthode <code>stop()</code> de la bibliothèque arrête d’abord Chrome, puis attend un signal de fin sur son bus d’événements. Ce signal ne peut jamais arriver, car le gestionnaire qui devrait l’envoyer a besoin de la connexion DevTools que <code>stop()</code> vient de fermer. Le bus d’événements avale aussi <code>CancelledError</code> pendant le nettoyage.</p>
+    <p>Le timeout le plus évident ne marche donc pas. <code>asyncio.wait_for</code> annule la tâche quand le délai est écoulé, puis attend que l’annulation se termine, ce qui n’arrive jamais ici.</p>
+<pre><code><span class="c"># hangs: wait_for needs the task to accept cancellation</span>
+await asyncio.wait_for(browser.stop(), timeout=12)
+
+<span class="c"># returns after 12 s whatever the task does</span>
+task = asyncio.ensure_future(browser.stop())
+await asyncio.wait({task}, timeout=12)
+<span class="c"># then abandon the task and kill Chrome by its profile path</span></code></pre>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Deuxième couche</h2>
+  <div class="sec-body prose">
+    <p>Corriger la première couche n’a fait que déplacer le blocage. En sortant, <code>asyncio.run</code> annule toutes les tâches en attente et attend chacune d’elles, y compris le <code>stop()</code> abandonné, qui ne se terminera jamais. Le processus n’atteint jamais <code>os.execv</code>.</p>
+    <p>La correction consiste à lancer la coroutine principale avec <code>loop.run_until_complete</code>, qui ne touche pas aux tâches en attente. Quand <code>os.execv</code> remplace l’image du processus, la tâche bloquée disparaît avec elle.</p>
+    <p>Chaque couche a ses tests de non-régression, avec un <code>stop()</code> qui avale réellement l’annulation. Si l’une des deux corrections est retirée, le test se bloque au lieu de passer sans bruit.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Autres leçons</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>« En vie » n’est pas un signal de santé utile pour un worker. L’alerte qui compte est « aucun accusé de réception du broker depuis 60 minutes », et son état est stocké sur disque pour qu’un redémarrage ne la déclenche pas deux fois.</li>
+      <li>Ce watchdog est la dernière chose annulée à l’arrêt. S’il part en premier, un arrêt bloqué est aussi un arrêt silencieux.</li>
+      <li>Un interblocage qui se produit à la même heure chaque nuit est une chance. Il est bien plus facile à attraper qu’un interblocage qui survient une fois par mois.</li>
+    </ul>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Dernière mise à jour 2026-11-25 · <a href="/lamp/">Un jeu d’énigmes (en chinois)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

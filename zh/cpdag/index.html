@@ -1,0 +1,292 @@
+<!doctype html><html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Externalized CPDAG Summaries Improve LLM Causal Deduction · 孙文涛</title>
+  <meta name="description" content="NeurIPS 2026 论文，作者孙文涛、João Paulo Nogueira、Dominique Verchere、Mathieu Acher、Alonso Silva，附讲解视频。">
+  <link rel="canonical" href="https://wentaopoly.github.io/zh/cpdag/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/cpdag/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/cpdag/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/cpdag/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/cpdag/">
+  <meta property="og:title" content="Externalized CPDAG Summaries Improve LLM Causal Deduction">
+  <meta property="og:description" content="NeurIPS 2026 论文，作者孙文涛、João Paulo Nogueira、Dominique Verchere、Mathieu Acher、Alonso Silva，附讲解视频。">
+  <meta property="og:url" content="https://wentaopoly.github.io/zh/cpdag/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/cpdag/poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-zh">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/zh/#about">关于</a>
+    <a href="/zh/#news">动态</a>
+    <a href="/zh/#publications">论文</a>
+    <a href="/zh/#projects">项目</a>
+    <a href="/zh/#honors">荣誉</a>
+    <a href="/zh/#visitors">访客</a>
+    <a href="/zh/cv/">简历</a>
+    <span class="site-langs">
+      <a href="/cpdag/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <span aria-current="true" lang="zh" title="中文">中</span>
+      <a href="/fr/cpdag/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="paper">
+  <header class="page-head paper-head">
+  <h1>Externalized CPDAG Summaries Improve LLM Causal Deduction</h1>
+  <p class="paper-authors"><span class="me">Wentao Sun<sup>1</sup></span>, <span>João Paulo Nogueira<sup>2</sup></span>, <span>Dominique Verchere<sup>1</sup></span>, <span>Mathieu Acher<sup>3</sup></span>, <span>Alonso Silva<sup>1</sup></span></p>
+  <p class="paper-affils"><span><sup>1</sup>诺基亚贝尔实验室</span><span><sup>2</sup>巴黎理工学院联盟</span><span><sup>3</sup>IRISA / Inria</span></p>
+  <p class="paper-venue">NeurIPS 2026 · 海报，巴黎海报厅，2026 年 12 月 9 日（周三）12:30–14:30（巴黎时间）</p>
+  <p class="pub-links"><a href="https://arxiv.org/pdf/2609.31071">论文</a><span class="sep">/</span><a href="https://arxiv.org/abs/2609.31071">arXiv</a><span class="sep">/</span><a href="https://openreview.net/forum?id=jNkJv4Cfma">OpenReview</a><span class="sep">/</span>
+    <a href="#bibtex">BibTeX</a>
+  </p>
+</header>
+
+  <div class="media-hero"><figure class="video" id="video">
+  <video controls preload="metadata" playsinline poster="/assets/img/covers/cpdag.jpg" width="1280" height="720">
+    <source src="/assets/video/cpdag-explainer.mp4" type="video/mp4">
+    <track kind="subtitles" srclang="en" label="English" src="/assets/video/cpdag-explainer.en.vtt">
+    <track kind="subtitles" srclang="zh" label="中文" src="/assets/video/cpdag-explainer.zh.vtt" default>
+    <track kind="subtitles" srclang="fr" label="Français" src="/assets/video/cpdag-explainer.fr.vtt">
+    <p>你的浏览器无法播放这段视频，可以<a href="/assets/video/cpdag-explainer.mp4">直接下载</a>。</p>
+  </video>
+  <figcaption>讲解视频，8 分 31 秒</figcaption>
+</figure>
+</div>
+
+
+  <section class="sec">
+    <h2>简单说</h2>
+    <div class="sec-body prose">
+      <p>Corr2Cause 会给语言模型几个变量之间的相关关系和条件独立关系，然后问某个因果结论能不能推出来。只有当这个结论在<em>每一个</em>与证据相容的因果图里都成立时，答案才是“是”。难就难在“每一个”上。自由形式的思维链常常跳过这一步：模型找到一种说得通的解释，就照着它作答了。</p>
+      <p>我们让模型把这笔账公开算出来。第一轮，模型在 JSON schema 约束下写出 CPDAG，也就是概括所有相容图的那个对象；第二轮，模型对照这份记录回答问题。整个过程不做微调，也不调用符号求解器。</p>
+      <figure class="toy" aria-labelledby="toy-title">
+  <svg width="0" height="0" class="defs" aria-hidden="true">
+    <defs>
+      <marker id="toy-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,1 L10,5 L0,9 z"/>
+      </marker>
+    </defs>
+  </svg>
+  <h3 id="toy-title">用三个变量试一试</h3>
+  <fieldset class="toy-pick">
+    <legend>给定的证据</legend>
+    <label><input type="radio" name="toy-evidence" value="chain" checked> A 和 C 相关，但在已知 B 之后独立</label>
+    <label><input type="radio" name="toy-evidence" value="collider"> A 和 C 独立，但在已知 B 之后相关</label>
+  </fieldset>
+
+  <div class="toy-case toy-chain">
+    <p class="toy-h">与这组证据相容的因果图</p>
+    <div class="toy-graphs">
+      <div class="holds"><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A → B → C"><line x1="32" y1="22" x2="62" y2="22" marker-end="url(#toy-arrow)"/><line x1="87" y1="22" x2="117" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>链 <b>✓</b></span></div>
+      <div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A ← B ← C"><line x1="63" y1="22" x2="33" y2="22" marker-end="url(#toy-arrow)"/><line x1="118" y1="22" x2="88" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>反向链 <b>✗</b></span></div>
+      <div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A ← B → C"><line x1="63" y1="22" x2="33" y2="22" marker-end="url(#toy-arrow)"/><line x1="87" y1="22" x2="117" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>共同原因 <b>✗</b></span></div>
+    </div>
+    <p class="toy-h">所有相容图的共同部分（CPDAG）</p>
+    <div class="toy-graphs"><div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A — B — C"><line x1="32" y1="22" x2="63" y2="22"/><line x1="87" y1="22" x2="118" y2="22"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+</div></div>
+    <p class="toy-verdict"><strong>假设：A 导致 B.</strong> 只在 3 个图中的 1 个里成立。可能为真，但推不出来：答案是“否”。</p>
+  </div>
+
+  <div class="toy-case toy-collider">
+    <p class="toy-h">与这组证据相容的因果图</p>
+    <div class="toy-graphs">
+      <div class="holds"><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A → B ← C"><line x1="32" y1="22" x2="62" y2="22" marker-end="url(#toy-arrow)"/><line x1="118" y1="22" x2="88" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+<span>对撞 <b>✓</b></span></div>
+    </div>
+    <p class="toy-h">所有相容图的共同部分（CPDAG）</p>
+    <div class="toy-graphs"><div><svg class="g3" viewBox="0 0 150 44" role="img" aria-label="A → B ← C"><line x1="32" y1="22" x2="62" y2="22" marker-end="url(#toy-arrow)"/><line x1="118" y1="22" x2="88" y2="22" marker-end="url(#toy-arrow)"/>
+  <circle cx="20" cy="22" r="11"/><text x="20" y="22">A</text>
+  <circle cx="75" cy="22" r="11"/><text x="75" y="22">B</text>
+  <circle cx="130" cy="22" r="11"/><text x="130" y="22">C</text>
+</svg>
+</div></div>
+    <p class="toy-verdict"><strong>假设：A 导致 B.</strong> 在唯一相容的图里成立。可以推出：答案是“是”。</p>
+  </div>
+</figure>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>方法</h2>
+    <div class="sec-body"><figure class="flow">
+  <ol class="flow-steps">
+    <li>前提 + 假设</li>
+    <li class="flow-model">第一轮：把图写下来</li>
+    <li class="flow-object">CausalAnalysis</li>
+    <li class="flow-model">第二轮：对照图作答</li>
+    <li>是 / 否</li>
+  </ol>
+  <pre class="flow-json"><code><span class="k">variables</span>     [A, B, C, D, E]
+<span class="k">skeleton</span>      [A–C, B–C, C–D, A–E]
+<span class="k">non_adjacent</span>  [A–B | ∅, A–D | C, B–D | C, B–E | ∅, C–E | A, D–E | A]
+<span class="k">v_structures</span>  [A → C ← B]
+<span class="k">directed</span>      [A → C, B → C, C → D]
+<span class="k">undirected</span>    [A – E]</code></pre>
+  <figcaption>基线在单轮里拿到同样的 PC 算法提示，所以提升不能归功于提示写得更好。第一轮在 JSON schema 约束下解码；下面是模型对一个五变量例子输出的对象。</figcaption>
+</figure>
+</div>
+  </section>
+
+  <section class="sec">
+    <h2>结果</h2>
+    <div class="sec-body prose">
+      <p>在 Qwen3.5-27B 上，“是”类的 F1 从 73.0 提高到 86.4。两类错误都减少了：漏掉的“是”从 61 个降到 28 个，误报从 27 个降到 20 个。一个两轮的对照实验让模型在第一轮写自然语言而不是结构化的图，结果只有 67.6，比基线还低，说明起作用的不只是多了一轮。</p>
+      <figure class="dumbbell" aria-labelledby="dumbbell-title">
+  <p class="chart-title" id="dumbbell-title">Corr2Cause 测试集上 “是” 类的 F1</p>
+  <p class="chart-legend"><span class="key key-base"></span>单轮，相同的 PC 算法提示 <span class="key key-ours"></span>Structured Thinking</p>
+  <div class="db-plot">
+    <div class="db-grid" aria-hidden="true">
+      <span style="left: 14.285714285714286%">40</span>
+      <span style="left: 28.571428571428573%">50</span>
+      <span style="left: 42.857142857142854%">60</span>
+      <span style="left: 57.142857142857146%">70</span>
+      <span style="left: 71.42857142857143%">80</span>
+      <span style="left: 85.71428571428571%">90</span>
+      <span style="left: 100.0%">100</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.5-27B</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 61.44285714285714%; width: 19.07142857142858%"></span>
+        <span class="db-dot db-base" style="left: 61.44285714285714%" title="单轮，相同的 PC 算法提示: 73.0"></span>
+        <span class="db-dot db-ours" style="left: 80.51428571428572%" title="Structured Thinking: 86.4"></span>
+      </span>
+      <span class="db-delta">+13.4</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.5-27B，改写后的测试集</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 60.47142857142857%; width: 14.94285714285714%"></span>
+        <span class="db-dot db-base" style="left: 60.47142857142857%" title="单轮，相同的 PC 算法提示: 72.3"></span>
+        <span class="db-dot db-ours" style="left: 75.41428571428571%" title="Structured Thinking: 82.8"></span>
+      </span>
+      <span class="db-delta">+10.5</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.6-27B</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 65.6%; width: 13.98571428571429%"></span>
+        <span class="db-dot db-base" style="left: 65.6%" title="单轮，相同的 PC 算法提示: 75.9"></span>
+        <span class="db-dot db-ours" style="left: 79.58571428571429%" title="Structured Thinking: 85.7"></span>
+      </span>
+      <span class="db-delta">+9.8</span>
+    </div><div class="db-row">
+      <span class="db-label">Qwen3.5-9B</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 13.114285714285714%; width: 29.114285714285717%"></span>
+        <span class="db-dot db-base" style="left: 13.114285714285714%" title="单轮，相同的 PC 算法提示: 39.2"></span>
+        <span class="db-dot db-ours" style="left: 42.22857142857143%" title="Structured Thinking: 59.6"></span>
+      </span>
+      <span class="db-delta">+20.4</span>
+    </div><div class="db-row">
+      <span class="db-label">Gemma-4-31B *</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 79.11428571428571%; width: 2.87142857142857%"></span>
+        <span class="db-dot db-base" style="left: 79.11428571428571%" title="单轮，相同的 PC 算法提示: 85.4"></span>
+        <span class="db-dot db-ours" style="left: 81.98571428571428%" title="Structured Thinking: 87.4"></span>
+      </span>
+      <span class="db-delta">+2.0</span>
+    </div><div class="db-row">
+      <span class="db-label">GPT-5.4-mini</span>
+      <span class="db-track">
+        <span class="db-bar" style="left: 79.12857142857143%; width: 4.55714285714285%"></span>
+        <span class="db-dot db-base" style="left: 79.12857142857143%" title="单轮，相同的 PC 算法提示: 85.4"></span>
+        <span class="db-dot db-ours" style="left: 83.68571428571428%" title="Structured Thinking: 88.6"></span>
+      </span>
+      <span class="db-delta">+3.2</span>
+    </div>
+    <div class="db-axis" aria-hidden="true"></div>
+  </div>
+  <figcaption>第一行是主实验的配对比较（McNemar p = 2.4 × 10⁻⁶；三个随机种子平均提升 +8.1 ± 5.3）。其余各行为单次运行。* Gemma 未使用硬约束解码。</figcaption>
+  <details class="chart-table">
+    <summary>查看具体数字</summary>
+    <table>
+      <thead><tr><th>模型</th><th>基线</th><th>结构化</th><th>变化</th></tr></thead>
+      <tbody>
+        <tr><td>Qwen3.5-27B</td><td>73.01</td><td>86.36</td><td>+13.35</td></tr>
+        <tr><td>Qwen3.5-27B，改写后的测试集</td><td>72.33</td><td>82.79</td><td>+10.46</td></tr>
+        <tr><td>Qwen3.6-27B</td><td>75.92</td><td>85.71</td><td>+9.79</td></tr>
+        <tr><td>Qwen3.5-9B</td><td>39.18</td><td>59.56</td><td>+20.38</td></tr>
+        <tr><td>Gemma-4-31B *</td><td>85.38</td><td>87.39</td><td>+2.01</td></tr>
+        <tr><td>GPT-5.4-mini</td><td>85.39</td><td>88.58</td><td>+3.19</td></tr>
+      </tbody>
+    </table>
+  </details>
+</figure>
+
+      <p>本来就强的模型提升有限：GPT-5.4-mini 和 Gemma-4-31B 的基线在 85 左右，单次运行分别提高 3.2 和 2.0。另外，这个方法消耗的 token 大约是单轮基线的两倍。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>图真的被用上了吗</h2>
+    <div class="sec-body prose">
+      <p>模型完全可能写出一张整齐的图，然后不理它，所以我们故意把图弄乱。在两轮之间把整张 CPDAG 打乱，F1 下降 12.0；只打乱骨架、只打乱对撞结构或只打乱有向边，各自下降 6 左右；而在第二轮去掉前提，只下降 3.8。</p>
+      <p>模型写出的图大多也是对的。和参考 CPDAG 比，骨架的 F1 达到 0.960，75.9% 的图完全一致；图完全正确时，最终答案的正确率是 97.2%。</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>局限</h2>
+    <div class="sec-body prose">
+      <p>所有结果都来自 Corr2Cause，这里的独立关系是直接给出的干净陈述，而不是从数据中估计出来的。模型输出的图满足 schema，但没有经过验证，18% 到 21% 的输出存在某种内部不一致。除了主实验用三个随机种子重复过（平均提升 +8.1 ± 5.3），上面其余各行都是单次运行。</p>
+      <p>这条线更早的一个版本是 2025 年 5 月的 <a href="https://arxiv.org/abs/2505.18034">Structured Thinking Matters</a>。</p>
+    </div>
+  </section>
+
+  <section class="sec" id="bibtex">
+    <h2>引用</h2>
+    <div class="sec-body">
+      <div class="codeblock"><pre><code>@inproceedings{sun2026externalized,
+  title     = {Externalized {CPDAG} Summaries Improve {LLM} Causal Deduction},
+  author    = {Sun, Wentao and Nogueira, Jo{\~a}o Paulo and Verchere, Dominique and Acher, Mathieu and Silva, Alonso},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026},
+  eprint    = {2609.31071},
+  archivePrefix = {arXiv}
+}</code></pre><button class="copy" type="button" data-copy data-copied="已复制">复制</button></div>
+    </div>
+  </section>
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · 最后更新 2026-11-25 · <a href="/lamp/">解谜游戏《不在清单上的灯》</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

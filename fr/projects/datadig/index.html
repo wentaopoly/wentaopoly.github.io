@@ -1,0 +1,117 @@
+<!doctype html><html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataDig : suivi d’événements en temps réel dans l’actualité financière · Wentao Sun</title>
+  <meta name="description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <link rel="canonical" href="https://wentaopoly.github.io/fr/projects/datadig/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/datadig/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/datadig/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/datadig/">
+  <meta property="og:title" content="DataDig : suivi d’événements en temps réel dans l’actualité financière">
+  <meta property="og:description" content="Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.">
+  <meta property="og:url" content="https://wentaopoly.github.io/fr/projects/datadig/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-fr">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/fr/#about">À propos</a>
+    <a href="/fr/#news">Actualités</a>
+    <a href="/fr/#publications">Publications</a>
+    <a href="/fr/#projects">Projets</a>
+    <a href="/fr/#honors">Distinctions</a>
+    <a href="/fr/#visitors">Visiteurs</a>
+    <a href="/fr/cv/">CV</a>
+    <span class="site-langs">
+      <a href="/projects/datadig/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <a href="/zh/projects/datadig/" lang="zh" hreflang="zh" title="中文" data-lang-link="zh">中</a>
+      <span aria-current="true" lang="fr" title="Français">FR</span>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/fr/projects/">← Tous les projets</a></p>
+    <h1>DataDig : suivi d’événements en temps réel dans l’actualité financière</h1>
+    <p class="lede">DataDig transforme un flux d’actualités financières chinoises en faits courts et les regroupe en sujets suivis, toutes les quelques minutes. Ma partie consistait à rendre ce regroupement stable dans le temps, pour qu’un sujet garde son identité quand de nouveaux articles arrivent.</p>
+    <dl class="meta">
+      <div><dt>Période</dt><dd>2025–2026</dd></div>
+      <div><dt>Rôle</dt><dd>Clustering, chaînes d’événements et recherche d’information, dans un système développé en équipe</dd></div>
+      <div><dt>Code</dt><dd>Non public</dd></div>
+    </dl>
+  </header>
+  <figure class="cover-hero"><img src="/assets/img/covers/datadig.jpg" alt="" width="1600" height="900"></figure>
+  <section class="sec">
+  <h2>Pourquoi l’identité compte</h2>
+  <div class="sec-body prose">
+    <p>Toutes les quelques minutes, de nouveaux extraits sont tirés des articles entrants et les extraits récents sont regroupés à nouveau. Les chronologies, les résumés et les alertes renvoient tous à des identifiants de cluster. Si une nouvelle exécution scinde en deux le cluster de la veille, ou lui donne un nouvel identifiant, l’historique du sujet est coupé en deux alors que rien n’a changé dans le sujet lui-même.</p>
+    <p>La classification ascendante hiérarchique avec le critère de Ward fait exactement cela sur des données en flux. Ses fusions sont gloutonnes, donc ajouter quelques points change l’ordre des fusions. Dans nos exécutions, environ 1 % des membres des clusters existants finissaient dispersés dans de nouveaux clusters.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Anti-scission, anti-fusion</h2>
+  <div class="sec-body prose">
+    <figure class="fig clusters" aria-label="Schéma : un ancien cluster scindé par le nouveau regroupement est reconstitué ; deux anciens clusters fusionnés par le nouveau regroupement sont de nouveau séparés.">
+      <svg viewBox="0 0 560 150" role="img">
+        <g class="lbl"><text x="70" y="16">avant</text><text x="210" y="16">nouveau regroupement</text><text x="350" y="16">après correction</text></g>
+        <g class="old"><circle cx="70" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="55" cy="52" r="5"/><circle cx="78" cy="48" r="5"/><circle cx="64" cy="75" r="5"/><circle cx="86" cy="70" r="5"/>
+        </g>
+        <text class="arrow" x="135" y="66">→</text>
+        <g class="new"><circle cx="196" cy="58" r="24"/><circle cx="243" cy="78" r="14"/></g>
+        <g class="pts">
+          <circle cx="188" cy="50" r="5"/><circle cx="208" cy="48" r="5"/><circle cx="196" cy="70" r="5"/><circle class="moved" cx="243" cy="78" r="5"/>
+        </g>
+        <text class="arrow" x="282" y="66">→</text>
+        <g class="old"><circle cx="350" cy="62" r="34"/></g>
+        <g class="pts">
+          <circle cx="335" cy="52" r="5"/><circle cx="358" cy="48" r="5"/><circle cx="344" cy="75" r="5"/><circle class="moved" cx="366" cy="70" r="5"/>
+        </g>
+        <g class="lbl small"><text x="70" y="120">un sujet</text><text x="215" y="120">un membre s’écarte</text><text x="350" y="120">ramené, même ID</text></g>
+      </svg>
+      <figcaption>Anti-scission. L’anti-fusion est le cas symétrique : quand deux anciens clusters se retrouvent sous une même nouvelle étiquette, ils sont de nouveau séparés.</figcaption>
+    </figure>
+    <p>Après chaque nouveau regroupement, une passe de correction s’exécute en deux phases. Dans la première, les membres de chaque ancien cluster qui ont été dispersés sur plusieurs nouvelles étiquettes reviennent à l’étiquette qui en contient le plus. Dans la seconde, toute nouvelle étiquette qui a absorbé plusieurs anciens clusters est redécoupée en une étiquette par ancien cluster. Les égalités sont départagées par la plus petite étiquette, ce qui rend la passe déterministe.</p>
+    <p>Les nouveaux clusters héritent ensuite des anciens identifiants selon l’indice de Jaccard calculé sur leurs membres. Un autre détail a compté en pratique. Le modèle de langage reformule légèrement chaque extrait à chaque passage, ce qui déplace son embedding et peut se répercuter sur tout le clustering. Quand le nouvel embedding a une similarité cosinus d’au moins 0,9 avec l’ancien, on garde l’ancien vecteur.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Chaînes d’événements</h2>
+  <div class="sec-body prose">
+    <p>Les clusters sont reliés en chaînes qui suivent un sujet sur plusieurs jours ou semaines. Chaque nœud d’une chaîne ne stocke que ce qui a changé depuis le précédent, et non un nouveau résumé de l’ensemble. Le lecteur voit ainsi comment le sujet a évolué sans avoir à tout relire.</p>
+    <p>Pour la recherche d’information, j’ai utilisé une variante de HyDE ancrée dans les documents. On cherche d’abord de vrais documents, on renonce entièrement à la génération si les éléments trouvés sont faibles, et c’est seulement ensuite que le modèle écrit une courte requête intermédiaire à partir de ce qui a été trouvé. Un document hypothétique écrit à partir de rien a tendance à ramener les propres hypothèses du modèle.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Ordres de grandeur</h2>
+  <div class="sec-body prose">
+    <p>Lors d’un rejeu hors ligne de trois jours d’actualités sur une version antérieure du pipeline, 29 832 extraits se sont réduits à 7 628 après dédoublonnage, puis à 4 510 clusters. Le modèle a ensuite rattaché chacun de ces clusters à un sujet existant, l’a ouvert comme nouveau sujet ou l’a écarté comme du bruit.</p>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · Dernière mise à jour 2026-11-25 · <a href="/lamp/">Un jeu d’énigmes (en chinois)</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>

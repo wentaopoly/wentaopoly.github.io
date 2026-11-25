@@ -1,0 +1,114 @@
+<!doctype html><html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>每次定时重启都卡死的浏览器自动化进程 · 孙文涛</title>
+  <meta name="description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <link rel="canonical" href="https://wentaopoly.github.io/zh/projects/midnight-restart/">
+  <link rel="alternate" hreflang="en" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="x-default" href="https://wentaopoly.github.io/projects/midnight-restart/">
+  <link rel="alternate" hreflang="zh" href="https://wentaopoly.github.io/zh/projects/midnight-restart/">
+  <link rel="alternate" hreflang="fr" href="https://wentaopoly.github.io/fr/projects/midnight-restart/">
+  <meta property="og:title" content="每次定时重启都卡死的浏览器自动化进程">
+  <meta property="og:description" content="孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。">
+  <meta property="og:url" content="https://wentaopoly.github.io/zh/projects/midnight-restart/">
+  <meta property="og:image" content="https://wentaopoly.github.io/assets/img/prof_pic.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1795566672">
+  <script>window.visitorMapConfig = { apiUrl: "https://visitor-map-api.wentaosun549.workers.dev", trackIntervalHours: 6 };</script>
+  <script src="/assets/js/visitor-tracker.js?v=1795566672" defer></script>
+  <script src="/assets/js/site.js?v=1795566672" defer></script>
+</head>
+<body class="lang-zh">
+  <nav class="site-nav" aria-label="Sections">
+    <a href="/zh/#about">关于</a>
+    <a href="/zh/#news">动态</a>
+    <a href="/zh/#publications">论文</a>
+    <a href="/zh/#projects">项目</a>
+    <a href="/zh/#honors">荣誉</a>
+    <a href="/zh/#visitors">访客</a>
+    <a href="/zh/cv/">简历</a>
+    <span class="site-langs">
+      <a href="/projects/midnight-restart/" lang="en" hreflang="en" title="English" data-lang-link="en">EN</a>
+      <span aria-current="true" lang="zh" title="中文">中</span>
+      <a href="/fr/projects/midnight-restart/" lang="fr" hreflang="fr" title="Français" data-lang-link="fr">FR</a>
+    </span>
+  </nav>
+
+  <main class="wrap" id="main">
+    <article class="project">
+  <header class="page-head">
+    <p class="crumb"><a href="/zh/projects/">← 全部项目</a></p>
+    <h1>每次定时重启都卡死的浏览器自动化进程</h1>
+    <p class="lede">一个浏览器自动化进程连续几周采集文章，每晚到了定时重启的时候就卡住，看上去却完全正常。原因是两层叠在一起的死锁。</p>
+    <dl class="meta">
+      <div><dt>时间</dt><dd>2026 年 1 月至 8 月</dd></div>
+      <div><dt>角色</dt><dd>设计与实现</dd></div>
+      <div><dt>代码</dt><dd>未公开</dd></div>
+    </dl>
+  </header>
+  <section class="sec">
+  <h2>背景</h2>
+  <div class="sec-body prose">
+    <p>一个 Python 进程通过 <a href="https://github.com/browser-use/browser-use">browser-use</a> 驱动一个已登录的 Chrome，按栏目读取文章，逐篇发到 Kafka。只有 broker 确认收到之后，文章才标记为完成；每个栏目的进度都原子写入，所以任何时刻崩溃都不会丢文章。每天午夜，进程关闭浏览器，再用 <code>os.execv</code> 把自己替换成一个新的副本。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>症状</h2>
+  <div class="sec-body prose">
+    <p>到了午夜重启，进程就不动了。进程还在，所有按 PID 做的存活检查都通过，但再也没有文章进来。唯一能看到的线索在进程列表里：正常时这个 profile 下有 9 个 Chrome 进程，卡住时只剩 1 个。这不是偶发的：我们查看的两个晚上，它都卡在同一个位置。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>第一层</h2>
+  <div class="sec-body prose">
+    <p>这个库的 <code>stop()</code> 先拆掉 Chrome，再去等事件总线上的完成信号。这个信号永远不会来：发出它的 handler 需要 DevTools 连接，而这个连接刚刚被 <code>stop()</code> 关掉了。事件总线在清理时还会吞掉 <code>CancelledError</code>。</p>
+    <p>于是最直观的超时写法并不会超时。<code>asyncio.wait_for</code> 到时间后会取消任务，然后等取消完成，而这里取消永远完成不了。</p>
+<pre><code><span class="c"># 会卡死：wait_for 需要任务配合取消</span>
+await asyncio.wait_for(browser.stop(), timeout=12)
+
+<span class="c"># 12 秒后一定返回，不管任务在做什么</span>
+task = asyncio.ensure_future(browser.stop())
+await asyncio.wait({task}, timeout=12)
+<span class="c"># 然后放弃这个任务，按 profile 路径清理 Chrome</span></code></pre>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>第二层</h2>
+  <div class="sec-body prose">
+    <p>只修第一层，卡住的地方只是挪了个位置。<code>asyncio.run</code> 退出时会取消所有挂起的任务，并逐个等它们结束，其中就有那个被放弃、永远不会结束的 <code>stop()</code>。进程始终走不到 <code>os.execv</code>。</p>
+    <p>修法是用 <code>loop.run_until_complete</code> 来跑主协程，它不会去碰挂起的任务。<code>os.execv</code> 替换进程映像时，卡住的任务也就随之消失了。</p>
+    <p>两层各有一条回归测试，用一个真正会吞掉取消的 <code>stop()</code> 来驱动。只要任何一处修复被改回去，测试就会卡住，而不是悄悄通过。</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>几点体会</h2>
+  <div class="sec-body prose">
+    <ul>
+      <li>对一个工作进程来说，“还活着”不是有用的健康信号。真正要报警的是“broker 已经 60 分钟没有确认任何一篇文章”，而且报警状态存在磁盘上，重启不会重复报警。</li>
+      <li>这个看门狗在退出流程里最后一个被取消。如果它先停，退出流程卡住时就连一点声音都没有了。</li>
+      <li>每天同一时间必然发生的死锁其实是好事，比一个月才出现一次的好抓得多。</li>
+    </ul>
+  </div>
+</section>
+
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-base"><p><a class="quiet" href="https://study.wentaosun549.workers.dev/" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> 2026 Wentao Sun · 最后更新 2026-11-25 · <a href="/lamp/">解谜游戏《不在清单上的灯》</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>
