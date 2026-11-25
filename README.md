@@ -17,6 +17,7 @@ Source of <https://wentaopoly.github.io>: a small Jekyll site in English, Chines
 | `assets/js/site.js` | Language choice, BibTeX copy buttons, visitor map |
 | `assets/pdf/` | `cv-en.pdf`, `cv.pdf` (Chinese, old file name kept for existing links), `cv-fr.pdf` |
 | `assets/video/` | The paper's explainer video and its subtitles (`.vtt`, converted from the `.srt` files) |
+| `lamp/` | The browser puzzle game, plain HTML and two scripts, copied as is (no layout, no build step) |
 | `visitor-map-worker/` | Cloudflare Worker behind the visitor map; deployed by its own workflow |
 
 Pages in different languages are paired by the `ref` front-matter key; the language comes from the folder (`zh/`, `fr/`, or the root for English).

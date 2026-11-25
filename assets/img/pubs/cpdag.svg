@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- The three causal graphs that fit "A and C correlated, independent given B" take turns;
+       what they agree on (the CPDAG, no directions) is the resting state. -->
+  <style>
+    :root { --bg: #ffffff; --ink: #222222; --muted: #6f757e; --accent: #1772d0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #1a1b1e; --ink: #e6e6e3; --muted: #a3a5ab; --accent: #6aa9f0; }
+    }
+    .bg { fill: var(--bg); }
+    .edge { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; animation: edge 10s linear infinite; }
+    .head { fill: var(--ink); opacity: 0; }
+    .node circle { fill: var(--bg); stroke: var(--ink); stroke-width: 5; }
+    text { font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif; text-anchor: middle; }
+    .node text { fill: var(--ink); font-size: 44px; }
+    .cap { fill: var(--muted); font-size: 36px; opacity: 0; }
+    .cap.rest { fill: var(--accent); font-weight: 700; opacity: 1; }
+    .ab-b { animation: ab-b 10s linear infinite; }
+    .ab-a { animation: ab-a 10s linear infinite; }
+    .bc-c { animation: bc-c 10s linear infinite; }
+    .bc-b { animation: bc-b 10s linear infinite; }
+    .c1 { animation: p1 10s linear infinite; }
+    .c2 { animation: p2 10s linear infinite; }
+    .c3 { animation: p3 10s linear infinite; }
+    .c4 { animation: p4 10s linear infinite; }
+    @keyframes edge { 0%, 58% { stroke: var(--ink); } 62%, 97% { stroke: var(--accent); } 100% { stroke: var(--ink); } }
+    @keyframes ab-b { 0% { opacity: 0; } 2%, 18% { opacity: 1; } 20%, 100% { opacity: 0; } }
+    @keyframes ab-a { 0%, 20% { opacity: 0; } 22%, 58% { opacity: 1; } 60%, 100% { opacity: 0; } }
+    @keyframes bc-c { 0% { opacity: 0; } 2%, 18% { opacity: 1; } 20%, 40% { opacity: 0; } 42%, 58% { opacity: 1; } 60%, 100% { opacity: 0; } }
+    @keyframes bc-b { 0%, 20% { opacity: 0; } 22%, 38% { opacity: 1; } 40%, 100% { opacity: 0; } }
+    @keyframes p1 { 0% { opacity: 0; } 2%, 18% { opacity: 1; } 20%, 100% { opacity: 0; } }
+    @keyframes p2 { 0%, 20% { opacity: 0; } 22%, 38% { opacity: 1; } 40%, 100% { opacity: 0; } }
+    @keyframes p3 { 0%, 40% { opacity: 0; } 42%, 58% { opacity: 1; } 60%, 100% { opacity: 0; } }
+    @keyframes p4 { 0%, 60% { opacity: 0; } 62%, 97% { opacity: 1; } 100% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect class="bg" width="800" height="450"/>
+
+  <g transform="translate(400 188) scale(1.22) translate(-400 -205)">
+  <line class="edge" x1="291" y1="168.8" x2="359" y2="241.2"/>
+  <line class="edge" x1="441" y1="241.2" x2="509" y2="168.8"/>
+
+  <polygon class="head ab-b" points="0,0 -30,-14 -30,14" transform="translate(364.4 247.1) rotate(46.85)"/>
+  <polygon class="head ab-a" points="0,0 -30,-14 -30,14" transform="translate(285.6 162.9) rotate(226.85)"/>
+  <polygon class="head bc-c" points="0,0 -30,-14 -30,14" transform="translate(514.4 162.9) rotate(-46.85)"/>
+  <polygon class="head bc-b" points="0,0 -30,-14 -30,14" transform="translate(435.6 247.1) rotate(133.15)"/>
+
+  <g class="node"><circle cx="250" cy="125" r="44"/><text x="250" y="140">A</text></g>
+  <g class="node"><circle cx="550" cy="125" r="44"/><text x="550" y="140">C</text></g>
+  <g class="node"><circle cx="400" cy="285" r="44"/><text x="400" y="300">B</text></g>
+  </g>
+
+  <text class="cap c1" x="400" y="412">chain</text>
+  <text class="cap c2" x="400" y="412">reverse chain</text>
+  <text class="cap c3" x="400" y="412">common cause</text>
+  <text class="cap rest c4" x="400" y="412">what they agree on</text>
+</svg>

@@ -1,4 +1,12 @@
-# Earlier work without its own page.
+# Other and earlier work, listed under the main projects. `link` is a URL or a site path without the language prefix.
+- period: "2026"
+  title: { en: "A browser-automation worker that hung at every restart", zh: "每次定时重启都卡死的浏览器自动化进程", fr: "Un processus d’automatisation de navigateur bloqué à chaque redémarrage" }
+  where: { en: "debugging write-up", zh: "排查记录", fr: "compte rendu de débogage" }
+  summary:
+    en: A long-running collection worker stopped at each nightly restart while looking alive; the cause was two stacked asyncio deadlocks, both now covered by regression tests.
+    zh: 一个长期运行的采集进程每晚定时重启时卡住，看上去却一切正常；原因是两层叠在一起的 asyncio 死锁，两处修复都有回归测试。
+    fr: Un processus de collecte au long cours se bloquait à chaque redémarrage nocturne tout en paraissant vivant ; la cause était deux interblocages asyncio empilés, désormais couverts par des tests de non-régression.
+  link: /projects/midnight-restart/
 - period: "2025"
   title: { en: "Graph RAG for causal reasoning", zh: "面向因果推理的 Graph RAG", fr: "Graph RAG pour le raisonnement causal" }
   where: { en: "Nokia Bell Labs", zh: "诺基亚贝尔实验室", fr: "Nokia Bell Labs" }

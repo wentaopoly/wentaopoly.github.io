@@ -28,6 +28,10 @@ visitor_map:
   api_url: https://visitor-map-api.wentaosun549.workers.dev
   track_interval_hours: 6
 
+# Private pages on a separate Cloudflare Worker behind a login; nothing private lives in this repository.
+# The © in the footer links there.
+desk_url: https://study.wentaosun549.workers.dev/
+
 defaults:
   - scope: { path: "" }
     values: { layout: page, lang: en }

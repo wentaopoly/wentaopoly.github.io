@@ -1,4 +1,4 @@
-// Language choice, BibTeX copy buttons, and the visitor map.
+// Language choice, the section bar, and BibTeX copy buttons. The visitor map is in visitor-map.js.
 
 document.querySelectorAll("[data-lang-link]").forEach((link) => {
   link.addEventListener("click", () => {
@@ -10,6 +10,22 @@ document.querySelectorAll("[data-lang-link]").forEach((link) => {
   });
 });
 
+// Home page: mark the section bar link whose section is being read.
+const sectionLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+if (sectionLinks.length) {
+  const sections = sectionLinks.map((link) => document.getElementById(link.hash.slice(1)));
+  const mark = () => {
+    const line = window.innerHeight * 0.35;
+    let current = 0;
+    sections.forEach((section, i) => {
+      if (section.getBoundingClientRect().top <= line) current = i;
+    });
+    sectionLinks.forEach((link, i) => link.classList.toggle("here", i === current));
+  };
+  window.addEventListener("scroll", mark, { passive: true });
+  mark();
+}
+
 document.querySelectorAll("[data-copy]").forEach((button) => {
   const label = button.textContent;
   button.addEventListener("click", async () => {
@@ -17,41 +33,5 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
     await navigator.clipboard.writeText(code);
     button.textContent = button.dataset.copied;
     setTimeout(() => (button.textContent = label), 1600);
-  });
-});
-
-const visits = document.querySelector("[data-visits]");
-if (visits) {
-  const { apiUrl } = window.visitorMapConfig;
-  fetch(apiUrl + "/api/visitors?limit=150&days=3650", { mode: "cors" })
-    .then((response) => (response.ok ? response.json() : Promise.reject(response.status)))
-    .then(({ summary, visitors }) => {
-      // Same equirectangular frame as _includes/world-dots.svg: x = lon + 180, y = 75 - lat, 360 x 131.
-      const map = visits.querySelector(".visits-map");
-      for (const v of visitors) {
-        const dot = document.createElement("span");
-        dot.className = "visits-dot";
-        dot.style.left = ((Number(v.longitude) + 180) / 360) * 100 + "%";
-        dot.style.top = ((75 - Number(v.latitude)) / 131) * 100 + "%";
-        dot.title = v.city || v.country || "";
-        map.append(dot);
-      }
-      const caption = visits.querySelector("figcaption");
-      caption.textContent = caption.dataset.template
-        .replace("{visits}", summary.total_visits)
-        .replace("{places}", summary.unique_locations);
-    })
-    .catch(() => visits.remove());
-}
-
-// Featured video: the cover links to the paper page; with JS it plays in place.
-document.querySelectorAll("[data-player]").forEach((box) => {
-  const video = box.querySelector("video");
-  const play = box.querySelector("[data-play]");
-  play.addEventListener("click", (event) => {
-    event.preventDefault();
-    play.remove();
-    video.controls = true;
-    video.play();
   });
 });

@@ -14,7 +14,7 @@
   </p>
   <p class="paper-venue">{{ s.venue_line }}</p>
   <p class="pub-links">
-    {%- for l in pub.links %}{% assign key = l[0] %}{% assign href = l[1] %}{% unless key == "video" %}<a href="{{ href }}">{{ t.links[key] }}</a>{% endunless %}{% endfor %}
+    {%- for l in pub.links %}{% assign key = l[0] %}{% assign href = l[1] %}{% unless key == "video" %}<a href="{{ href }}">{{ t.links[key] }}</a><span class="sep">/</span>{% endunless %}{% endfor %}
     <a href="#bibtex">{{ t.links.bibtex }}</a>
   </p>
 </header>

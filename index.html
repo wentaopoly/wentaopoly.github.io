@@ -1,51 +1,58 @@
 ---
 layout: home
 ref: home
-hero_name: Wentao Sun
-hero_alt: 孙文涛
-hero_line: PhD student at INSA Rennes / IRISA and Nokia Bell Labs. I work on language models that reason with explicit structure, first causal graphs, now telecom networks.
 ---
 {%- assign t = site.data.i18n[page.lang] -%}
-{% include feature.html %}
-
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.projects }} <a class="more" href="/projects/">{{ t.all_projects }} →</a></h2>
-  {% include cards.html %}
+<section class="profile" id="about">
+  <div class="profile-bio">
+    <h1 class="profile-name">Wentao Sun<span class="cjk" lang="zh-Hans">孙文涛</span></h1>
+    <p>I am a PhD student at <a href="https://www.insa-rennes.fr/">INSA Rennes</a> (<a href="https://www.irisa.fr/">IRISA</a>, <a href="https://www.diverse-team.fr/">DiverSE team</a>) and <a href="https://www.bell-labs.com/">Nokia Bell Labs</a> (Network Architecture Research), working on language and reasoning models for telecom network management.</p>
+    <p>My PhD is a CIFRE thesis that started in February 2026, advised by <a href="https://www.mathieuacher.com/">Mathieu Acher</a> and Dominique Verchere. Before that, I received my MSc from <a href="https://www.polytechnique.edu/">École Polytechnique</a> and my BEng from <a href="https://www.scut.edu.cn/">South China University of Technology</a>.</p>
+    <p>My interests are in telecom networks and quantitative finance: the PhD belongs to the first, and most of the projects below come from the second.</p>
+    <p class="profile-links">
+      <a href="mailto:wentao.sun@nokia.com">Email</a><span class="sep">/</span>
+      <a href="/cv/">CV</a><span class="sep">/</span>
+      <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a><span class="sep">/</span>
+      <a href="https://github.com/wentaopoly">GitHub</a><span class="sep">/</span>
+      <a href="https://www.linkedin.com/in/wentao-sun">LinkedIn</a>
+    </p>
+  </div>
+  <figure class="profile-photo"><img src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="659" height="880"></figure>
 </section>
 
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.ongoing }}</h2>
-  <div class="now">
-    <div class="now-item">
-      <h3>Network intents from plain language</h3>
-      <p>Turning a request such as “connect these two offices” into a network configuration intent, and validating it against the device models before anything reaches a device.</p>
-    </div>
-    <div class="now-item">
-      <h3>Agents for optical networks</h3>
-      <p>Language-model agents for the day-to-day operation of optical networks. Work in progress.</p>
-    </div>
-  </div>
+<hr>
+<section id="news">
+  <h2>{{ t.sections.news }}</h2>
+  {% include news.html %}
 </section>
 
-<section class="home-sec two-col">
-  <div>
-    <h2>{{ t.publications }}</h2>
-    <div class="pubs-compact">{% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}</div>
-  </div>
-  <div>
-    <h2>{{ t.news }}</h2>
-    {% include news.html limit=5 %}
-  </div>
+<hr>
+<section id="publications">
+  <h2>{{ t.sections.publications }}</h2>
+  <p class="list-note"><span class="legend-swatch" aria-hidden="true"></span>{{ t.first_author }}</p>
+  {% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}
 </section>
 
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.about }}</h2>
-  <div class="about">
-    <img src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="352" height="440" loading="lazy">
-    <div class="about-text">
-      <p>I am a PhD student at INSA Rennes (IRISA, DiverSE team) and Nokia Bell Labs, on a CIFRE contract that started in February 2026. My advisors are Mathieu Acher and Dominique Verchere.</p>
-      <p>Asked a causal question, a language model will often match on the wording. Asked to write down the causal graph first and answer from it, it gets more answers right, and we can check whether the answer really used the graph. That was my first PhD paper. The rest of the thesis applies the same idea to networks, where the structure is a service model with hard constraints.</p>
-      <p>Before this I did an MSc at École Polytechnique and a BEng at South China University of Technology, and spent six months on robot navigation at the Institute of Automation of the Chinese Academy of Sciences. I also like building data systems end to end; four of them are above.</p>
-    </div>
-  </div>
+<hr>
+<section id="projects">
+  <h2>{{ t.sections.projects }}</h2>
+  {% include project-rows.html %}
+  <p class="list-note">Other work is on the <a href="/projects/">projects page</a>.</p>
+</section>
+
+<hr>
+<section id="honors">
+  <h2>{{ t.sections.honors }}</h2>
+  <ul class="plain">
+    <li>French Government scholarship, MSc at École Polytechnique</li>
+    <li>Ranked 1st of 14 in the MSc in computer science and engineering, École Polytechnique</li>
+    <li>Outstanding graduation project, South China University of Technology, 2024</li>
+    <li>University scholarship, South China University of Technology</li>
+  </ul>
+</section>
+
+<hr>
+<section id="visitors">
+  <h2>{{ t.map.title }}</h2>
+  {% include visitor-map.html %}
 </section>

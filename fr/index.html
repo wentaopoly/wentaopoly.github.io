@@ -1,51 +1,58 @@
 ---
 layout: home
 ref: home
-hero_name: Wentao Sun
-hero_alt: 孙文涛
-hero_line: Doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs. Je travaille sur des modèles de langage qui raisonnent à partir d’une structure explicite, d’abord des graphes causaux, aujourd’hui des réseaux de télécommunications.
 ---
 {%- assign t = site.data.i18n[page.lang] -%}
-{% include feature.html %}
-
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.projects }} <a class="more" href="/fr/projects/">{{ t.all_projects }} →</a></h2>
-  {% include cards.html %}
+<section class="profile" id="about">
+  <div class="profile-bio">
+    <h1 class="profile-name">Wentao Sun<span class="cjk" lang="zh-Hans">孙文涛</span></h1>
+    <p>Je suis doctorant à l’<a href="https://www.insa-rennes.fr/">INSA Rennes</a> (<a href="https://www.irisa.fr/">IRISA</a>, <a href="https://www.diverse-team.fr/">équipe DiverSE</a>) et chez <a href="https://www.bell-labs.com/">Nokia Bell Labs</a> (Network Architecture Research). Ma thèse porte sur les modèles de langage et de raisonnement pour la gestion des réseaux de télécommunications.</p>
+    <p>C’est une thèse CIFRE, commencée en février 2026 et encadrée par <a href="https://www.mathieuacher.com/">Mathieu Acher</a> et Dominique Verchere. Auparavant, j’ai fait un master à l’<a href="https://www.polytechnique.edu/">École polytechnique</a> et une licence d’ingénierie à l’<a href="https://www.scut.edu.cn/">Université de technologie de Chine du Sud</a>.</p>
+    <p>Je m’intéresse aux réseaux de télécommunications et à la finance quantitative : la thèse relève des premiers, et la plupart des projets ci-dessous viennent de la seconde.</p>
+    <p class="profile-links">
+      <a href="mailto:wentao.sun@nokia.com">E-mail</a><span class="sep">/</span>
+      <a href="/fr/cv/">CV</a><span class="sep">/</span>
+      <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a><span class="sep">/</span>
+      <a href="https://github.com/wentaopoly">GitHub</a><span class="sep">/</span>
+      <a href="https://www.linkedin.com/in/wentao-sun">LinkedIn</a>
+    </p>
+  </div>
+  <figure class="profile-photo"><img src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="659" height="880"></figure>
 </section>
 
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.ongoing }}</h2>
-  <div class="now">
-    <div class="now-item">
-      <h3>Des intentions réseau à partir du langage courant</h3>
-      <p>Transformer une demande comme « relier ces deux bureaux » en intention de configuration réseau, et la valider à partir des modèles d’équipements avant que quoi que ce soit n’atteigne un équipement.</p>
-    </div>
-    <div class="now-item">
-      <h3>Des agents pour les réseaux optiques</h3>
-      <p>Des agents fondés sur des modèles de langage pour l’exploitation courante des réseaux optiques. Travail en cours.</p>
-    </div>
-  </div>
+<hr>
+<section id="news">
+  <h2>{{ t.sections.news }}</h2>
+  {% include news.html %}
 </section>
 
-<section class="home-sec two-col">
-  <div>
-    <h2>{{ t.publications }}</h2>
-    <div class="pubs-compact">{% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}</div>
-  </div>
-  <div>
-    <h2>{{ t.news }}</h2>
-    {% include news.html limit=5 %}
-  </div>
+<hr>
+<section id="publications">
+  <h2>{{ t.sections.publications }}</h2>
+  <p class="list-note"><span class="legend-swatch" aria-hidden="true"></span>{{ t.first_author }}</p>
+  {% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}
 </section>
 
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.about }}</h2>
-  <div class="about">
-    <img src="/assets/img/prof_pic.jpg" alt="Wentao Sun" width="352" height="440" loading="lazy">
-    <div class="about-text">
-      <p>Je suis doctorant à l’INSA Rennes (IRISA, équipe DiverSE) et chez Nokia Bell Labs, en thèse CIFRE depuis février 2026. Je suis encadré par Mathieu Acher et Dominique Verchere.</p>
-      <p>Face à une question causale, un modèle de langage se fie souvent à la formulation. Si on lui demande d’abord d’écrire le graphe causal puis de répondre à partir de ce graphe, il répond juste plus souvent, et l’on peut vérifier si sa réponse s’appuie vraiment sur le graphe. C’était mon premier article de thèse. Le reste de la thèse applique la même idée aux réseaux, où la structure est un modèle de service soumis à des contraintes strictes.</p>
-      <p>Auparavant, j’ai fait un master à l’École polytechnique et une licence d’ingénierie à l’Université de technologie de Chine du Sud, et j’ai passé six mois sur la navigation de robots à l’Institut d’automatique de l’Académie chinoise des sciences. J’aime aussi construire des systèmes de données de bout en bout ; quatre d’entre eux sont présentés plus haut.</p>
-    </div>
-  </div>
+<hr>
+<section id="projects">
+  <h2>{{ t.sections.projects }}</h2>
+  {% include project-rows.html %}
+  <p class="list-note">Les autres travaux sont sur la <a href="/fr/projects/">page des projets</a>.</p>
+</section>
+
+<hr>
+<section id="honors">
+  <h2>{{ t.sections.honors }}</h2>
+  <ul class="plain">
+    <li>Bourse du gouvernement français, master à l’École polytechnique</li>
+    <li>Classé 1er sur 14 du master en informatique et ingénierie, École polytechnique</li>
+    <li>Projet de fin d’études distingué, Université de technologie de Chine du Sud, 2024</li>
+    <li>Bourse universitaire, Université de technologie de Chine du Sud</li>
+  </ul>
+</section>
+
+<hr>
+<section id="visitors">
+  <h2>{{ t.map.title }}</h2>
+  {% include visitor-map.html %}
 </section>

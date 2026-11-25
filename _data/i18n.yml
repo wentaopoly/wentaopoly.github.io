@@ -4,35 +4,40 @@ en:
   name: Wentao Sun
   description: Wentao Sun is a PhD student at INSA Rennes / IRISA and Nokia Bell Labs, working on language models that reason with explicit structure.
   lang_label: English
-  nav:
+  # Home-page sections: anchor id -> label, in page order. The top bar links to them.
+  sections:
+    about: About
+    news: News
     publications: Publications
     projects: Projects
-    cv: CV
-  news: News
-  research: Research
-  publications: Publications
-  projects: Projects
-  ongoing: Now
-  about: About
-  all_publications: All publications
-  all_projects: All projects
+    honors: Honors
+    visitors: Visitors
+  first_author: Highlighted papers are first-author work.
   links:
-    page: project page
-    paper: paper
+    page: Project page
+    writeup: Write-up
+    paper: Paper
     arxiv: arXiv
     openreview: OpenReview
-    video: video
-    code: code
+    video: Video
+    code: Code
     bibtex: BibTeX
-    slides: slides
+    slides: Slides
   copy: Copy
   copied: Copied
   updated: Last updated
-  visits: "{visits} visits from {places} places since March 2026."
-  map_label: Where visitors to this site come from
+  map:
+    title: Visitor Map
+    description: Where people have visited this site from over time.
+    loading: Loading the visitor map…
+    error: Could not load visitor data right now.
+    empty: No visitors with a known location yet.
+    visits: Visits
   back_projects: All projects
   scholar_note: Citations and the full list are on <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>.
   cv_pdf: PDF version
+  cv_nav: CV
+  game: A puzzle game (in Chinese)
   date_format: "{m} {y}"
   months: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
   present: present
@@ -41,20 +46,17 @@ zh:
   name: 孙文涛
   description: 孙文涛，INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生，研究让语言模型借助显式结构进行推理。
   lang_label: 中文
-  nav:
+  sections:
+    about: 关于
+    news: 动态
     publications: 论文
     projects: 项目
-    cv: 简历
-  news: 动态
-  research: 研究
-  publications: 论文
-  projects: 项目
-  ongoing: 在做的事
-  about: 关于我
-  all_publications: 全部论文
-  all_projects: 全部项目
+    honors: 荣誉
+    visitors: 访客
+  first_author: 带底色的是我为第一作者的论文。
   links:
     page: 项目主页
+    writeup: 详细介绍
     paper: 论文
     arxiv: arXiv
     openreview: OpenReview
@@ -65,11 +67,18 @@ zh:
   copy: 复制
   copied: 已复制
   updated: 最后更新
-  visits: "自 2026 年 3 月以来，共 {visits} 次访问，来自 {places} 个地点。"
-  map_label: 本站访客的地理分布
+  map:
+    title: 访客地图
+    description: 历史访客的来源分布。
+    loading: 正在加载访客地图…
+    error: 暂时无法加载访客数据。
+    empty: 还没有带位置信息的访客。
+    visits: 访问次数
   back_projects: 全部项目
   scholar_note: 引用数据和完整列表见 <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>。
   cv_pdf: PDF 版本
+  cv_nav: 简历
+  game: 解谜游戏《不在清单上的灯》
   date_format: "{y} 年 {m}"
   months: [1 月, 2 月, 3 月, 4 月, 5 月, 6 月, 7 月, 8 月, 9 月, 10 月, 11 月, 12 月]
   present: 至今
@@ -78,35 +87,39 @@ fr:
   name: Wentao Sun
   description: Wentao Sun est doctorant à l’INSA Rennes / IRISA et chez Nokia Bell Labs ; il travaille sur des modèles de langage qui raisonnent avec une structure explicite.
   lang_label: Français
-  nav:
+  sections:
+    about: À propos
+    news: Actualités
     publications: Publications
     projects: Projets
-    cv: CV
-  news: Actualités
-  research: Recherche
-  publications: Publications
-  projects: Projets
-  ongoing: En ce moment
-  about: À propos
-  all_publications: Toutes les publications
-  all_projects: Tous les projets
+    honors: Distinctions
+    visitors: Visiteurs
+  first_author: Les articles surlignés sont ceux dont je suis premier auteur.
   links:
-    page: page du projet
-    paper: article
+    page: Page du projet
+    writeup: En détail
+    paper: Article
     arxiv: arXiv
     openreview: OpenReview
-    video: vidéo
-    code: code
+    video: Vidéo
+    code: Code
     bibtex: BibTeX
-    slides: diapositives
+    slides: Diapositives
   copy: Copier
   copied: Copié
   updated: Dernière mise à jour
-  visits: "{visits} visites, venues de {places} lieux, depuis mars 2026."
-  map_label: D’où viennent les visiteurs de ce site
+  map:
+    title: Carte des visiteurs
+    description: D’où viennent les visiteurs de ce site au fil du temps.
+    loading: Chargement de la carte des visiteurs…
+    error: Impossible de charger les données des visiteurs pour le moment.
+    empty: Pas encore de visiteur géolocalisé.
+    visits: Visites
   back_projects: Tous les projets
   scholar_note: Citations et liste complète sur <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>.
   cv_pdf: Version PDF
+  cv_nav: CV
+  game: Un jeu d’énigmes (en chinois)
   date_format: "{m} {y}"
   months: [janv., févr., mars, avr., mai, juin, juil., août, sept., oct., nov., déc.]
   present: aujourd’hui

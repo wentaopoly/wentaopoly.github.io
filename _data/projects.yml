@@ -1,34 +1,67 @@
-# Newest first. Each slug has a page at projects/<slug>.html in every language.
+# Each slug has a page at projects/<slug>.html in every language.
+# Shown as résumé entries (name, role, period, bullet points) on the home page, the projects page and the CV.
+# Optional `code` is a repository URL. Smaller pieces of work go in earlier.yml.
 - slug: annual-reports
   cover: annual
   period: "2026"
-  title: { en: "Reading 5,000 annual reports", zh: "读五千份年报", fr: "Lire 5 000 rapports annuels" }
-  summary:
-    en: The three financial statements from every A-share annual report for 2025, with a confidence on each value and a review queue for the rest.
-    zh: 从 2025 年全部 A 股年报里抽出三大报表，每个值带置信度，拿不准的转人工复核。
-    fr: Les trois états financiers de tous les rapports annuels A-share de 2025, avec un indice de confiance par valeur et une file de vérification pour le reste.
-- slug: acn
-  cover: acn
-  period: "2026"
-  title: { en: "Do shared notes help a coding agent?", zh: "共享笔记能帮编程智能体吗？", fr: "Des notes partagées aident-elles un agent de code ?" }
-  summary:
-    en: Evaluating Agent Claim Network on 111 DeepSWE tasks. Fetching claims on demand passed 10 more tasks with 16% fewer input tokens; not yet significant.
-    zh: 在 111 道 DeepSWE 任务上评测 Agent Claim Network。按需取用 claim 多通过 10 题、输入 token 少 16%，但还不显著。
-    fr: Évaluation d’Agent Claim Network sur 111 tâches DeepSWE. Consulter les claims à la demande réussit 10 tâches de plus avec 16 % de tokens en moins ; pas encore significatif.
-- slug: midnight-restart
-  cover: midnight
-  period: "2026"
-  title: { en: "The worker that stopped every midnight", zh: "每到午夜就停摆的进程", fr: "Le processus qui s’arrêtait à minuit" }
-  summary:
-    en: A long-running browser-automation worker that hung at every scheduled restart, and the two stacked asyncio deadlocks behind it.
-    zh: 一个长期运行的浏览器自动化进程，每次定时重启都会卡死，背后是两层叠在一起的 asyncio 死锁。
-    fr: Un processus d’automatisation de navigateur qui se bloquait à chaque redémarrage programmé, et les deux interblocages asyncio empilés qui l’expliquaient.
+  title:
+    en: Financial-statement extraction service for A-share company reports
+    zh: A 股财报三大报表取数服务
+    fr: Service d’extraction des états financiers des rapports de sociétés A-share
+  role: { en: "Project lead", zh: "项目负责人", fr: "Responsable du projet" }
+  points:
+    en:
+      - A service in production that extracts the balance sheet, income statement and cash-flow statement from A-share annual, half-year and quarterly reports into about 270 standard fields. Every value carries a confidence, and reports that fail the accounting checks go to human review.
+      - "One batch of 4,735 annual reports for 2025 ran in about 30 hours on a GPU cluster, 4,733 of them successfully; across the full batch, <strong>99.90% of 1.29 million values agree</strong> with a commercial database."
+      - "The row-to-field mapping is learned from data, with no hand-written rules. On 1,200 held-out reports of non-financial companies: 99.85% precision at 98.06% coverage."
+    zh:
+      - 已上线的解析服务：从 A 股年报、半年报和季报中抽取资产负债表、利润表和现金流量表，对应到约 270 个标准字段；每个值带置信度，勾稽关系不成立的报告转人工复核。
+      - 一批 4,735 份 2025 年年报在 GPU 集群上约 30 小时跑完，4,733 份成功；整批 <strong>129 万个值与商业数据库的一致率为 99.90%</strong>。
+      - 行名到字段的对应关系由数据学出，不手写规则；在 1,200 份未见过的非金融企业年报上，准确率 99.85%、覆盖率 98.06%。
+    fr:
+      - Un service en production qui extrait le bilan, le compte de résultat et le tableau des flux de trésorerie des rapports annuels, semestriels et trimestriels A-share vers environ 270 champs standard. Chaque valeur porte un indice de confiance, et les rapports qui échouent aux contrôles comptables partent en vérification humaine.
+      - "Un lot de 4 735 rapports annuels 2025 a été traité en 30 heures environ sur un cluster GPU, dont 4 733 avec succès ; sur l’ensemble du lot, <strong>99,90 % de 1,29 million de valeurs concordent</strong> avec une base de données commerciale."
+      - "La correspondance entre lignes et champs est apprise à partir des données, sans règle écrite à la main. Sur 1 200 rapports jamais vus d’entreprises non financières : précision de 99,85 % pour une couverture de 98,06 %."
 - slug: datadig
   cover: datadig
   period: 2025–2026
-  title: { en: "Keeping news clusters stable", zh: "让新闻聚类保持稳定", fr: "Des clusters d’actualités qui restent stables" }
-  summary:
-    en: Re-clustering a stream of financial news every few minutes without breaking the identity of the stories it already tracks.
-    zh: 每隔几分钟对金融新闻流重新聚类，同时不打断已经在追踪的事件。
-    fr: Regrouper à nouveau un flux d’actualités financières toutes les quelques minutes sans casser l’identité des sujets déjà suivis.
-
+  title:
+    en: "DataDig: real-time event tracking over financial news"
+    zh: DataDig 实时金融新闻事件系统
+    fr: "DataDig : suivi d’événements en temps réel dans l’actualité financière"
+  role:
+    en: Clustering, story chains and retrieval in a team system
+    zh: 团队系统中负责聚类、事件链与检索
+    fr: Clustering, chaînes d’événements et recherche dans un système d’équipe
+  points:
+    en:
+      - Splits a stream of Chinese financial news into short facts and, every few minutes, groups them into ongoing events that timelines, summaries and alerts point to. In a three-day replay, 29,832 extracted facts became 7,628 after deduplication and 4,510 event clusters.
+      - "My part keeps event identities stable across re-clustering, which otherwise scatters about 1% of existing members: a two-stage repair against splits and merges, cluster IDs inherited by Jaccard overlap, and reuse of earlier embeddings above 0.9 cosine similarity."
+      - Event chains record only what changed since the previous step, and retrieval looks up real documents first and writes the bridging query afterwards.
+    zh:
+      - 把中文金融新闻流拆成简短的事实，每隔几分钟归入正在发展的事件，时间线、摘要和提醒都建立在这些事件上。一次三天新闻的重放中，抽出的 29,832 个片段去重后剩 7,628 个，聚成 4,510 个事件簇。
+      - 我负责让事件身份在反复重新聚类时保持稳定（不处理时每轮约有 1% 的已有成员被打散）：两阶段防拆分与防合并修复、按 Jaccard 重合度继承 cluster ID、余弦相似度 0.9 以上沿用旧向量。
+      - 事件链只记录相对上一节点的变化；检索先查真实文档，再生成桥接查询。
+    fr:
+      - Découpe un flux d’actualités financières chinoises en faits courts et les regroupe, toutes les quelques minutes, en événements suivis sur lesquels reposent chronologies, résumés et alertes. Sur trois jours rejoués, 29 832 faits extraits en donnent 7 628 après dédoublonnage, puis 4 510 clusters d’événements.
+      - "Ma partie garde l’identité des événements stable d’un regroupement au suivant, qui disperse sinon environ 1 % des membres existants : réparation en deux étapes contre les scissions et les fusions, identifiants de cluster hérités par recouvrement de Jaccard, réutilisation des vecteurs antérieurs au-delà de 0,9 de similarité cosinus."
+      - Les chaînes d’événements n’enregistrent que ce qui a changé depuis l’étape précédente, et la recherche consulte d’abord les documents réels avant d’écrire la requête de liaison.
+- slug: acn
+  code: https://github.com/FTShare-Lab/agent-claim-network
+  cover: acn
+  period: "2026"
+  title: { en: "Agent Claim Network", zh: "Agent Claim Network", fr: "Agent Claim Network" }
+  role:
+    en: Open-source team project; agent features and the evaluation
+    zh: 开源团队项目，负责智能体功能与评测
+    fr: Projet d’équipe open source ; fonctionnalités de l’agent et évaluation
+  points:
+    en:
+      - An open-source terminal coding agent that saves what it works out as “claims”, each with a scope, evidence and a confidence, for other agents to look up. I built the tool the agent uses to look claims up while solving and the /claim panel, OAuth login for MCP servers, and recovery when the model service refuses a request mid-session.
+      - "Built the evaluation on DeepSWE v1.1: 111 tasks, four isolated arms per task, a claim quality gate and paired statistics. The agent that fetches claims on demand passed <strong>73 tasks against 63</strong> for the baseline, with 15.9% fewer input tokens (single run, McNemar p ≈ 0.099)."
+    zh:
+      - 开源的终端编程智能体，把解题得到的结论存成带适用范围、证据和置信度的 claim，供其他智能体检索。我开发了解题过程中检索 claim 的工具和 /claim 面板、MCP 服务器的 OAuth 登录，以及模型服务中途拒绝请求时的恢复机制。
+      - 搭建了 DeepSWE v1.1 上的评测：111 题，每题四组隔离运行，带 claim 质量门控和配对统计。按需取用 claim 的智能体<strong>通过 73 题，基线 63 题</strong>，输入 token 少 15.9%（单次运行，McNemar p ≈ 0.099）。
+    fr:
+      - Un agent de code en terminal, open source, qui enregistre ce qu’il établit sous forme de « claims » munis d’une portée, de preuves et d’un niveau de confiance, que d’autres agents peuvent consulter. J’ai développé l’outil de consultation des claims en cours de résolution et le panneau /claim, la connexion OAuth aux serveurs MCP, et la reprise quand le service de modèle refuse une requête en cours de session.
+      - "J’ai construit l’évaluation sur DeepSWE v1.1 : 111 tâches, quatre exécutions isolées par tâche, filtre de qualité des claims et statistiques appariées. L’agent qui consulte les claims à la demande réussit <strong>73 tâches contre 63</strong> pour la référence, avec 15,9 % de tokens d’entrée en moins (une seule exécution, McNemar p ≈ 0,099)."

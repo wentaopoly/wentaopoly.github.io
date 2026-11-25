@@ -1,0 +1,7 @@
+{%- comment -%} Home page: world map of where visits came from. Drawn by assets/js/visitor-map.js from the Worker in visitor-map-worker/. {%- endcomment -%}
+{%- assign m = site.data.i18n[page.lang].map -%}
+<p class="list-note">{{ m.description }}</p>
+<div class="visitor-map" data-visitor-map data-label-visits="{{ m.visits }}" data-text-error="{{ m.error }}" data-text-empty="{{ m.empty }}">
+  <div class="visitor-map-canvas" data-visitor-map-canvas></div>
+  <p class="visitor-map-status" data-visitor-map-status>{{ m.loading }}</p>
+</div>

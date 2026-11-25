@@ -1,51 +1,58 @@
 ---
 layout: home
 ref: home
-hero_name: 孙文涛
-hero_alt: Wentao Sun
-hero_line: INSA Rennes / IRISA 与诺基亚贝尔实验室联合培养博士生。我研究让语言模型借助显式结构来推理：先是因果图，现在是电信网络。
 ---
 {%- assign t = site.data.i18n[page.lang] -%}
-{% include feature.html %}
-
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.projects }} <a class="more" href="/zh/projects/">{{ t.all_projects }} →</a></h2>
-  {% include cards.html %}
+<section class="profile" id="about">
+  <div class="profile-bio">
+    <h1 class="profile-name">孙文涛<span class="cjk" lang="en">Wentao Sun</span></h1>
+    <p>我是 <a href="https://www.insa-rennes.fr/">INSA Rennes</a>（<a href="https://www.irisa.fr/">IRISA</a>，<a href="https://www.diverse-team.fr/">DiverSE 团队</a>）和<a href="https://www.bell-labs.com/">诺基亚贝尔实验室</a>（Network Architecture Research）的博士生，研究面向电信网络管理的语言与推理模型。</p>
+    <p>博士是 CIFRE 校企联合培养，2026 年 2 月开始，导师是 <a href="https://www.mathieuacher.com/">Mathieu Acher</a> 和 Dominique Verchere。在这之前，我在<a href="https://www.polytechnique.edu/">巴黎综合理工学院</a>读完硕士，本科毕业于<a href="https://www.scut.edu.cn/">华南理工大学</a>。</p>
+    <p>我的兴趣在通信网络和量化投资两个方向：博士课题属于前者，下面的项目大多来自后者。</p>
+    <p class="profile-links">
+      <a href="mailto:wentao.sun@nokia.com">邮箱</a><span class="sep">/</span>
+      <a href="/zh/cv/">简历</a><span class="sep">/</span>
+      <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a><span class="sep">/</span>
+      <a href="https://github.com/wentaopoly">GitHub</a><span class="sep">/</span>
+      <a href="https://www.linkedin.com/in/wentao-sun">LinkedIn</a>
+    </p>
+  </div>
+  <figure class="profile-photo"><img src="/assets/img/prof_pic.jpg" alt="孙文涛" width="659" height="880"></figure>
 </section>
 
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.ongoing }}</h2>
-  <div class="now">
-    <div class="now-item">
-      <h3>从自然语言到网络意图</h3>
-      <p>把“把这两个办公室连起来”这样的需求转成网络配置意图，并在下发到设备之前，就对照设备模型完成校验。</p>
-    </div>
-    <div class="now-item">
-      <h3>光网络智能体</h3>
-      <p>面向光网络日常运维的大模型智能体，正在进行中。</p>
-    </div>
-  </div>
+<hr>
+<section id="news">
+  <h2>{{ t.sections.news }}</h2>
+  {% include news.html %}
 </section>
 
-<section class="home-sec two-col">
-  <div>
-    <h2>{{ t.publications }}</h2>
-    <div class="pubs-compact">{% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}</div>
-  </div>
-  <div>
-    <h2>{{ t.news }}</h2>
-    {% include news.html limit=5 %}
-  </div>
+<hr>
+<section id="publications">
+  <h2>{{ t.sections.publications }}</h2>
+  <p class="list-note"><span class="legend-swatch" aria-hidden="true"></span>{{ t.first_author }}</p>
+  {% for p in site.data.publications %}{% include pub.html p=p %}{% endfor %}
 </section>
 
-<section class="home-sec">
-  <h2 class="sec-title">{{ t.about }}</h2>
-  <div class="about">
-    <img src="/assets/img/prof_pic.jpg" alt="孙文涛" width="352" height="440" loading="lazy">
-    <div class="about-text">
-      <p>我在 INSA Rennes（IRISA，DiverSE 团队）和诺基亚贝尔实验室读博士，是 CIFRE 校企联合培养，2026 年 2 月开始。导师是 Mathieu Acher 和 Dominique Verchere。</p>
-      <p>直接问语言模型一个因果问题，它往往是在套题面的措辞；先让它把因果图写出来、再对照着图作答，答对的会更多，而且我们能检查它的答案到底有没有用上这张图。这是我博士期间的第一篇论文。博士课题的其余部分把同样的思路用到网络上，那里的结构是带硬约束的业务模型。</p>
-      <p>在这之前，我在巴黎综合理工学院读完硕士，本科是华南理工大学，也在中国科学院自动化研究所做过半年的机器人导航。我还喜欢从头到尾搭数据系统，上面就是其中四个。</p>
-    </div>
-  </div>
+<hr>
+<section id="projects">
+  <h2>{{ t.sections.projects }}</h2>
+  {% include project-rows.html %}
+  <p class="list-note">其他工作见<a href="/zh/projects/">项目页</a>。</p>
+</section>
+
+<hr>
+<section id="honors">
+  <h2>{{ t.sections.honors }}</h2>
+  <ul class="plain">
+    <li>法国政府奖学金，巴黎综合理工学院硕士</li>
+    <li>巴黎综合理工学院计算机科学与工程硕士，专业排名 1/14</li>
+    <li>华南理工大学优秀毕业设计，2024</li>
+    <li>华南理工大学校级奖学金</li>
+  </ul>
+</section>
+
+<hr>
+<section id="visitors">
+  <h2>{{ t.map.title }}</h2>
+  {% include visitor-map.html %}
 </section>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- Certainty is probed at fixed intervals while the model thinks; once it passes the threshold
+       the model stops, and the rest of the thinking budget is not spent. -->
+  <style>
+    :root { --bg: #ffffff; --ink: #222222; --muted: #6f757e; --accent: #1772d0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #1a1b1e; --ink: #e6e6e3; --muted: #a3a5ab; --accent: #6aa9f0; }
+    }
+    .bg { fill: var(--bg); }
+    .axes { fill: none; stroke: var(--muted); stroke-width: 3; }
+    .theta { stroke: var(--ink); stroke-width: 3; stroke-dasharray: 10 10; }
+    text { font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 32px; fill: var(--muted); text-anchor: middle; }
+    .theta-label { fill: var(--ink); font-size: 36px; }
+    .run { animation: run 9s linear infinite; }
+    .curve { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 100; animation: draw 9s linear infinite; }
+    .probe { fill: var(--ink); }
+    .d1 { animation: d1 9s linear infinite; }
+    .d2 { animation: d2 9s linear infinite; }
+    .d3 { animation: d3 9s linear infinite; }
+    .d4 { animation: d4 9s linear infinite; }
+    .stop { animation: stop 9s linear infinite; }
+    .stop line { stroke: var(--accent); stroke-width: 4; }
+    .stop circle { fill: var(--accent); }
+    .saved { animation: saved 9s linear infinite; }
+    .saved rect { fill: var(--accent); opacity: 0.12; }
+    .saved text { fill: var(--accent); }
+    @keyframes run { 0%, 94% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes draw { 0%, 5% { stroke-dashoffset: 100; } 50%, 100% { stroke-dashoffset: 0; } }
+    @keyframes d1 { 0%, 15% { opacity: 0; } 16%, 100% { opacity: 1; } }
+    @keyframes d2 { 0%, 24% { opacity: 0; } 25%, 100% { opacity: 1; } }
+    @keyframes d3 { 0%, 33% { opacity: 0; } 34%, 100% { opacity: 1; } }
+    @keyframes d4 { 0%, 41% { opacity: 0; } 42%, 100% { opacity: 1; } }
+    @keyframes stop { 0%, 49% { opacity: 0; } 51%, 100% { opacity: 1; } }
+    @keyframes saved { 0%, 53% { opacity: 0; } 60%, 100% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect class="bg" width="800" height="450"/>
+
+  <g class="run">
+    <g class="saved">
+      <rect x="415" y="50" width="315" height="300"/>
+      <text x="572" y="250">tokens saved</text>
+    </g>
+    <g class="stop"><line x1="415" y1="112" x2="415" y2="350"/></g>
+    <path class="curve" pathLength="100" d="M110,330 L171,262 L232,208 L293,166 L354,135 L415,112"/>
+    <circle class="probe d1" cx="171" cy="262" r="9"/>
+    <circle class="probe d2" cx="232" cy="208" r="9"/>
+    <circle class="probe d3" cx="293" cy="166" r="9"/>
+    <circle class="probe d4" cx="354" cy="135" r="9"/>
+    <g class="stop"><circle cx="415" cy="112" r="13"/></g>
+  </g>
+
+  <line class="theta" x1="110" y1="124" x2="730" y2="124"/>
+  <text class="theta-label" x="757" y="136">θ</text>
+  <path class="axes" d="M110,50 V350 H730"/>
+  <text x="66" y="200" transform="rotate(-90 66 200)">certainty</text>
+  <text x="420" y="405">thinking tokens</text>
+</svg>

@@ -1,9 +1,10 @@
 # CV content, rendered by _includes/cv.html on cv.html, zh/cv.html and fr/cv.html.
 # The PDFs in assets/pdf/ are printed from those pages (see README.md).
+# `years` and `place` fill the left column on screen; `when` is the exact period printed in the PDF.
 labels:
-  en: { education: Education, publications: Publications, experience: Experience, projects: Projects, skills: Skills, languages: Languages, advisors: Advisors, pdf: PDF }
-  zh: { education: 教育背景, publications: 论文, experience: 工作经历, projects: 项目, skills: 技能, languages: 语言, advisors: 导师, pdf: PDF }
-  fr: { education: Formation, publications: Publications, experience: Expérience, projects: Projets, skills: Compétences, languages: Langues, advisors: Encadrement, pdf: PDF }
+  en: { education: Education, publications: Publications, experience: Research experience, projects: Projects, skills: Skills, languages: Languages, advisors: Advisors, pdf: PDF }
+  zh: { education: 教育背景, publications: 论文, experience: 研究经历, projects: 项目, skills: 技能, languages: 语言, advisors: 导师, pdf: PDF }
+  fr: { education: Formation, publications: Publications, experience: Expérience de recherche, projects: Projets, skills: Compétences, languages: Langues, advisors: Encadrement, pdf: PDF }
 
 headline:
   en: PhD student in computer science · INSA Rennes / IRISA and Nokia Bell Labs
@@ -11,21 +12,27 @@ headline:
   fr: Doctorant en informatique · INSA Rennes / IRISA et Nokia Bell Labs
 
 education:
-  - when: { en: "Feb 2026 – Feb 2029 (expected)", zh: "2026.02 – 2029.02（预计）", fr: "févr. 2026 – févr. 2029 (prévu)" }
+  - years: "2026 – 2029"
+    place: { en: "France", zh: "法国", fr: "France" }
+    when: { en: "Feb 2026 – Feb 2029 (expected)", zh: "2026.02 – 2029.02（预计）", fr: "févr. 2026 – févr. 2029 (prévu)" }
     what: { en: "PhD in computer science (CIFRE)", zh: "计算机科学博士（CIFRE 校企联合培养）", fr: "Doctorat en informatique (CIFRE)" }
     where: { en: "INSA Rennes / IRISA (DiverSE team) and Nokia Bell Labs", zh: "INSA Rennes / IRISA（DiverSE 团队）与诺基亚贝尔实验室", fr: "INSA Rennes / IRISA (équipe DiverSE) et Nokia Bell Labs" }
     notes:
       en: ["Language and reasoning models for telecom network management.", "Advisors: Mathieu Acher (INSA Rennes / IRISA) and Dominique Verchere (Nokia Bell Labs)."]
       zh: ["研究方向：面向电信网络管理的语言与推理模型。", "导师：Mathieu Acher（INSA Rennes / IRISA）、Dominique Verchere（诺基亚贝尔实验室）。"]
       fr: ["Modèles de langage et de raisonnement pour la gestion des réseaux de télécommunications.", "Encadrement : Mathieu Acher (INSA Rennes / IRISA) et Dominique Verchere (Nokia Bell Labs)."]
-  - when: { en: "Sep 2023 – Oct 2025", zh: "2023.09 – 2025.10", fr: "sept. 2023 – oct. 2025" }
+  - years: "2023 – 2025"
+    place: { en: "Palaiseau, France", zh: "法国帕莱索", fr: "Palaiseau, France" }
+    when: { en: "Sep 2023 – Oct 2025", zh: "2023.09 – 2025.10", fr: "sept. 2023 – oct. 2025" }
     what: { en: "MSc in computer science and engineering", zh: "计算机科学与工程硕士", fr: "Master en informatique et ingénierie" }
     where: { en: "École Polytechnique (Institut Polytechnique de Paris)", zh: "巴黎综合理工学院（巴黎理工学院联盟）", fr: "École polytechnique (Institut Polytechnique de Paris)" }
     notes:
       en: ["Ranked 1st of 14. French Government scholarship."]
       zh: ["专业排名 1/14，法国政府奖学金。"]
       fr: ["Classé 1er sur 14. Bourse du gouvernement français."]
-  - when: { en: "Sep 2020 – Jun 2024", zh: "2020.09 – 2024.06", fr: "sept. 2020 – juin 2024" }
+  - years: "2020 – 2024"
+    place: { en: "Guangzhou, China", zh: "中国广州", fr: "Canton, Chine" }
+    when: { en: "Sep 2020 – Jun 2024", zh: "2020.09 – 2024.06", fr: "sept. 2020 – juin 2024" }
     what: { en: "BEng in information engineering", zh: "信息工程学士", fr: "Licence d’ingénierie de l’information" }
     where: { en: "South China University of Technology", zh: "华南理工大学", fr: "Université de technologie de Chine du Sud" }
     notes:
@@ -34,35 +41,45 @@ education:
       fr: ["Programme conjoint 3+2 SCUT – École polytechnique. Bourse universitaire."]
 
 experience:
-  - when: { en: "Oct 2025 – Feb 2026", zh: "2025.10 – 2026.02", fr: "oct. 2025 – févr. 2026" }
-    what: { en: "Quantitative AI agent intern", zh: "量化 AI Agent 实习生", fr: "Stagiaire, agents IA pour la finance quantitative" }
-    where: { en: "Feiconvex (Zhenying Asset)", zh: "非凸科技（正瀛资产）", fr: "Feiconvex (Zhenying Asset)" }
-    notes:
-      en: ["Worked on DataDig, a real-time financial news system: incremental clustering with stable cluster IDs across re-runs, story chains that record only what changed, and grounded retrieval."]
-      zh: ["参与实时金融新闻系统 DataDig：增量聚类及跨轮次稳定的 cluster ID、只记录增量的事件链、有依据的检索。"]
-      fr: ["Travail sur DataDig, un système d’analyse d’actualités financières en temps réel : regroupement incrémental avec des identifiants stables d’une exécution à l’autre, chaînes d’événements qui ne retiennent que les changements, recherche ancrée dans les documents."]
-  - when: { en: "Mar 2025 – Oct 2025", zh: "2025.03 – 2025.10", fr: "mars 2025 – oct. 2025" }
-    what: { en: "AI research intern", zh: "AI 研究实习生", fr: "Stagiaire de recherche en IA" }
+  - years: "2025 –"
+    ongoing: true
+    place: { en: "Paris, France", zh: "法国巴黎", fr: "Paris, France" }
+    when: { en: "Mar – Oct 2025; Feb 2026 – present", zh: "2025.03 – 2025.10；2026.02 – 至今", fr: "mars – oct. 2025 ; févr. 2026 – aujourd’hui" }
+    what: { en: "Research intern, then CIFRE PhD researcher", zh: "AI 研究实习生，后为 CIFRE 博士研究", fr: "Stagiaire de recherche, puis doctorant CIFRE" }
     where: { en: "Nokia Bell Labs, Paris", zh: "诺基亚贝尔实验室，巴黎", fr: "Nokia Bell Labs, Paris" }
     notes:
-      en: ["Structured reasoning for causal questions: having the model build a knowledge graph before answering raised Corr2Cause F1 from 32.71 to 48.26 with Qwen3-32B.", "Pipeline with schema-constrained tool calls, knowledge-graph construction and natural-language-to-Cypher queries."]
-      zh: ["面向因果问题的结构化推理：先让模型构建知识图谱再作答，用 Qwen3-32B 将 Corr2Cause 上的 F1 从 32.71 提升到 48.26。", "搭建了 schema 约束的工具调用、知识图谱构建和自然语言到 Cypher 查询的流程。"]
-      fr: ["Raisonnement structuré pour les questions causales : faire construire au modèle un graphe de connaissances avant de répondre a fait passer le F1 sur Corr2Cause de 32,71 à 48,26 avec Qwen3-32B.", "Chaîne avec appels d’outils contraints par schéma, construction du graphe et requêtes Cypher à partir du langage naturel."]
-  - when: { en: "Mar 2024 – Sep 2024", zh: "2024.03 – 2024.09", fr: "mars 2024 – sept. 2024" }
-    what: { en: "Robotics intern", zh: "机器人实习工程师", fr: "Stagiaire en robotique" }
-    where: { en: "Institute of Automation, Chinese Academy of Sciences, Beijing", zh: "中国科学院自动化研究所，北京", fr: "Institut d’automatique, Académie chinoise des sciences, Pékin" }
-    notes:
-      en: ["Perception and navigation for a wheeled humanoid robot: solid-state LiDAR (FAST-LIO2, OctoMap) and depth camera fused with an EKF, cutting relocalization time by 80%.", "RRT* planning plugin, then a lighter planner that replaced Nav2 with 30% less computation."]
-      zh: ["轮式人形机器人的感知与导航：用 EKF 融合固态激光雷达（FAST-LIO2、OctoMap）与深度相机，重定位时间缩短 80%。", "开发 RRT* 路径规划插件，之后重写轻量规划器替换 Nav2，计算量减少 30%。"]
-      fr: ["Perception et navigation d’un robot humanoïde à roues : fusion par EKF d’un lidar à semi-conducteurs (FAST-LIO2, OctoMap) et d’une caméra de profondeur, temps de relocalisation réduit de 80 %.", "Module de planification RRT*, puis un planificateur plus léger qui a remplacé Nav2 avec 30 % de calcul en moins."]
+      en:
+        - "Causal deduction from correlations (Corr2Cause): a claim has to hold in every DAG of a Markov equivalence class, a global question that free-form chain-of-thought tends to reduce to local pattern matching."
+        - "Structured Thinking: the model first writes a typed, schema-constrained CPDAG summary (constrained decoding or tool calling), then answers against that graph. No fine-tuning, no symbolic solver."
+        - "With Qwen3.5-27B, F1 rises from 73.0 to 86.4 over a strong baseline that already has PC-algorithm instructions (+13.4 points, McNemar p = 2.4 × 10⁻⁶; +8.1 ± 5.3 over three seeds). The gain holds on paraphrased data and on GPT-5.4-mini."
+        - "The graph is actually used: scrambling it costs 12.0 points of F1, and 75.9% of the graphs equal the reference CPDAG. Published at NeurIPS 2026."
+      zh:
+        - "研究由相关性推出因果结论的任务（Corr2Cause）：结论须在马尔可夫等价类的每一个 DAG 中都成立，是全局性判断，而自由形式的思维链常把它简化成局部模式匹配。"
+        - "提出 Structured Thinking 两轮流程：第一轮让模型写出带类型、受 schema 约束的 CPDAG 摘要（开源模型用约束解码，API 模型用工具调用），第二轮对照这张图作答；不微调，也不调用符号求解器。"
+        - "相比同样给出 PC 算法指导的强基线，Qwen3.5-27B 的 F1 由 73.0 提升到 86.4（+13.4 个百分点，McNemar p = 2.4 × 10⁻⁶；三个种子平均 +8.1 ± 5.3）；在改写后的测试集和 GPT-5.4-mini 上同样有效。"
+        - "模型确实用到了这张图：打乱图后 F1 下降 12.0 个百分点；75.9% 的图与参考 CPDAG 完全一致。论文发表于 NeurIPS 2026。"
+      fr:
+        - "Déduction causale à partir de corrélations (Corr2Cause) : une affirmation doit valoir dans chaque DAG d’une classe d’équivalence de Markov, une question globale que le raisonnement libre en chaîne ramène souvent à de la reconnaissance de motifs locaux."
+        - "Structured Thinking : le modèle écrit d’abord un résumé CPDAG typé et contraint par un schéma (décodage contraint ou appel d’outil), puis répond en s’appuyant sur ce graphe. Ni fine-tuning ni solveur symbolique."
+        - "Avec Qwen3.5-27B, le F1 passe de 73,0 à 86,4 face à une base solide qui dispose déjà des instructions de l’algorithme PC (+13,4 points, McNemar p = 2,4 × 10⁻⁶ ; +8,1 ± 5,3 sur trois graines). Le gain se maintient sur des données paraphrasées et avec GPT-5.4-mini."
+        - "Le graphe est réellement utilisé : le brouiller coûte 12,0 points de F1, et 75,9 % des graphes sont identiques au CPDAG de référence. Publié à NeurIPS 2026."
 
 skills:
-  - label: { en: "Programming", zh: "编程", fr: "Programmation" }
-    value: { en: "Python (daily), C++", zh: "Python（日常使用）、C++", fr: "Python (au quotidien), C++" }
+  - label: { en: "Research", zh: "研究方法", fr: "Recherche" }
+    value:
+      en: "Evaluating LLM reasoning (ablations, paired significance tests, repeated seeds); causal discovery (PC algorithm, CPDAGs)"
+      zh: "大模型推理能力评测（消融、配对检验、多种子重复）；因果发现（PC 算法、CPDAG）"
+      fr: "Évaluation du raisonnement des LLM (ablations, tests appariés, graines répétées) ; découverte causale (algorithme PC, CPDAG)"
   - label: { en: "Language models", zh: "大模型", fr: "Modèles de langage" }
-    value: { en: "Qwen, DeepSeek, Llama; constrained decoding and structured output, tool calling, RAG, agents, LoRA fine-tuning; vLLM", zh: "Qwen、DeepSeek、Llama；约束解码与结构化输出、工具调用、RAG、智能体、LoRA 微调；vLLM", fr: "Qwen, DeepSeek, Llama ; décodage contraint et sorties structurées, appels d’outils, RAG, agents, fine-tuning LoRA ; vLLM" }
-  - label: { en: "Tools", zh: "工具", fr: "Outils" }
-    value: { en: "PyTorch, Transformers, Dagster, Kafka, Docker, ROS 2", zh: "PyTorch、Transformers、Dagster、Kafka、Docker、ROS 2", fr: "PyTorch, Transformers, Dagster, Kafka, Docker, ROS 2" }
+    value:
+      en: "Constrained decoding and structured output, tool calling, coding agents and MCP, RAG, LoRA fine-tuning, serving with vLLM"
+      zh: "约束解码与结构化输出、工具调用、编程智能体与 MCP、RAG、LoRA 微调、vLLM 部署"
+      fr: "Décodage contraint et sorties structurées, appels d’outils, agents de code et MCP, RAG, fine-tuning LoRA, service avec vLLM"
+  - label: { en: "Engineering", zh: "工程", fr: "Ingénierie" }
+    value:
+      en: "Python, C++; PyTorch, Transformers; Slurm GPU clusters, Docker, Dagster, Kafka, HDFS"
+      zh: "Python、C++；PyTorch、Transformers；Slurm GPU 集群、Docker、Dagster、Kafka、HDFS"
+      fr: "Python, C++ ; PyTorch, Transformers ; clusters GPU Slurm, Docker, Dagster, Kafka, HDFS"
 
 languages:
   en: "Mandarin (native), English (IELTS 6.5), French (A2)"

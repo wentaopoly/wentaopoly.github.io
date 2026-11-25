@@ -3,6 +3,7 @@
 {%- assign prefix = "" -%}
 {%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
 {%- assign siblings = site.pages | where: "ref", page.ref -%}
+{%- assign build = site.time | date: "%s" -%}
 <html lang="{% if page.lang == 'zh' %}zh-Hans{% else %}{{ page.lang }}{% endif %}">
 <head>
   <meta charset="utf-8">
@@ -27,11 +28,11 @@
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
   {%- if page.lang == "zh" %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
   {%- endif %}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/site.css?v={{ build }}">
   {%- if page.lang == "en" %}
   <script>
     // First visit from outside the site: follow the browser's language once.
@@ -52,53 +53,31 @@
   </script>
   {%- endif %}
   <script>window.visitorMapConfig = { apiUrl: "{{ site.visitor_map.api_url }}", trackIntervalHours: {{ site.visitor_map.track_interval_hours }} };</script>
-  <script src="/assets/js/visitor-tracker.js" defer></script>
-  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/visitor-tracker.js?v={{ build }}" defer></script>
+  <script src="/assets/js/site.js?v={{ build }}" defer></script>
   {%- if page.ref == "home" %}
-  <script src="/assets/js/graph.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js@3.0.1/dist/plotly.min.js" integrity="sha256-oy6Be7Eh6eiQFs5M7oXuPxxm9qbJXEtTpfSI93dW16Q=" crossorigin="anonymous" defer></script>
+  <script src="/assets/js/visitor-map.js?v={{ build }}" defer></script>
   {%- endif %}
 </head>
 <body class="lang-{{ page.lang }}{% if page.body_class %} {{ page.body_class }}{% endif %}">
-  <div class="band">
-    {%- if page.ref == "home" %}
-    <canvas class="hero-graph" aria-hidden="true"></canvas>
-    {%- endif %}
-    <header class="top wrap">
-      <a class="brand" href="{{ prefix }}/" aria-label="{{ t.name }}">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="#fff" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><line x1="7.6" y1="10.9" x2="12.3" y2="19.3"/><line x1="24.4" y1="10.9" x2="19.7" y2="19.3"/><path d="M13.9 22.1 L9.4 17.1 L14.1 14.4z" stroke="none"/><path d="M18.1 22.1 L17.9 14.4 L22.6 17.1z" stroke="none"/><circle cx="6" cy="7" r="3.4" stroke="none"/><circle cx="26" cy="7" r="3.4" stroke="none"/><circle cx="16" cy="25.5" r="3.4" stroke="none"/></g></svg>
-        <span>{{ t.name }}</span>
-      </a>
-      <nav class="top-nav" aria-label="Site">
-        {%- for item in t.nav %}
-        {%- capture href %}{{ prefix }}/{{ item[0] }}/{% endcapture %}
-        <a href="{{ href }}"{% if page.url contains href %} aria-current="page"{% endif %}>{{ item[1] }}</a>
-        {%- endfor %}
-      </nav>
-      <nav class="top-langs" aria-label="Language">
-        {%- for lang in site.languages %}
-        {%- assign alt = siblings | where: "lang", lang | first %}
-        {%- assign label = site.data.i18n[lang].lang_label %}
-        {%- if lang == page.lang %}
-        <span aria-current="true" lang="{{ lang }}" title="{{ label }}">{% case lang %}{% when "en" %}EN{% when "zh" %}中{% when "fr" %}FR{% endcase %}</span>
-        {%- elsif alt %}
-        <a href="{{ alt.url }}" lang="{{ lang }}" hreflang="{{ lang }}" title="{{ label }}" data-lang-link="{{ lang }}">{% case lang %}{% when "en" %}EN{% when "zh" %}中{% when "fr" %}FR{% endcase %}</a>
-        {%- endif %}
-        {%- endfor %}
-      </nav>
-    </header>
-    {%- if page.ref == "home" %}
-    <div class="hero wrap">
-      <h1>{{ page.hero_name }}<span class="cjk"{% if page.lang != "zh" %} lang="zh-Hans"{% endif %}>{{ page.hero_alt }}</span></h1>
-      <p class="hero-line">{{ page.hero_line }}</p>
-      <p class="hero-links">
-        <a href="mailto:wentao.sun@nokia.com">wentao.sun@nokia.com</a>
-        <a href="https://github.com/wentaopoly">GitHub</a>
-        <a href="https://scholar.google.com/citations?user=pvJFkokAAAAJ">Google Scholar</a>
-        <a href="https://www.linkedin.com/in/wentao-sun">LinkedIn</a>
-      </p>
-    </div>
-    {%- endif %}
-  </div>
+  <nav class="site-nav" aria-label="Sections">
+    {%- for item in t.sections %}
+    <a href="{% if page.ref != "home" %}{{ prefix }}/{% endif %}#{{ item[0] }}">{{ item[1] }}</a>
+    {%- endfor %}
+    <a href="{{ prefix }}/cv/"{% if page.ref == "cv" %} class="here"{% endif %}>{{ t.cv_nav }}</a>
+    <span class="site-langs">
+      {%- for lang in site.languages %}
+      {%- assign alt = siblings | where: "lang", lang | first %}
+      {%- assign label = site.data.i18n[lang].lang_label %}
+      {%- if lang == page.lang %}
+      <span aria-current="true" lang="{{ lang }}" title="{{ label }}">{% case lang %}{% when "en" %}EN{% when "zh" %}中{% when "fr" %}FR{% endcase %}</span>
+      {%- elsif alt %}
+      <a href="{{ alt.url }}" lang="{{ lang }}" hreflang="{{ lang }}" title="{{ label }}" data-lang-link="{{ lang }}">{% case lang %}{% when "en" %}EN{% when "zh" %}中{% when "fr" %}FR{% endcase %}</a>
+      {%- endif %}
+      {%- endfor %}
+    </span>
+  </nav>
 
   <main class="wrap" id="main">
     {{ content }}
@@ -109,10 +88,9 @@
       {%- if page.ref == "home" %}
       <div class="foot-grid">
         <blockquote class="epigraph" lang="en">You’re waiting for a train. A train that will take you far away. You know where you hope this train will take you, but you don’t know for sure. Yet it doesn’t matter.<cite>Mal, <i>Inception</i></cite></blockquote>
-        {% include visits.html %}
       </div>
       {%- endif %}
-      <div class="foot-base"><p>© {{ site.time | date: "%Y" }} Wentao Sun · {{ t.updated }} {{ site.time | date: "%Y-%m-%d" }}</p></div>
+      <div class="foot-base"><p><a class="quiet" href="{{ site.desk_url }}" rel="nofollow noopener" tabindex="-1" aria-hidden="true">©</a> {{ site.time | date: "%Y" }} Wentao Sun · {{ t.updated }} {{ site.time | date: "%Y-%m-%d" }} · <a href="/lamp/">{{ t.game }}</a></p></div>
     </div>
   </footer>
 </body>

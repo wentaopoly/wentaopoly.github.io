@@ -1,7 +1,9 @@
+{%- assign prefix = "" -%}
+{%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
 <ul class="plist earlier">
   {%- for p in site.data.earlier %}
   <li>
-    <span>{% if p.link %}<a href="{{ p.link }}">{% endif %}<span class="p-title">{{ p.title[page.lang] }}</span>{% if p.link %}</a>{% endif %}<span class="p-where"> · {{ p.where[page.lang] }}</span></span>
+    <span>{% if p.link %}<a href="{% unless p.link contains "://" %}{{ prefix }}{% endunless %}{{ p.link }}">{% endif %}<span class="p-title">{{ p.title[page.lang] }}</span>{% if p.link %}</a>{% endif %}<span class="p-where"> · {{ p.where[page.lang] }}</span></span>
     <span class="p-when">{{ p.period }}</span>
     <span class="p-desc">{{ p.summary[page.lang] }}</span>
   </li>

@@ -1,11 +1,12 @@
-# Newest first. `page` is a site path without the language prefix; `links` keys
-# must exist under `links:` in _data/i18n.yml. Author names follow the arXiv listing.
+# Newest first. Every entry needs `thumb` (16:9) and `bibtex`. `page` is a site path
+# without the language prefix; `links` keys must exist under `links:` in _data/i18n.yml.
+# Author names follow the arXiv listing. A venue containing "arXiv" is shown as a preprint.
 - title: Externalized CPDAG Summaries Improve LLM Causal Deduction
   authors: [Wentao Sun, João Paulo Nogueira, Dominique Verchere, Mathieu Acher, Alonso Silva]
   venue: NeurIPS 2026
   note: { en: poster, zh: 海报, fr: poster }
   year: 2026
-  thumb: /assets/img/cpdag/thumb.jpg
+  thumb: /assets/img/pubs/cpdag.svg
   page: /cpdag/
   links:
     paper: https://arxiv.org/pdf/2609.31071
@@ -24,8 +25,9 @@
 
 - title: "Certainty-Guided Reasoning in Large Language Models: A Dynamic Thinking Budget Approach"
   authors: [João Paulo Nogueira, Wentao Sun, Alonso Silva, Laith Zumot]
-  venue: arXiv preprint, 2025
+  venue: arXiv 2025
   year: 2025
+  thumb: /assets/img/pubs/certainty-guided.svg
   links:
     paper: https://arxiv.org/pdf/2509.07820
     arxiv: https://arxiv.org/abs/2509.07820
@@ -39,8 +41,9 @@
 
 - title: "Structured Thinking Matters: Improving LLMs Generalization in Causal Inference Tasks"
   authors: [Wentao Sun, João Paulo Nogueira, Alonso Silva]
-  venue: arXiv preprint, 2025
+  venue: arXiv 2025
   year: 2025
+  thumb: /assets/img/pubs/structured-thinking.svg
   links:
     paper: https://arxiv.org/pdf/2505.18034
     arxiv: https://arxiv.org/abs/2505.18034

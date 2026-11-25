@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- Each statement of the premise becomes one edge of a knowledge graph (solid: correlated,
+       dashed: independent); the model then answers from the graph. -->
+  <style>
+    :root { --bg: #ffffff; --ink: #222222; --muted: #6f757e; --soft: #cfd4db; --accent: #1772d0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #1a1b1e; --ink: #e6e6e3; --muted: #a3a5ab; --soft: #44474e; --accent: #6aa9f0; }
+    }
+    .bg { fill: var(--bg); }
+    .sheet { fill: none; stroke: var(--soft); stroke-width: 3; }
+    .stmt { fill: var(--soft); }
+    .to { fill: none; stroke: var(--muted); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .node { fill: var(--bg); stroke: var(--ink); stroke-width: 5; }
+    .edge { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
+    .solid { stroke-dasharray: 100; }
+    .indep { stroke-dasharray: 4 16; }
+    text { font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 32px; fill: var(--muted); text-anchor: middle; }
+    .edges { animation: edges 9s linear infinite; }
+    .s1 { animation: s1 9s linear infinite; }
+    .s2 { animation: s2 9s linear infinite; }
+    .s3 { animation: s3 9s linear infinite; }
+    .s4 { animation: s4 9s linear infinite; }
+    .e1 { animation: e1 9s linear infinite; }
+    .e2 { animation: e2 9s linear infinite; }
+    .e3 { animation: e3 9s linear infinite; }
+    .e4 { animation: e4 9s linear infinite; }
+    @keyframes edges { 0%, 94% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes s1 { 0%, 6% { fill: var(--soft); } 9%, 19% { fill: var(--accent); } 22%, 100% { fill: var(--soft); } }
+    @keyframes s2 { 0%, 24% { fill: var(--soft); } 27%, 37% { fill: var(--accent); } 40%, 100% { fill: var(--soft); } }
+    @keyframes s3 { 0%, 42% { fill: var(--soft); } 45%, 55% { fill: var(--accent); } 58%, 100% { fill: var(--soft); } }
+    @keyframes s4 { 0%, 60% { fill: var(--soft); } 63%, 73% { fill: var(--accent); } 76%, 100% { fill: var(--soft); } }
+    @keyframes e1 { 0%, 9% { stroke-dashoffset: 100; } 20%, 100% { stroke-dashoffset: 0; } }
+    @keyframes e2 { 0%, 27% { stroke-dashoffset: 100; } 38%, 100% { stroke-dashoffset: 0; } }
+    @keyframes e3 { 0%, 45% { stroke-dashoffset: 100; } 56%, 100% { stroke-dashoffset: 0; } }
+    @keyframes e4 { 0%, 63% { opacity: 0; } 74%, 100% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect class="bg" width="800" height="450"/>
+
+  <rect class="sheet" x="70" y="62" width="240" height="258" rx="12"/>
+  <rect class="stmt s1" x="100" y="103" width="180" height="16" rx="8"/>
+  <rect class="stmt s2" x="100" y="157" width="140" height="16" rx="8"/>
+  <rect class="stmt s3" x="100" y="211" width="165" height="16" rx="8"/>
+  <rect class="stmt s4" x="100" y="265" width="120" height="16" rx="8"/>
+
+  <path class="to" d="M345,191 H405 M387,173 L405,191 L387,209"/>
+
+  <g class="edges">
+    <line class="edge solid e1" pathLength="100" x1="490" y1="125" x2="650" y2="88"/>
+    <line class="edge solid e2" pathLength="100" x1="490" y1="125" x2="545" y2="282"/>
+    <line class="edge solid e3" pathLength="100" x1="650" y1="88" x2="712" y2="240"/>
+    <line class="edge indep e4" x1="545" y1="282" x2="712" y2="240"/>
+  </g>
+  <circle class="node" cx="490" cy="125" r="28"/>
+  <circle class="node" cx="650" cy="88" r="28"/>
+  <circle class="node" cx="545" cy="282" r="28"/>
+  <circle class="node" cx="712" cy="240" r="28"/>
+
+  <text x="190" y="385">premise</text>
+  <text x="600" y="385">knowledge graph</text>
+</svg>

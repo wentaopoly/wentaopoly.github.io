@@ -1,0 +1,12 @@
+{%- comment -%} The projects in _data/projects.yml as résumé entries: name, role, period, bullet points. {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign prefix = "" -%}
+{%- if page.lang != "en" -%}{%- assign prefix = "/" | append: page.lang -%}{%- endif -%}
+{%- for p in site.data.projects %}
+{%- capture href %}{{ prefix }}/projects/{{ p.slug }}/{% endcapture %}
+<div class="cv-item">
+  <div class="cv-line"><span class="cv-what"><a href="{{ href }}"><strong>{{ p.title[page.lang] }}</strong></a></span><span class="cv-when">{{ p.period }}</span></div>
+  <p class="cv-role">{{ p.role[page.lang] }}<span class="sep">/</span><a href="{{ href }}">{{ t.links.writeup }}</a>{% if p.code %}<span class="sep">/</span><a href="{{ p.code }}">{{ t.links.code }}</a>{% endif %}</p>
+  <ul>{% for n in p.points[page.lang] %}<li>{{ n }}</li>{% endfor %}</ul>
+</div>
+{%- endfor %}
